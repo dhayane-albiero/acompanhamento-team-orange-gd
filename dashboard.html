@@ -130,7 +130,57 @@ main{max-width:1060px;margin:0 auto;padding:2rem}
 .quality-bar{display:flex;height:8px;border-radius:20px;overflow:hidden;gap:2px;margin-top:8px}
 .qb-seg{height:100%;border-radius:2px}
 footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
-@media(max-width:700px){.marco-date-row{grid-template-columns:1fr 1fr;}.mdr-label{grid-column:1/-1;}.save-row-btn{grid-column:1/-1;width:100%;justify-content:center;}}
+
+/* ── MOBILE ──────────────────────────────────────────────────────── */
+@media(max-width:700px){
+  /* layout padding */
+  main{padding:1rem}
+  .page-header{padding:0 1rem}
+  .tabs-bar{padding:0 .5rem}
+  .hero{padding:1.5rem 1rem}
+
+  /* header: hide divider and meta text to save space */
+  .hd{display:none}
+  .header-meta{font-size:11px}
+
+  /* hero: stack title and kpis */
+  .hero-inner{flex-direction:column;gap:1.25rem;align-items:flex-start}
+  .hero h1{font-size:22px}
+  .hero-kpis{gap:16px}
+  .hkpi-val{font-size:22px}
+
+  /* tabs: scrollable row, no wrap, smaller text */
+  .tabs-inner{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs-inner::-webkit-scrollbar{display:none}
+  .tab-btn{font-size:12px;padding:.65rem .75rem;white-space:nowrap;flex-shrink:0}
+
+  /* team grid: 1 column on mobile */
+  .team-grid{grid-template-columns:1fr}
+
+  /* marcos do plano: 2×2 grid instead of 4 columns */
+  .marcos-grid{grid-template-columns:1fr 1fr !important}
+
+  /* dates editor rows: stack vertically */
+  .marco-date-row{grid-template-columns:1fr 1fr;row-gap:8px}
+  .mdr-label{grid-column:1/-1}
+  .save-row-btn{grid-column:1/-1;width:100%;justify-content:center}
+  .dtc-hint{display:none}
+
+  /* approval / history cards */
+  .ac-head{flex-wrap:wrap;gap:6px}
+  .ac-date{margin-left:0;width:100%}
+  .review-actions{flex-direction:column}
+  .review-actions .btn{width:100%;justify-content:center}
+
+  /* perf grid: 2 cols */
+  .perf-grid{grid-template-columns:1fr 1fr}
+  .team-perf-grid{grid-template-columns:1fr}
+
+  /* hist filters: scroll */
+  .hist-filters{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+  .hist-filters::-webkit-scrollbar{display:none}
+  .filt{white-space:nowrap;flex-shrink:0}
+}
 </style>
 </head>
 <body>
@@ -179,11 +229,11 @@ footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-t
     <div class="sec-label" style="margin-top:.5rem">Times</div>
     <div class="team-grid" id="team-grid"></div>
     <div class="sec-label">Marcos do plano</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:10px">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#2d6a4f;font-weight:500;margin-bottom:4px">M1 — Fundação</div><div style="font-size:13px;font-weight:500">Meses 1–5</div><div style="font-size:12px;color:var(--muted)">Diagnóstico, baseline, 1ª automação IA</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#5c4299;font-weight:500;margin-bottom:4px">M2 — Estruturação</div><div style="font-size:13px;font-weight:500">Meses 6–10</div><div style="font-size:12px;color:var(--muted)">Academia, 3 automações, 1 bundle</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#9b4f12;font-weight:500;margin-bottom:4px">M3 — Aceleração</div><div style="font-size:13px;font-weight:500">Meses 11–15</div><div style="font-size:12px;color:var(--muted)">IA nos 3 pilares, impacto ≥R$1M</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#7d1a1a;font-weight:500;margin-bottom:4px">M4 — Escala</div><div style="font-size:13px;font-weight:500">Meses 16–18</div><div style="font-size:12px;color:var(--muted)">Sistema autônomo, impacto ≥R$1,5M</div></div>
+    <div class="marcos-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;min-width:0"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#2d6a4f;font-weight:500;margin-bottom:4px">M1 — Fundação</div><div style="font-size:13px;font-weight:500">Meses 1–5</div><div style="font-size:12px;color:var(--muted)">Diagnóstico, baseline, 1ª automação IA</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;min-width:0"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#5c4299;font-weight:500;margin-bottom:4px">M2 — Estruturação</div><div style="font-size:13px;font-weight:500">Meses 6–10</div><div style="font-size:12px;color:var(--muted)">Academia, 3 automações, 1 bundle</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;min-width:0"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#9b4f12;font-weight:500;margin-bottom:4px">M3 — Aceleração</div><div style="font-size:13px;font-weight:500">Meses 11–15</div><div style="font-size:12px;color:var(--muted)">IA nos 3 pilares, impacto ≥R$1M</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;min-width:0"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#7d1a1a;font-weight:500;margin-bottom:4px">M4 — Escala</div><div style="font-size:13px;font-weight:500">Meses 16–18</div><div style="font-size:12px;color:var(--muted)">Sistema autônomo, impacto ≥R$1,5M</div></div>
     </div>
   </div>
 
