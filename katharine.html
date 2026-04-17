@@ -107,6 +107,23 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--text
   /* kpi grid on laura */
   .kpi-grid{grid-template-columns:1fr 1fr}
 }
+
+/* ── Notes per task ─────────────────────────────────────────────── */
+.note-area{margin-top:8px}
+.note-toggle{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--muted);cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;transition:color .15s}
+.note-toggle:hover{color:var(--accent)}
+.note-toggle svg{flex-shrink:0;transition:transform .2s}
+.note-toggle.open svg{transform:rotate(90deg)}
+.note-box{display:none;margin-top:6px}
+.note-box.open{display:block}
+.note-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-family:var(--font-body);font-size:13px;color:var(--text);background:#fafaf8;resize:vertical;min-height:64px;transition:border-color .15s;line-height:1.5}
+.note-textarea:focus{outline:none;border-color:var(--accent);background:#fff}
+.note-footer{display:flex;align-items:center;justify-content:space-between;margin-top:5px}
+.note-save-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:4px 12px;font-family:var(--font-body);font-size:12px;font-weight:500;cursor:pointer;transition:opacity .15s}
+.note-save-btn:hover{opacity:.85}
+.note-save-btn.saved{background:#00B894}
+.note-timestamp{font-size:11px;color:var(--muted)}
+.note-preview{font-size:12px;color:var(--muted);font-style:italic;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:400px}
 </style>
 </head>
 <body>
@@ -274,6 +291,7 @@ async function refresh(){
     const rows=await sbFetch('/rest/v1/task_history?task_id=in.('+ids.join(',')+')'+'&order=created_at.asc');
     for(const r of(rows||[])){if(!historyCache[r.task_id])historyCache[r.task_id]=[];historyCache[r.task_id].push(r);}
   }
+  await loadNotes();
   loading(false);
   renderDateBanners(myDates);
   renderAll();
@@ -387,6 +405,65 @@ async function submitTask(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 refresh();setInterval(refresh,15000);
+
+// ── Notes ────────────────────────────────────────────────────────
+let notesCache = {};
+
+async function loadNotes() {
+  const rows = await sbFetch('/rest/v1/task_notes?team_key=eq.' + TEAM.key + '&select=*');
+  notesCache = {};
+  for (const r of (rows || [])) notesCache[r.task_id] = r;
+}
+
+async function saveNote(taskId) {
+  const val = document.getElementById('note-ta-' + taskId).value.trim();
+  if (!val) return;
+  const btn = document.getElementById('note-btn-' + taskId);
+  const now = new Date().toISOString();
+  await sbFetch('/rest/v1/task_notes', {
+    method: 'POST',
+    headers: { Prefer: 'resolution=merge-duplicates' },
+    body: JSON.stringify({ task_id: taskId, team_key: TEAM.key, note: val, updated_at: now })
+  });
+  btn.textContent = '✓ Salvo';
+  btn.classList.add('saved');
+  notesCache[taskId] = { note: val, updated_at: now };
+  const ts = document.getElementById('note-ts-' + taskId);
+  if (ts) ts.textContent = 'Salvo em ' + fmtDT(now);
+  const preview = document.getElementById('note-preview-' + taskId);
+  if (preview) { preview.textContent = val; preview.style.display = ''; }
+  setTimeout(() => { btn.textContent = 'Salvar'; btn.classList.remove('saved'); }, 2000);
+}
+
+function toggleNote(taskId) {
+  const box = document.getElementById('note-box-' + taskId);
+  const btn = document.getElementById('note-toggle-' + taskId);
+  const isOpen = box.classList.contains('open');
+  box.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+
+function buildNoteHtml(taskId) {
+  const n = notesCache[taskId];
+  const val = n ? n.note : '';
+  const ts  = n ? 'Salvo em ' + fmtDT(n.updated_at) : '';
+  const hasNote = !!val;
+  return `<div class="note-area">
+    <button class="note-toggle${hasNote ? ' open' : ''}" id="note-toggle-${taskId}" onclick="toggleNote('${taskId}')">
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ${hasNote ? 'Ver anotação' : 'Adicionar anotação'}
+    </button>
+    ${hasNote ? `<div class="note-preview" id="note-preview-${taskId}">${val}</div>` : `<div class="note-preview" id="note-preview-${taskId}" style="display:none"></div>`}
+    <div class="note-box${hasNote ? ' open' : ''}" id="note-box-${taskId}">
+      <textarea class="note-textarea" id="note-ta-${taskId}" placeholder="Anotações, observações, contexto... (salvo automaticamente ao clicar em Salvar)">${val}</textarea>
+      <div class="note-footer">
+        <span class="note-timestamp" id="note-ts-${taskId}">${ts}</span>
+        <button class="note-save-btn" id="note-btn-${taskId}" onclick="saveNote('${taskId}')">Salvar</button>
+      </div>
+    </div>
+  </div>`;
+}
+
 </script>
 </body>
 </html>

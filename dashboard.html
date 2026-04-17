@@ -95,9 +95,12 @@ main{max-width:1060px;margin:0 auto;padding:2rem}
 .ac-exec-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
 .ac-exec{background:#f7f6f3;border-left:3px solid #ccc;border-radius:0 8px 8px 0;padding:10px 12px;font-size:14px;line-height:1.6;margin-bottom:1rem}
 .review-form label{display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
-.review-form textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:var(--font-body);font-size:13px;resize:vertical;min-height:72px;color:var(--text);background:var(--bg);margin-bottom:10px}
-.review-form textarea:focus{outline:none;border-color:#6C5CE7}
+.review-form .review-hint{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.5}
+.review-form textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--font-body);font-size:14px;resize:vertical;min-height:140px;color:var(--text);background:var(--bg);margin-bottom:4px;line-height:1.6;transition:border-color .15s,box-shadow .15s}
+.review-form textarea:focus{outline:none;border-color:#6C5CE7;box-shadow:0 0 0 3px rgba(108,92,231,.08)}
+.review-char-count{font-size:11px;color:var(--muted);text-align:right;margin-bottom:10px}
 .review-actions{display:flex;gap:8px;flex-wrap:wrap}
+.review-actions .btn{padding:9px 20px;font-size:13px}
 .btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:13px;font-weight:500;padding:7px 16px;border-radius:8px;border:none;cursor:pointer;transition:opacity .15s,transform .1s}
 .btn:active{transform:scale(.97)}.btn:hover{opacity:.85}
 .btn-approve{background:#00B894;color:#fff}
@@ -313,7 +316,7 @@ const TASK_CATALOG={k1:'Mapear processos (AS-IS)',k2:'Dashboard v1 SLA',k3:'Base
 
 function teamOfTask(id){for(const[k,t]of Object.entries(TEAMS))if(t.todos.includes(id))return{key:k,...t};return null;}
 
-let state={},history={},planDates={},histFilt='all';
+let state={},history={},planDates={},allNotes={},histFilt='all';
 
 async function refresh(){
   loading(true);
@@ -323,6 +326,9 @@ async function refresh(){
     sbFetch('/rest/v1/plan_dates?select=*')
   ]);
   state={};for(const r of(stRows||[]))state[r.task_id]=r;
+  // Load notes for display in approvals
+  const noteRows=await sbFetch('/rest/v1/task_notes?select=*');
+  allNotes={};for(const r of(noteRows||[]))allNotes[r.task_id]=r;
   history={};for(const r of(histRows||[])){if(!history[r.task_id])history[r.task_id]=[];history[r.task_id].push(r);}
   planDates={};
   for(const r of(dateRows||[])){if(!planDates[r.team_key])planDates[r.team_key]={};planDates[r.team_key][r.marco_id]=r;}
@@ -469,9 +475,14 @@ function renderApprovals(){
         ${hasPrev?`<div class="prev-thread"><div class="prev-thread-label">Histórico desta tarefa</div>${renderThread(id)}</div>`:''}
         <div class="ac-exec-lbl">Última execução enviada</div>
         <div class="ac-exec">${row.execution}</div>
+        ${allNotes[id] ? `<div style="background:#f0eeff;border-left:3px solid #6C5CE7;border-radius:0 8px 8px 0;padding:8px 12px;margin-bottom:1rem;font-size:13px;color:#1a1a18;line-height:1.5"><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:#6C5CE7;margin-bottom:3px">Anotação da coordenadora</div>${allNotes[id].note}</div>` : ''}
         <div class="review-form">
-          <label for="rc-${id}">Seu comentário (obrigatório)</label>
-          <textarea id="rc-${id}" placeholder="Descreva seu feedback detalhado..."></textarea>
+          <label for="rc-${id}">Seu comentário e análise</label>
+          <p class="review-hint">Escreva à vontade — sem limite de caracteres. Este comentário é salvo integralmente no histórico e entra nos relatórios de performance.</p>
+          <textarea id="rc-${id}"
+            placeholder="Descreva sua análise: o que foi bem, o que falta, pontos de atenção, orientações para próximos passos, contexto para o relatório..."
+            oninput="updateCharCount('${id}', this.value)"></textarea>
+          <div class="review-char-count" id="cc-${id}">0 caracteres</div>
           <div class="review-actions">
             <button class="btn btn-approve" onclick="doReview('${id}','approved')">
               <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Aprovado
@@ -490,9 +501,26 @@ function renderApprovals(){
   document.getElementById('approvals-list').innerHTML=html;
 }
 
+function updateCharCount(id, val) {
+  const el = document.getElementById('cc-' + id);
+  if (!el) return;
+  const n = val.trim().length;
+  el.textContent = n.toLocaleString('pt-BR') + ' caractere' + (n !== 1 ? 's' : '');
+  el.style.color = n === 0 ? '#D63031' : n < 50 ? '#e6a817' : '#0a6b4a';
+}
+
 async function doReview(id,action){
-  const comment=document.getElementById('rc-'+id).value.trim();
-  if(!comment){document.getElementById('rc-'+id).style.borderColor='#D63031';return;}
+  const ta = document.getElementById('rc-'+id);
+  const comment = ta.value.trim();
+  if(!comment){
+    ta.style.borderColor='#D63031';
+    ta.style.boxShadow='0 0 0 3px rgba(214,48,49,.1)';
+    ta.focus();
+    ta.placeholder='Comentário obrigatório — descreva sua análise antes de continuar.';
+    return;
+  }
+  ta.style.borderColor='';
+  ta.style.boxShadow='';
   loading(true);
   const now=new Date().toISOString();
   await sbFetch('/rest/v1/task_states',{method:'POST',headers:{Prefer:'resolution=merge-duplicates'},body:JSON.stringify({task_id:id,status:action,reviewed_at:now,review_comment:comment,coordinator_comment:comment,updated_at:now})});
@@ -530,7 +558,7 @@ function renderHistory(){
         <div style="display:flex;flex-direction:column;gap:5px">
           ${(history[id]||[]).map(e=>`<div class="thread-entry te-${e.action}">
             <div class="te-who ${e.action}">${labels[e.action]||e.action}</div>
-            <div>${e.message}</div><div class="te-date">${fmtDT(e.created_at)}</div>
+            <div style="white-space:pre-wrap;line-height:1.6;word-break:break-word">${e.message}</div><div class="te-date">${fmtDT(e.created_at)}</div>
           </div>`).join('')}
         </div>
       </div>
@@ -613,6 +641,33 @@ function generateReport(){
       ${totalPend>2?`<p>⚠️ <strong>${totalPend} tarefas</strong> aguardando revisão.</p>`:''}
       ${totalPart>0?`<p>🔄 <strong>${totalPart} tarefa(s)</strong> como feito parcialmente aguardam reenvio.</p>`:''}
       ${completionRate>=50?`<p>✅ <strong>${completionRate}%</strong> de conclusão aprovada.</p>`:`<p>📊 Conclusão em <strong>${completionRate}%</strong> do total.</p>`}
+    </div></div>
+    <div style="margin-top:1.5rem">
+      <div class="sec-label">Comentários de revisão — histórico completo</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        ${(()=>{
+          const items=Object.entries(history)
+            .filter(([,entries])=>entries.some(e=>e.actor==='dhayane'))
+            .sort((a,b)=>new Date((b[1].slice(-1)[0]||{}).created_at||0)-new Date((a[1].slice(-1)[0]||{}).created_at||0));
+          if(!items.length) return '<p style="color:var(--muted);font-size:13px;padding:.5rem 0">Nenhum comentário de revisão ainda.</p>';
+          return items.map(([taskId,entries])=>{
+            const team=teamOfTask(taskId);if(!team)return'';
+            const taskText=TASK_CATALOG[taskId]||taskId;
+            return entries.filter(e=>e.actor==='dhayane').map(e=>`
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+                <div style="background:#fafaf8;padding:.75rem 1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border)">
+                  <div style="width:24px;height:24px;border-radius:50%;background:${team.color};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#fff;flex-shrink:0">${team.initials}</div>
+                  <span style="font-size:13px;font-weight:500;flex:1;min-width:0">${taskText}</span>
+                  <span class="hs ${e.action}">${{approved:'Aprovada',partial:'Feito parcialmente',rejected:'Não aprovado'}[e.action]||e.action}</span>
+                  <span style="font-size:11px;color:var(--muted);white-space:nowrap">${fmtDT(e.created_at)}</span>
+                </div>
+                <div style="padding:1rem;font-size:13px;color:var(--text);line-height:1.75;white-space:pre-wrap;word-break:break-word">${e.message}</div>
+              </div>`).join('');
+          }).filter(Boolean).join('');
+        })()}
+      </div>
+    </div>
+    <div style="display:none">
     </div></div>`;
 }
 
