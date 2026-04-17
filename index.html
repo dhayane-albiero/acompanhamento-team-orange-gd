@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orange Viagens — Plano de Desenvolvimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f6f3;--card:#fff;--text:#1a1a18;--muted:#6b6b66;--border:#e5e5de;
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+}
+html,body{min-height:100vh}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:2rem 1.25rem;
+  min-height:100vh;
+}
+
+/* top wordmark */
+.wordmark{
+  font-family:var(--font-display);
+  font-size:15px;
+  letter-spacing:.02em;
+  color:var(--muted);
+  margin-bottom:3rem;
+  text-align:center;
+}
+.wordmark strong{color:var(--text);font-weight:400}
+
+/* hero text */
+.hero-text{text-align:center;margin-bottom:3rem}
+.hero-text h1{
+  font-family:var(--font-display);
+  font-size:clamp(28px,5vw,42px);
+  font-weight:400;
+  line-height:1.15;
+  margin-bottom:.75rem;
+  color:var(--text);
+}
+.hero-text p{font-size:15px;color:var(--muted);max-width:400px;margin:0 auto}
+
+/* access cards grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;
+  width:100%;
+  max-width:860px;
+}
+
+.access-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.5rem 1.25rem;
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+  transition:box-shadow .2s, transform .15s;
+  position:relative;
+  overflow:hidden;
+}
+.access-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--c);
+  border-radius:14px 14px 0 0;
+}
+.access-card:hover{
+  box-shadow:0 6px 24px rgba(0,0,0,.09);
+  transform:translateY(-2px);
+}
+
+.ac-avatar{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--c);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);
+  font-size:16px;
+  flex-shrink:0;
+}
+
+.ac-name{font-size:15px;font-weight:500;color:var(--text)}
+.ac-role{font-size:12px;color:var(--muted);line-height:1.4}
+.ac-action{
+  margin-top:auto;
+  font-size:12px;
+  font-weight:500;
+  color:var(--c);
+  display:flex;align-items:center;gap:4px;
+}
+
+/* dashboard card — slightly different treatment */
+.access-card.dashboard{
+  border:1.5px solid #1a1a18;
+  background:#1a1a18;
+}
+.access-card.dashboard .ac-name{color:#fff}
+.access-card.dashboard .ac-role{color:rgba(255,255,255,.5)}
+.access-card.dashboard .ac-action{color:#f5d87a}
+.access-card.dashboard:hover{box-shadow:0 6px 28px rgba(0,0,0,.25)}
+
+/* confidential footer */
+.conf{
+  margin-top:3rem;
+  font-size:11px;
+  color:var(--muted);
+  text-align:center;
+  letter-spacing:.04em;
+}
+</style>
+</head>
+<body>
+
+<div class="wordmark"><strong>Orange</strong> Viagens</div>
+
+<div class="hero-text">
+  <h1>Plano de Desenvolvimento<br>18 Meses</h1>
+  <p>Selecione sua área de acesso abaixo</p>
+</div>
+
+<div class="grid">
+
+  <!-- Dhayane — Dashboard -->
+  <a class="access-card dashboard" href="dashboard.html" style="--c:#f5d87a">
+    <div class="ac-avatar" style="background:#333;font-size:14px">DA</div>
+    <div>
+      <div class="ac-name">Dhayane Albiero</div>
+      <div class="ac-role">Diretora de Operações, Produtos & Enablement</div>
+    </div>
+    <div class="ac-action">
+      Dashboard geral
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+  <!-- Katharine -->
+  <a class="access-card" href="katharine.html" style="--c:#00B894">
+    <div class="ac-avatar" style="background:#00B894">KC</div>
+    <div>
+      <div class="ac-name">Katharine Casteluci</div>
+      <div class="ac-role">Coordenadora de Operações</div>
+    </div>
+    <div class="ac-action">
+      Meu plano
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+  <!-- Roberta -->
+  <a class="access-card" href="roberta.html" style="--c:#E17055">
+    <div class="ac-avatar" style="background:#E17055">RB</div>
+    <div>
+      <div class="ac-name">Roberta Barsanti</div>
+      <div class="ac-role">Coordenadora de Treinamento</div>
+    </div>
+    <div class="ac-action">
+      Meu plano
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+  <!-- Rafaella -->
+  <a class="access-card" href="rafaella.html" style="--c:#D63031">
+    <div class="ac-avatar" style="background:#D63031">RR</div>
+    <div>
+      <div class="ac-name">Rafaella Reis</div>
+      <div class="ac-role">Coord. Produtos Hoteleiros & Vacation Home</div>
+    </div>
+    <div class="ac-action">
+      Meu plano
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+  <!-- Laura -->
+  <a class="access-card" href="laura.html" style="--c:#0984e3">
+    <div class="ac-avatar" style="background:#0984e3">LA</div>
+    <div>
+      <div class="ac-name">Laura</div>
+      <div class="ac-role">Coordenadora de Produtos — Cruzeiros</div>
+    </div>
+    <div class="ac-action">
+      Meu plano
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </a>
+
+</div>
+
+<div class="conf">DOCUMENTO CONFIDENCIAL · Orange Viagens · 2026</div>
+
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Dhayane — Orange Viagens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f7f6f3;--card:#fff;--text:#1a1a18;--muted:#6b6b66;--border:#e5e5de;--radius:12px;
+  --font-display:'DM Serif Display',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6}
+.lbar{position:fixed;top:0;left:0;height:3px;background:#6C5CE7;width:0;transition:width .3s;z-index:999}
+.page-header{background:var(--card);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:200}
+.header-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:1rem 0}
+.org-name{font-family:var(--font-display);font-size:17px}
+.hd{flex:1;height:1px;background:var(--border)}
+.header-meta{font-size:12px;color:var(--muted)}
+.hdr-badge{background:#e6a817;color:#fff;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;display:none}
+.hero{background:#1a1a18;padding:2.5rem 2rem;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 50%,rgba(108,92,231,.15) 0%,transparent 55%),radial-gradient(circle at 15% 80%,rgba(0,184,148,.1) 0%,transparent 50%);pointer-events:none}
+.hero-inner{max-width:1060px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem;position:relative;z-index:1}
+.hero h1{font-family:var(--font-display);font-size:30px;font-weight:400;color:#fff;margin-bottom:.3rem}
+.hero p{font-size:13px;color:rgba(255,255,255,.4)}
+.hero-kpis{display:flex;gap:24px;flex-wrap:wrap}
+.hkpi-val{font-family:var(--font-display);font-size:26px;color:#fff;line-height:1}
+.hkpi-val.pend{color:#f5d87a}.hkpi-val.part{color:#ffb07c}
+.hkpi-lbl{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em}
+.tabs-bar{background:var(--card);border-bottom:1px solid var(--border);padding:0 2rem}
+.tabs-inner{max-width:1060px;margin:0 auto;display:flex;flex-wrap:wrap}
+.tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:.75rem 1rem;font-family:var(--font-body);font-size:13px;color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:6px}
+.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:#6C5CE7;font-weight:500}
+.tab-pill{font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:20px;display:inline-flex;align-items:center;justify-content:center;color:#fff;padding:0 5px}
+.tp-amber{background:#e6a817}.tp-green{background:#00B894}.tp-red{background:#D63031}
+main{max-width:1060px;margin:0 auto;padding:2rem}
+.view{display:none}.view.active{display:block}
+.sec-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:1rem}
+/* Team overview cards */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:2rem}
+.team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;text-decoration:none;color:inherit;display:block;transition:box-shadow .2s,transform .15s;position:relative;overflow:hidden}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--tc);opacity:0;transition:opacity .2s}
+.team-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);transform:translateY(-1px)}.team-card:hover::before{opacity:1}
+.tc-top{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.tc-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;color:#fff;flex-shrink:0}
+.tc-name{font-size:14px;font-weight:500}.tc-role{font-size:11px;color:var(--muted)}
+.tc-nums{display:flex;align-items:baseline;gap:6px;margin-bottom:8px}
+.tc-big{font-family:var(--font-display);font-size:22px}.tc-of{font-size:12px;color:var(--muted)}
+.tc-pend{font-size:11px;background:#fff8e0;color:#7a5c00;padding:2px 8px;border-radius:20px;margin-left:auto}
+.tc-bar-wrap{height:4px;border-radius:10px;overflow:hidden;margin-bottom:8px}
+.tc-bar{height:100%;border-radius:10px;transition:width .5s}
+.tc-hint{font-size:11px;color:var(--muted)}
+/* Dates editor */
+.dates-team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.25rem;overflow:hidden}
+.dtc-head{padding:1rem 1.25rem;border-bottom:1px solid var(--border);background:#fafaf8;display:flex;align-items:center;gap:10px}
+.dtc-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;color:#fff;flex-shrink:0}
+.dtc-name{font-size:14px;font-weight:500}.dtc-role{font-size:12px;color:var(--muted)}
+.dtc-hint{margin-left:auto;font-size:11px;color:var(--muted)}
+.dtc-body{padding:1rem 1.25rem;display:flex;flex-direction:column;gap:10px}
+.marco-date-row{display:grid;grid-template-columns:130px 1fr 1fr auto;gap:12px;align-items:center;background:var(--bg);border-radius:8px;padding:10px 12px}
+.mdr-label{font-size:13px;font-weight:500}.mdr-fase{font-size:11px;color:var(--muted)}
+.mdr-field label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px;display:block}
+.mdr-field input[type=date]{width:100%;border:1px solid var(--border);border-radius:7px;padding:6px 9px;font-family:var(--font-body);font-size:13px;color:var(--text);background:var(--card)}
+.mdr-field input:focus{outline:none;border-color:#6C5CE7}
+.mdr-note{grid-column:1/-1;margin-top:4px}
+.mdr-note input{width:100%;border:1px solid var(--border);border-radius:7px;padding:6px 9px;font-family:var(--font-body);font-size:13px;color:var(--text);background:var(--card)}
+.mdr-note input:focus{outline:none;border-color:#6C5CE7}
+.save-row-btn{background:#6C5CE7;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-family:var(--font-body);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;transition:opacity .15s}
+.save-row-btn:hover{opacity:.85}
+.save-row-btn.saved{background:#00B894}
+.mdr-status{font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.mdr-status.ok{background:#e6faf4;color:#0a6b4a}
+.mdr-status.late{background:#fff0f0;color:#7a1a1a}
+.mdr-status.near{background:#fff8e0;color:#7a5c00}
+.mdr-status.unset{background:#f0f0ec;color:#6b6b66}
+/* Approvals */
+.empty-state{text-align:center;padding:4rem 1rem;color:var(--muted)}
+.empty-state svg{display:block;margin:0 auto 1rem;opacity:.25}
+.appr-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem;overflow:hidden}
+.ac-head{padding:.9rem 1.25rem;display:flex;align-items:center;gap:10px;background:#fafaf8;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.ac-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;color:#fff;flex-shrink:0}
+.ac-who-name{font-size:13px;font-weight:500}.ac-sub{font-size:11px;color:var(--muted)}
+.ac-date{font-size:11px;color:var(--muted);margin-left:auto}
+.ac-body{padding:1.25rem}
+.ac-task{font-size:15px;font-weight:500;margin-bottom:.75rem;line-height:1.4}
+.prev-thread{margin-bottom:1.25rem}
+.prev-thread-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
+.thread-entry{border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.5;margin-bottom:5px}
+.te-submitted{background:#f7f6f3;border-left:3px solid #ccc}
+.te-approved{background:#e6faf4;border-left:3px solid #00B894}
+.te-partial{background:#fff0e6;border-left:3px solid #E17055}
+.te-rejected{background:#fff0f0;border-left:3px solid #D63031}
+.te-who{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.te-who.submitted{color:#888}.te-who.approved{color:#0a6b4a}.te-who.partial{color:#7a3b00}.te-who.rejected{color:#7a1a1a}
+.te-date{font-size:11px;color:var(--muted);margin-top:2px}
+.ac-exec-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.ac-exec{background:#f7f6f3;border-left:3px solid #ccc;border-radius:0 8px 8px 0;padding:10px 12px;font-size:14px;line-height:1.6;margin-bottom:1rem}
+.review-form label{display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
+.review-form textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:var(--font-body);font-size:13px;resize:vertical;min-height:72px;color:var(--text);background:var(--bg);margin-bottom:10px}
+.review-form textarea:focus{outline:none;border-color:#6C5CE7}
+.review-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:13px;font-weight:500;padding:7px 16px;border-radius:8px;border:none;cursor:pointer;transition:opacity .15s,transform .1s}
+.btn:active{transform:scale(.97)}.btn:hover{opacity:.85}
+.btn-approve{background:#00B894;color:#fff}
+.btn-partial{background:#E17055;color:#fff}
+.btn-reject{background:#fff0f0;color:#D63031;border:1px solid #D63031}
+/* History */
+.hist-filters{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.filt{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-family:var(--font-body);font-size:12px;color:var(--muted);cursor:pointer;transition:all .15s}
+.filt.active{background:#f0eeff;border-color:#a89ddd;color:#4a3faa;font-weight:500}
+.hist-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem;overflow:hidden}
+.hc-head{padding:.75rem 1.25rem;background:#fafaf8;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hc-task{font-size:14px;font-weight:500;flex:1}
+.hc-body{padding:1rem 1.25rem}
+.hs{font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;white-space:nowrap}
+.hs.approved{background:#e6faf4;color:#0a6b4a}.hs.partial{background:#fff0e6;color:#7a3b00}.hs.rejected{background:#fff0f0;color:#7a1a1a}
+/* Report */
+.perf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:1.5rem}
+.perf-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem}
+.pc-val{font-family:var(--font-display);font-size:26px;line-height:1;margin-bottom:3px}
+.pc-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.pc-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.team-perf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:1.5rem}
+.tperf-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem}
+.tperf-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.tperf-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;color:#fff;flex-shrink:0}
+.tperf-name{font-size:14px;font-weight:500}.tperf-role{font-size:11px;color:var(--muted)}
+.tperf-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px}
+.tperf-row:last-child{border-bottom:none}
+.green{color:#0a6b4a}.amber{color:#7a5c00}.red{color:#7a1a1a}
+.quality-bar{display:flex;height:8px;border-radius:20px;overflow:hidden;gap:2px;margin-top:8px}
+.qb-seg{height:100%;border-radius:2px}
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+@media(max-width:700px){.marco-date-row{grid-template-columns:1fr 1fr;}.mdr-label{grid-column:1/-1;}.save-row-btn{grid-column:1/-1;width:100%;justify-content:center;}}
+</style>
+</head>
+<body>
+<div class="lbar" id="lbar"></div>
+<header class="page-header">
+  <div class="header-inner">
+    <div class="org-name">Orange Viagens</div><div class="hd"></div>
+    <span class="hdr-badge" id="hdr-badge"></span>
+    <div class="header-meta">Dashboard · Dhayane Albiero</div>
+  </div>
+</header>
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Dashboard de acompanhamento</h1>
+      <p>Plano 18 meses · 3 times · Orange Viagens · Março 2026</p>
+    </div>
+    <div class="hero-kpis">
+      <div><div class="hkpi-val pend" id="h-pend">—</div><div class="hkpi-lbl">aguardando</div></div>
+      <div><div class="hkpi-val part" id="h-part">—</div><div class="hkpi-lbl">parciais</div></div>
+      <div><div class="hkpi-val" id="h-appr">—</div><div class="hkpi-lbl">aprovadas</div></div>
+      <div><div class="hkpi-val" id="h-total">—</div><div class="hkpi-lbl">total</div></div>
+    </div>
+  </div>
+</div>
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('overview')">Visão geral</button>
+    <button class="tab-btn" onclick="switchTab('dates')">
+      Datas dos marcos <span class="tab-pill tp-red" id="tp-late" style="display:none">!</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('approvals')">
+      Aprovações <span class="tab-pill tp-amber" id="tp-pend">0</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('history')">
+      Histórico <span class="tab-pill tp-green" id="tp-hist">0</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('report')">Relatório</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <div id="view-overview" class="view active">
+    <div class="sec-label" style="margin-top:.5rem">Times</div>
+    <div class="team-grid" id="team-grid"></div>
+    <div class="sec-label">Marcos do plano</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:10px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#2d6a4f;font-weight:500;margin-bottom:4px">M1 — Fundação</div><div style="font-size:13px;font-weight:500">Meses 1–5</div><div style="font-size:12px;color:var(--muted)">Diagnóstico, baseline, 1ª automação IA</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#5c4299;font-weight:500;margin-bottom:4px">M2 — Estruturação</div><div style="font-size:13px;font-weight:500">Meses 6–10</div><div style="font-size:12px;color:var(--muted)">Academia, 3 automações, 1 bundle</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#9b4f12;font-weight:500;margin-bottom:4px">M3 — Aceleração</div><div style="font-size:13px;font-weight:500">Meses 11–15</div><div style="font-size:12px;color:var(--muted)">IA nos 3 pilares, impacto ≥R$1M</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#7d1a1a;font-weight:500;margin-bottom:4px">M4 — Escala</div><div style="font-size:13px;font-weight:500">Meses 16–18</div><div style="font-size:12px;color:var(--muted)">Sistema autônomo, impacto ≥R$1,5M</div></div>
+    </div>
+  </div>
+
+  <!-- DATES EDITOR -->
+  <div id="view-dates" class="view">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px">
+      <div>
+        <div class="sec-label" style="margin:0">Datas dos marcos por coordenação</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Definidas por você. As coordenadoras visualizam mas não editam.</div>
+      </div>
+    </div>
+    <div id="dates-editor"></div>
+  </div>
+
+  <!-- APPROVALS -->
+  <div id="view-approvals" class="view">
+    <div class="sec-label" style="margin-top:.5rem">Tarefas aguardando sua revisão</div>
+    <div id="approvals-list"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div id="view-history" class="view">
+    <div class="hist-filters">
+      <button class="filt active" onclick="setFilt('all',this)">Todas as tratativas</button>
+      <button class="filt" onclick="setFilt('approved',this)">Aprovadas</button>
+      <button class="filt" onclick="setFilt('partial',this)">Feito parcialmente</button>
+      <button class="filt" onclick="setFilt('rejected',this)">Não aprovadas</button>
+      <button class="filt" onclick="setFilt('katharine',this)">Katharine</button>
+      <button class="filt" onclick="setFilt('roberta',this)">Roberta</button>
+      <button class="filt" onclick="setFilt('rafaella',this)">Rafaella</button>
+    </div>
+    <div id="history-list"></div>
+  </div>
+
+  <!-- REPORT -->
+  <div id="view-report" class="view">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px">
+      <div class="sec-label" style="margin:0">Relatório de performance</div>
+      <button class="btn" style="background:#6C5CE7;color:#fff;font-size:12px" onclick="generateReport()">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M4 4v16h16V8l-4-4H4z" stroke="white" stroke-width="1.8"/><path d="M14 4v4h4M8 13h8M8 17h5" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Atualizar relatório
+      </button>
+    </div>
+    <div id="report-content"><div style="text-align:center;padding:4rem 1rem;color:var(--muted);font-size:13px">Clique em "Atualizar relatório" para gerar a análise.</div></div>
+  </div>
+</main>
+
+<footer>Orange Viagens · Dashboard confidencial · Março 2026</footer>
+
+<script>
+const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
+async function sbFetch(path,opts={}){const r=await fetch(SB_URL+path,{...opts,headers:{apikey:SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json',...(opts.headers||{})}});return r.json();}
+function loading(on){const b=document.getElementById('lbar');b.style.width=on?'70%':'100%';if(!on)setTimeout(()=>b.style.width='0',300);}
+function fmtDate(iso){if(!iso)return'';const d=new Date(iso+'T12:00:00');return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});}
+function fmtDT(iso){if(!iso)return'';const d=new Date(iso);return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
+function isLate(e){if(!e)return false;return new Date(e+'T23:59:59')<new Date();}
+function isNear(e,days=7){if(!e)return false;const diff=(new Date(e+'T23:59:59')-new Date())/(1000*60*60*24);return diff>=0&&diff<=days;}
+function daysLeftFn(e){if(!e)return null;return Math.round((new Date(e+'T23:59:59')-new Date())/(1000*60*60*24));}
+
+const TEAMS={
+  katharine:{name:'Katharine Casteluci',initials:'KC',color:'#00B894',colorLight:'#e6faf6',file:'katharine.html',role:'Operações',
+    marcos:[{id:'m1k',label:'M1',fase:'Fundação'},{id:'m2k',label:'M2',fase:'Estruturação'},{id:'m3k',label:'M3',fase:'Aceleração'},{id:'m4k',label:'M4',fase:'Escala'}],
+    todos:['k1','k2','k3','k4','k5','k6','k7','k8','k9','k10','k11','k12','k13','k14','k15','k16','k17','k18','k19','k20','k21','k22','k23','k24','k25']},
+  roberta:{name:'Roberta Barsanti',initials:'RB',color:'#E17055',colorLight:'#fff2ee',file:'roberta.html',role:'Treinamento',
+    marcos:[{id:'m1r',label:'M1',fase:'Fundação'},{id:'m2r',label:'M2',fase:'Estruturação'},{id:'m3r',label:'M3',fase:'Aceleração'},{id:'m4r',label:'M4',fase:'Escala'}],
+    todos:['r1','r2','r3','r4','r5','r6','r7','r8','r9','r10','r11','r12','r13','r14','r15','r16','r17','r18','r19','r20','r21','r22','r23','r24','r25','r26','r27']},
+  rafaella:{name:'Rafaella Reis',initials:'RR',color:'#D63031',colorLight:'#fff0f0',file:'rafaella.html',role:'Produtos Hoteleiros',
+    marcos:[{id:'m1p',label:'M1',fase:'Fundação'},{id:'m2p',label:'M2',fase:'Estruturação'},{id:'m3p',label:'M3',fase:'Aceleração'},{id:'m4p',label:'M4',fase:'Escala'}],
+    todos:['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13','p14','p15','p16','p17','p18','p19','p20','p21','p22','p23','p24','p25','p26','p27','p28']},
+  laura:{name:'Laura',initials:'LA',color:'#0984e3',colorLight:'#e8f4ff',file:'laura.html',role:'Cruzeiros',
+    marcos:[{id:'m1l',label:'M1',fase:'Estruturação'},{id:'m2l',label:'M2',fase:'Consolidação'},{id:'m3l',label:'M3',fase:'Maturidade Estratégica'}],
+    todos:['l1','l2','l3','l4','l5','l6','l7','l8','l9','l10','l11','l12','l13','l14','l15','l16','l17','l18','l19','l20','l21','l22','l23','l24','l25','l26','l27']}
+};
+const TASK_CATALOG={k1:'Mapear processos (AS-IS)',k2:'Dashboard v1 SLA',k3:'Baseline KPIs',k4:'Top 5 gargalos',k5:'Playbook top 3 processos',k6:'Tracking erros',k7:'Liderança rotina diária',k8:'SLA ≥90%, erro ≤4%',k9:'WBR semanal',k10:'Pós-mortem',k11:'Quality gate',k12:'Automações IA em Ops',k13:'Ops 1 semana sem Dhayane',k14:'SLA ≥92%, erro ≤3%',k15:'80% autonomia operacional',k16:'SLA ≥94%, erro ≤2,5%',k17:'Custo/booking −15%',k18:'Autonomia total',k19:'2 semanas sem Dhayane',k20:'IA ativa na operação',k21:'SLA ≥95%, erro ≤2%',k22:'Custo/booking −20%',k23:'GMV/FTE +25%',k24:'Sistema autônomo',k25:'Dashboard v2 + IA',r1:'Entrevistar 10 colaboradores',r2:'Maturidade IA do time',r3:'Baseline ramp time',r4:'Top 5 gaps',r5:'Trilha IA v1',r6:'Módulo IA no dia a dia',r7:'Piloto trilha IA',r8:'≥3 playbooks',r9:'30% trilha IA',r10:'Calendário IA trimestral',r11:'Academia v1 ≥5 módulos',r12:'100% trilha IA',r13:'5 playbooks em uso',r14:'Trilha IA avançada',r15:'Turnover em queda',r16:'Score ≥80',r17:'Academia ≥8 módulos',r18:'Trilha IA avançada ativa',r19:'Turnover ≤17%, ramp ≤50d',r20:'ROI treino IA',r21:'Certificação IA',r22:'Roberta autônoma',r23:'Academia ≥10 módulos',r24:'Time domina IA',r25:'Turnover ≤15%, ramp ≤45d',r26:'ROI 3× investimento',r27:'Academia consolidada',p1:'Portfólio hoteleiros/VH',p2:'Margem e volume',p3:'Top/bottom 3',p4:'Attach rate atual',p5:'Funil v1',p6:'Kill criteria',p7:'≥3 bundles',p8:'1ª gate review',p9:'IA nos produtos',p10:'≥1 bundle com receita',p11:'Attach +3pp',p12:'Margem top3 +5%',p13:'Pipeline ≥3',p14:'Gate review mensal',p15:'Produto com IA',p16:'1 produto novo',p17:'Attach +7pp',p18:'Margem top3 +10%',p19:'Pipeline ≥5',p20:'Kill ≥1 produto',p21:'Recomendação IA upsell',p22:'Personalização IA',p23:'Attach ≥25%',p24:'Margem top3 +15%',p25:'≥2 produtos novos',p26:'Precificação dinâmica IA',p27:'Roadmap ano 2',p28:'Portfólio autônomo',
+  l1:'Portfólio inicial ≥20 produtos com fichas técnicas',l2:'Mapear ≥5 fornecedores estratégicos',l3:'Negociações de desconto por volume 10–15%',l4:'Documentar fluxos operacionais de cruzeiros',l5:'1º guia de treinamento para equipe comercial',l6:'1ª sessão de capacitação equipe comercial',l7:'1ª análise de inteligência de mercado',l8:'Estrutura para gestão de grupos exclusivos',l9:'Baseline de KPIs alinhado com Dhayane',l10:'Portfólio consolidado com fichas completas',l11:'≥2 acordos estratégicos com fornecedores',l12:'Exclusividade em grupos: upgrades e benefícios',l13:'≥1 oferta de grupo exclusivo lançada',l14:'≥2 relatórios mensais de inteligência de mercado',l15:'Materiais de treinamento com suporte de IA',l16:'≥2 sessões de capacitação equipe comercial e CS',l17:'Oportunidades de pacotes com add-ons mapeadas',l18:'Condições operacionais: rebookings e suporte dedicado',l19:'Portfólio gerenciado com autonomia',l20:'≥1 contrato de longo prazo com fornecedor',l21:'Pipeline de grupos exclusivos ≥3 ofertas',l22:'Relatórios de inteligência de mercado como rotina',l23:'Pacotes com add-ons gerando comissão recorrente',l24:'Processos documentados e escaláveis',l25:'Recomendação IA integrada ao fluxo de vendas',l26:'Análise estratégica: resultados vs. KPIs',l27:'Roadmap de crescimento da área para o ano seguinte'};
+
+function teamOfTask(id){for(const[k,t]of Object.entries(TEAMS))if(t.todos.includes(id))return{key:k,...t};return null;}
+
+let state={},history={},planDates={},histFilt='all';
+
+async function refresh(){
+  loading(true);
+  const [stRows,histRows,dateRows]=await Promise.all([
+    sbFetch('/rest/v1/task_states?select=*'),
+    sbFetch('/rest/v1/task_history?select=*&order=created_at.asc'),
+    sbFetch('/rest/v1/plan_dates?select=*')
+  ]);
+  state={};for(const r of(stRows||[]))state[r.task_id]=r;
+  history={};for(const r of(histRows||[])){if(!history[r.task_id])history[r.task_id]=[];history[r.task_id].push(r);}
+  planDates={};
+  for(const r of(dateRows||[])){if(!planDates[r.team_key])planDates[r.team_key]={};planDates[r.team_key][r.marco_id]=r;}
+  loading(false);
+  renderAll();
+}
+
+async function savePlanDate(teamKey,marcoId,marcoLabel,fase){
+  const start=document.getElementById(`sd-${teamKey}-${marcoId}`).value;
+  const end=document.getElementById(`ed-${teamKey}-${marcoId}`).value;
+  const note=document.getElementById(`nd-${teamKey}-${marcoId}`).value.trim();
+  if(!start&&!end){alert('Informe ao menos uma data.');return;}
+  loading(true);
+  const btn=document.getElementById(`btn-${teamKey}-${marcoId}`);
+  await sbFetch('/rest/v1/plan_dates',{method:'POST',headers:{Prefer:'resolution=merge-duplicates'},
+    body:JSON.stringify({team_key:teamKey,marco_id:marcoId,marco_label:marcoLabel,start_date:start||null,end_date:end||null,note:note||null,created_by:'dhayane',updated_at:new Date().toISOString()})});
+  btn.textContent='✓ Salvo';btn.classList.add('saved');
+  setTimeout(()=>{btn.textContent='Salvar';btn.classList.remove('saved');},2500);
+  await refresh();
+}
+
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
+  document.getElementById('view-'+name).classList.add('active');
+}
+
+// ── Overview ──────────────────────────────────────────────────────────────────
+function renderOverview(){
+  let totalAll=0,apprAll=0,pendAll=0,partAll=0;let html='';
+  for(const[key,team]of Object.entries(TEAMS)){
+    const appr=team.todos.filter(id=>(state[id]||{}).status==='approved').length;
+    const pend=team.todos.filter(id=>(state[id]||{}).status==='pending').length;
+    const part=team.todos.filter(id=>(state[id]||{}).status==='partial').length;
+    const pct=team.todos.length?Math.round(appr/team.todos.length*100):0;
+    totalAll+=team.todos.length;apprAll+=appr;pendAll+=pend;partAll+=part;
+    html+=`<a class="team-card" href="${team.file}" style="--tc:${team.color}">
+      <div class="tc-top"><div class="tc-av" style="background:${team.color}">${team.initials}</div>
+      <div><div class="tc-name">${team.name}</div><div class="tc-role">${team.role}</div></div></div>
+      <div class="tc-nums"><span class="tc-big" style="color:${team.color}">${appr}</span>
+      <span class="tc-of">de ${team.todos.length} aprovadas</span>
+      ${pend+part>0?`<span class="tc-pend">${pend+part} pendente${pend+part>1?'s':''}</span>`:''}</div>
+      <div class="tc-bar-wrap" style="background:${team.colorLight}">
+        <div class="tc-bar" style="width:${pct}%;background:${team.color}"></div>
+      </div>
+      <div class="tc-hint">Ver plano individual →</div>
+    </a>`;
+  }
+  document.getElementById('team-grid').innerHTML=html;
+  document.getElementById('h-appr').textContent=apprAll;
+  document.getElementById('h-pend').textContent=pendAll;
+  document.getElementById('h-part').textContent=partAll;
+  document.getElementById('h-total').textContent=totalAll;
+  document.getElementById('tp-pend').textContent=pendAll;
+  document.getElementById('tp-hist').textContent=apprAll;
+  const badge=document.getElementById('hdr-badge');
+  if(pendAll>0){badge.style.display='';badge.textContent=pendAll+' pendente'+(pendAll>1?'s':'');}
+  else badge.style.display='none';
+}
+
+// ── Dates editor ──────────────────────────────────────────────────────────────
+function renderDatesEditor(){
+  let lateCount=0;
+  let html='';
+  for(const[key,team]of Object.entries(TEAMS)){
+    const td=planDates[key]||{};
+    let marcosHtml='';
+    for(const m of team.marcos){
+      const pd=td[m.id]||{};
+      const late=isLate(pd.end_date);
+      const near=!late&&isNear(pd.end_date,7);
+      const dl=daysLeftFn(pd.end_date);
+      let statusTxt='Não definido',statusCls='mdr-status unset';
+      if(pd.start_date||pd.end_date){
+        if(late){statusTxt='Prazo vencido';statusCls='mdr-status late';lateCount++;}
+        else if(near){statusTxt=`Vence em ${dl}d`;statusCls='mdr-status near';}
+        else if(pd.end_date){statusTxt=`${dl}d restantes`;statusCls='mdr-status ok';}
+        else{statusTxt='Em andamento';statusCls='mdr-status ok';}
+      }
+      marcosHtml+=`<div class="marco-date-row">
+        <div><div class="mdr-label">${m.label} — ${m.fase}</div><span class="${statusCls}">${statusTxt}</span></div>
+        <div class="mdr-field">
+          <label>Início</label>
+          <input type="date" id="sd-${key}-${m.id}" value="${pd.start_date||''}">
+        </div>
+        <div class="mdr-field">
+          <label>Conclusão prevista</label>
+          <input type="date" id="ed-${key}-${m.id}" value="${pd.end_date||''}">
+        </div>
+        <button class="save-row-btn" id="btn-${key}-${m.id}" onclick="savePlanDate('${key}','${m.id}','${m.label}','${m.fase}')">Salvar</button>
+        <div class="mdr-note">
+          <input type="text" id="nd-${key}-${m.id}" value="${(pd.note||'').replace(/"/g,'&quot;')}" placeholder="Observação opcional (ex: aguardando integração com TI)">
+        </div>
+      </div>`;
+    }
+    html+=`<div class="dates-team-card">
+      <div class="dtc-head">
+        <div class="dtc-av" style="background:${team.color}">${team.initials}</div>
+        <div><div class="dtc-name">${team.name}</div><div class="dtc-role">${team.role}</div></div>
+        <span class="dtc-hint">Visível para ${team.initials}, não editável por ela</span>
+      </div>
+      <div class="dtc-body">${marcosHtml}</div>
+    </div>`;
+  }
+  document.getElementById('dates-editor').innerHTML=html;
+  const lateEl=document.getElementById('tp-late');
+  if(lateCount>0){lateEl.style.display='';lateEl.textContent=lateCount;}
+  else lateEl.style.display='none';
+}
+
+// ── Approvals ─────────────────────────────────────────────────────────────────
+function renderThread(taskId){
+  const entries=history[taskId]||[];
+  if(!entries.length)return'';
+  const labels={submitted:'Coordenadora enviou',approved:'Dhayane aprovou',partial:'Dhayane: feito parcialmente',rejected:'Dhayane: não aprovado'};
+  return entries.map(e=>`<div class="thread-entry te-${e.action}">
+    <div class="te-who ${e.action}">${labels[e.action]||e.action}</div>
+    <div>${e.message}</div><div class="te-date">${fmtDT(e.created_at)}</div>
+  </div>`).join('');
+}
+function renderApprovals(){
+  const pending=Object.entries(state).filter(([,r])=>r.status==='pending');
+  if(!pending.length){
+    document.getElementById('approvals-list').innerHTML=`<div class="empty-state">
+      <svg width="48" height="48" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#888" stroke-width="1.5"/><path d="M8 12l3 3 5-5" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div style="font-size:15px;font-weight:500;margin-bottom:6px">Nenhuma tarefa pendente</div>
+      <div style="font-size:13px">Quando as coordenadoras enviarem tarefas, elas aparecem aqui.</div>
+    </div>`;return;
+  }
+  let html='';
+  for(const[id,row]of pending){
+    const team=teamOfTask(id);if(!team)continue;
+    const taskText=TASK_CATALOG[id]||id;
+    const hasPrev=(history[id]||[]).length>0;
+    html+=`<div class="appr-card">
+      <div class="ac-head">
+        <div class="ac-av" style="background:${team.color}">${team.initials}</div>
+        <div><div class="ac-who-name">${team.name}</div><div class="ac-sub">${team.role}</div></div>
+        <div class="ac-date">Enviado em ${fmtDT(row.submitted_at)}</div>
+      </div>
+      <div class="ac-body">
+        <div class="ac-task">${taskText}</div>
+        ${hasPrev?`<div class="prev-thread"><div class="prev-thread-label">Histórico desta tarefa</div>${renderThread(id)}</div>`:''}
+        <div class="ac-exec-lbl">Última execução enviada</div>
+        <div class="ac-exec">${row.execution}</div>
+        <div class="review-form">
+          <label for="rc-${id}">Seu comentário (obrigatório)</label>
+          <textarea id="rc-${id}" placeholder="Descreva seu feedback detalhado..."></textarea>
+          <div class="review-actions">
+            <button class="btn btn-approve" onclick="doReview('${id}','approved')">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Aprovado
+            </button>
+            <button class="btn btn-partial" onclick="doReview('${id}','partial')">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 8v4l3 3" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/></svg>Feito parcialmente
+            </button>
+            <button class="btn btn-reject" onclick="doReview('${id}','rejected')">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 15L15 9M15 15L9 9" stroke="#D63031" stroke-width="2" stroke-linecap="round"/></svg>Não aprovado
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+  document.getElementById('approvals-list').innerHTML=html;
+}
+
+async function doReview(id,action){
+  const comment=document.getElementById('rc-'+id).value.trim();
+  if(!comment){document.getElementById('rc-'+id).style.borderColor='#D63031';return;}
+  loading(true);
+  const now=new Date().toISOString();
+  await sbFetch('/rest/v1/task_states',{method:'POST',headers:{Prefer:'resolution=merge-duplicates'},body:JSON.stringify({task_id:id,status:action,reviewed_at:now,review_comment:comment,coordinator_comment:comment,updated_at:now})});
+  await sbFetch('/rest/v1/task_history',{method:'POST',body:JSON.stringify({task_id:id,action:action,actor:'dhayane',message:comment,created_at:now})});
+  await refresh();
+}
+
+// ── History ───────────────────────────────────────────────────────────────────
+function renderHistory(){
+  const allTaskIds=[...new Set(Object.keys(history))];
+  let filtered=allTaskIds.filter(id=>{
+    const entries=history[id]||[];
+    if(histFilt==='all')return entries.length>0;
+    if(['approved','partial','rejected'].includes(histFilt))return entries.some(e=>e.action===histFilt);
+    const team=teamOfTask(id);return team&&team.key===histFilt;
+  });
+  filtered.sort((a,b)=>{const la=(history[a]||[]).slice(-1)[0];const lb=(history[b]||[]).slice(-1)[0];return new Date(lb?.created_at||0)-new Date(la?.created_at||0);});
+  if(!filtered.length){document.getElementById('history-list').innerHTML=`<div style="text-align:center;padding:3rem;color:var(--muted);font-size:13px">Nenhum item encontrado.</div>`;return;}
+  const statusLabel={open:'Aberta',pending:'Aguardando',approved:'Aprovada',partial:'Feito parcialmente',rejected:'Não aprovado'};
+  const labels={submitted:'Coordenadora enviou',approved:'Dhayane aprovou',partial:'Dhayane: feito parcialmente',rejected:'Dhayane: não aprovado'};
+  let html='';
+  for(const id of filtered){
+    const team=teamOfTask(id);if(!team)continue;
+    const taskText=TASK_CATALOG[id]||id;
+    const cur=(state[id]||{}).status||'open';
+    const badge=['approved','partial','rejected'].includes(cur)?`<span class="hs ${cur}">${statusLabel[cur]}</span>`:'';
+    html+=`<div class="hist-card">
+      <div class="hc-head">
+        <div style="width:28px;height:28px;border-radius:50%;background:${team.color};display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;color:#fff;flex-shrink:0">${team.initials}</div>
+        <div class="hc-task">${taskText}</div>
+        <span style="font-size:11px;color:var(--muted)">${team.name}</span>
+        ${badge}
+      </div>
+      <div class="hc-body">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          ${(history[id]||[]).map(e=>`<div class="thread-entry te-${e.action}">
+            <div class="te-who ${e.action}">${labels[e.action]||e.action}</div>
+            <div>${e.message}</div><div class="te-date">${fmtDT(e.created_at)}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }
+  document.getElementById('history-list').innerHTML=html;
+}
+function setFilt(f,btn){histFilt=f;document.querySelectorAll('.filt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderHistory();}
+
+// ── Report ────────────────────────────────────────────────────────────────────
+function generateReport(){
+  const now=new Date();
+  let totalTasks=0,totalAppr=0,totalPart=0,totalRej=0,totalPend=0;
+  let teamCardsHtml='';
+  for(const[key,team]of Object.entries(TEAMS)){
+    const td={total:team.todos.length,approved:0,partial:0,rejected:0,pending:0,open:0,resubmissions:0};
+    for(const id of team.todos){
+      const st=(state[id]||{}).status||'open';td[st]=(td[st]||0)+1;totalTasks++;
+      const h=(history[id]||[]).filter(e=>e.action==='submitted');if(h.length>1)td.resubmissions+=(h.length-1);
+    }
+    totalAppr+=td.approved;totalPart+=td.partial;totalRej+=td.rejected;totalPend+=td.pending;
+    const dTeam=planDates[key]||{};
+    let lateMarcos=0,setMarcos=0;
+    for(const m of team.marcos){const pd=dTeam[m.id];if(pd&&pd.end_date){setMarcos++;if(isLate(pd.end_date))lateMarcos++;}}
+    const pct=td.total?Math.round(td.approved/td.total*100):0;
+    const rev=td.approved+td.partial+td.rejected;
+    const aRate=rev?Math.round(td.approved/rev*100):0;
+    const apprPct=td.total?Math.round(td.approved/td.total*100):0;
+    const pendPct=td.total?Math.round((td.pending+td.partial)/td.total*100):0;
+    const openPct=td.total?Math.round(td.open/td.total*100):0;
+    // Date status per marco
+    let datesHtml='';
+    for(const m of team.marcos){
+      const pd=(dTeam[m.id])||{};
+      const late=isLate(pd.end_date);const near=!late&&isNear(pd.end_date,7);
+      const dl=daysLeftFn(pd.end_date);
+      let dCls='',dTxt='Não definido';
+      if(pd.start_date||pd.end_date){dCls=late?'red':near?'amber':'green';dTxt=late?'Prazo vencido':near?`Vence em ${dl}d`:pd.end_date?`${dl}d restantes`:'Em andamento';}
+      datesHtml+=`<div class="tperf-row"><span style="color:var(--muted)">${m.label} — ${m.fase}</span><span class="tperf-stat ${dCls}">${dTxt}</span></div>`;
+    }
+    teamCardsHtml+=`<div class="tperf-card">
+      <div class="tperf-head"><div class="tperf-av" style="background:${team.color}">${team.initials}</div>
+      <div><div class="tperf-name">${team.name}</div><div class="tperf-role">${team.role}</div></div></div>
+      <div class="tperf-row"><span style="color:var(--muted)">Progresso geral</span><span class="tperf-stat ${pct>=60?'green':pct>=30?'amber':'red'}">${pct}%</span></div>
+      <div class="tperf-row"><span style="color:var(--muted)">Aprovadas</span><span class="tperf-stat green">${td.approved} / ${td.total}</span></div>
+      <div class="tperf-row"><span style="color:var(--muted)">Feito parcialmente</span><span class="tperf-stat amber">${td.partial}</span></div>
+      <div class="tperf-row"><span style="color:var(--muted)">Não aprovadas</span><span class="tperf-stat red">${td.rejected}</span></div>
+      <div class="tperf-row"><span style="color:var(--muted)">Taxa de aprovação</span><span class="tperf-stat ${aRate>=70?'green':aRate>=40?'amber':'red'}">${aRate}%</span></div>
+      <div class="tperf-row"><span style="color:var(--muted)">Reenvios</span><span class="tperf-stat">${td.resubmissions}</span></div>
+      <div style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px">Prazos dos marcos</div>
+        ${datesHtml}
+      </div>
+      <div style="margin-top:10px"><div style="font-size:11px;color:var(--muted);margin-bottom:5px">Distribuição</div>
+      <div class="quality-bar">
+        ${apprPct>0?`<div class="qb-seg" style="flex:${apprPct};background:#00B894"></div>`:''}
+        ${pendPct>0?`<div class="qb-seg" style="flex:${pendPct};background:#e6a817"></div>`:''}
+        ${openPct>0?`<div class="qb-seg" style="flex:${openPct};background:#e5e5de"></div>`:''}
+      </div></div>
+    </div>`;
+  }
+  const reviewed=totalAppr+totalPart+totalRej;
+  const approvalRate=reviewed?Math.round(totalAppr/reviewed*100):0;
+  const completionRate=totalTasks?Math.round(totalAppr/totalTasks*100):0;
+  document.getElementById('report-content').innerHTML=`
+    <div style="margin-bottom:1.5rem"><div class="sec-label">Resumo — ${now.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}</div>
+    <div class="perf-grid">
+      <div class="perf-card"><div class="pc-val" style="color:#6C5CE7">${totalTasks}</div><div class="pc-lbl">Total de tarefas</div></div>
+      <div class="perf-card"><div class="pc-val" style="color:#00B894">${totalAppr}</div><div class="pc-lbl">Aprovadas</div><div class="pc-sub">${completionRate}% do total</div></div>
+      <div class="perf-card"><div class="pc-val" style="color:#E17055">${totalPart}</div><div class="pc-lbl">Feito parcialmente</div></div>
+      <div class="perf-card"><div class="pc-val" style="color:#D63031">${totalRej}</div><div class="pc-lbl">Não aprovadas</div></div>
+      <div class="perf-card"><div class="pc-val" style="color:#e6a817">${totalPend}</div><div class="pc-lbl">Aguardando revisão</div></div>
+      <div class="perf-card"><div class="pc-val" style="color:${approvalRate>=70?'#00B894':approvalRate>=40?'#e6a817':'#D63031'}">${approvalRate}%</div><div class="pc-lbl">Taxa de aprovação</div></div>
+    </div></div>
+    <div style="margin-bottom:1.5rem"><div class="sec-label">Performance por time (com prazos)</div>
+    <div class="team-perf-grid">${teamCardsHtml}</div></div>
+    <div><div class="sec-label">Observações</div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;font-size:13px;line-height:1.9">
+      ${totalAppr===0?'<p>📋 Nenhuma tarefa aprovada ainda.</p>':''}
+      ${totalPend>2?`<p>⚠️ <strong>${totalPend} tarefas</strong> aguardando revisão.</p>`:''}
+      ${totalPart>0?`<p>🔄 <strong>${totalPart} tarefa(s)</strong> como feito parcialmente aguardam reenvio.</p>`:''}
+      ${completionRate>=50?`<p>✅ <strong>${completionRate}%</strong> de conclusão aprovada.</p>`:`<p>📊 Conclusão em <strong>${completionRate}%</strong> do total.</p>`}
+    </div></div>`;
+}
+
+function renderAll(){renderOverview();renderDatesEditor();renderApprovals();renderHistory();}
+refresh();
+setInterval(refresh,12000);
+</script>
+</body>
+</html>
