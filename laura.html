@@ -294,8 +294,8 @@ function userIsTyping() {
   return active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT');
 }
 
-async function refresh() {
-  if (userIsTyping()) return; // não interrompe digitação
+async function refresh(force=false) {
+  if (!force && userIsTyping()) return; // não interrompe digitação
   loading(true);
   try {
     const [stRows, dateRows, noteRows] = await Promise.all([
@@ -581,9 +581,9 @@ async function submitTask() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Refresh a cada 20s, mas só se não estiver digitando
-refresh();
-setInterval(refresh, 20000);
+// Carrega dados na inicialização (forçado) e depois a cada 20s
+refresh(true);
+setInterval(() => refresh(false), 20000);
 </script>
 </body>
 </html>
