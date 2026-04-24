@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Katharine Casteluci — Orange Viagens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -36,7 +35,7 @@ main{max-width:820px;margin:0 auto;padding:2rem}
 .db-dates{font-size:12px;color:var(--muted)}.db-note{font-size:12px;color:var(--muted);font-style:italic;margin-top:2px}
 .db-badge{font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:1px}
 .db-badge.ok{background:var(--accent-light);color:var(--accent)}.db-badge.late{background:#fff0f0;color:#7a1a1a}.db-badge.near{background:#fff8e0;color:#7a5c00}.db-badge.unset{background:#f0f0ec;color:#6b6b66}
-.marco-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.25rem;}
+.marco-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.25rem;overflow:hidden}
 .marco-header{padding:.9rem 1.25rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fafaf8;border-bottom:1px solid var(--border)}
 .fase-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px}
 .marco-range{font-size:12px;color:var(--muted)}
@@ -60,46 +59,22 @@ main{max-width:820px;margin:0 auto;padding:2rem}
 .te-who{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
 .te-who.submitted{color:#888}.te-who.approved{color:#0a6b4a}.te-who.partial{color:#7a3b00}.te-who.rejected{color:#7a1a1a}
 .te-date{font-size:11px;color:var(--muted);margin-top:2px}
-/* NOTAS */
 .note-section{margin-top:10px;border-top:1px dashed var(--border);padding-top:10px}
-.note-toggle-btn{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--muted);cursor:pointer;padding:0;display:flex;align-items:center;gap:5px;transition:color .15s;user-select:none}
+.note-toggle-btn{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--muted);cursor:pointer;padding:0;display:flex;align-items:center;gap:5px}
 .note-toggle-btn:hover{color:var(--accent)}
 .note-arrow{display:inline-block;transition:transform .2s;font-size:10px}
 .note-toggle-btn.open .note-arrow{transform:rotate(90deg)}
 .note-preview-text{font-size:12px;color:var(--muted);font-style:italic;margin-top:4px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .note-editor{display:none;margin-top:8px}
 .note-editor.open{display:block}
-.note-textarea{
-  width:100%;
-  border:1.5px solid var(--border);
-  border-radius:8px;
-  padding:10px;
-  font-family:var(--font-body);
-  font-size:13px;
-  color:var(--text);
-  background:#fafaf8;
-  resize:vertical;
-  min-height:100px;
-  line-height:1.7;
-  white-space:pre-wrap;
-  word-break:break-word;
-  overflow-wrap:break-word;
-  pointer-events:all !important;
-  cursor:text !important;
-  -webkit-user-select:text !important;
-  user-select:text !important;
-  transition:border-color .15s;
-  display:block;
-}
-.note-textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent);background:#fff}
+.note-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px;font-family:var(--font-body);font-size:13px;color:var(--text);background:#fafaf8;resize:vertical;min-height:100px;line-height:1.7;word-break:break-word;overflow-wrap:break-word;display:block}
+.note-textarea:focus{outline:2px solid var(--accent);border-color:var(--accent);background:#fff}
 .note-footer{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
 .note-ts{font-size:11px;color:var(--muted)}
-.note-save{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:5px 14px;font-family:var(--font-body);font-size:12px;font-weight:500;cursor:pointer;transition:opacity .15s}
+.note-save{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:5px 14px;font-family:var(--font-body);font-size:12px;font-weight:500;cursor:pointer}
 .note-save:hover{opacity:.85}.note-save.ok{background:#00B894}
-/* BOTOES */
 .btn{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-body);font-size:12px;font-weight:500;padding:5px 13px;border-radius:8px;border:none;cursor:pointer;transition:opacity .15s}
 .btn:hover{opacity:.85}.btn-primary{background:var(--accent);color:#fff}.btn-ghost{background:#f0f0ec;color:var(--muted)}
-/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:500;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
 .modal{background:var(--card);border-radius:14px;padding:1.75rem;width:100%;max-width:520px;box-shadow:0 8px 40px rgba(0,0,0,.12)}
@@ -107,30 +82,10 @@ main{max-width:820px;margin:0 auto;padding:2rem}
 .modal-sub{font-size:13px;color:var(--muted);margin-bottom:1.25rem;line-height:1.5;word-break:break-word}
 .modal label{display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
 .modal-hint{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.5}
-.modal textarea{
-  width:100%;
-  border:1.5px solid var(--border);
-  border-radius:8px;
-  padding:10px;
-  font-family:var(--font-body);
-  font-size:14px;
-  color:var(--text);
-  background:var(--bg);
-  resize:vertical;
-  min-height:140px;
-  line-height:1.7;
-  white-space:pre-wrap;
-  word-break:break-word;
-  overflow-wrap:break-word;
-  pointer-events:all !important;
-  cursor:text !important;
-  -webkit-user-select:text !important;
-  user-select:text !important;
-  display:block;
-}
-.modal textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
-.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:1.25rem}
+.modal textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px;font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--bg);resize:vertical;min-height:140px;line-height:1.7;word-break:break-word;overflow-wrap:break-word;display:block}
+.modal textarea:focus{outline:2px solid var(--accent);border-color:var(--accent)}
 .modal-char{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:1.25rem}
 footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
 footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--text)}
 @media(max-width:600px){main{padding:1rem}.hero{padding:1.5rem 1rem}.page-header{padding:0 1rem}.hero-inner{flex-direction:column;gap:1rem}.ring-wrap{align-self:flex-start}.hero-text h1{font-size:22px}.hero-stats{gap:14px}.hstat-val{font-size:18px}.marco-range{display:none}.todo-top{flex-wrap:wrap;gap:6px}.todo-action{width:100%}.todo-action .btn{width:100%;justify-content:center}}
@@ -140,8 +95,7 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--text
 <div class="lbar" id="lbar"></div>
 <header class="page-header">
   <div class="header-inner">
-    <div class="org-name">Orange Viagens</div>
-    <div class="hd"></div>
+    <div class="org-name">Orange Viagens</div><div class="hd"></div>
     <div class="header-meta">Plano 18 meses · Março 2026</div>
   </div>
 </header>
@@ -192,9 +146,7 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--text
           <div class="mprog-wrap"><div class="mprog-bar" id="bar-m1k"></div></div>
           <span class="marco-cnt" id="cnt-m1k">—</span>
         </div>
-        <ul class="todo-list" id="list-m1k">
-          <li style="padding:1rem 1.25rem;color:#6b6b66;font-size:13px">Carregando...</li>
-        </ul>
+        <ul class="todo-list" id="list-m1k"></ul>
       </div>
       <div class="marco-section">
         <div class="date-banner-ro unset" id="db-m2k">
@@ -211,9 +163,7 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--text
           <div class="mprog-wrap"><div class="mprog-bar" id="bar-m2k"></div></div>
           <span class="marco-cnt" id="cnt-m2k">—</span>
         </div>
-        <ul class="todo-list" id="list-m2k">
-          <li style="padding:1rem 1.25rem;color:#6b6b66;font-size:13px">Carregando...</li>
-        </ul>
+        <ul class="todo-list" id="list-m2k"></ul>
       </div>
       <div class="marco-section">
         <div class="date-banner-ro unset" id="db-m3k">
@@ -230,9 +180,7 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--text
           <div class="mprog-wrap"><div class="mprog-bar" id="bar-m3k"></div></div>
           <span class="marco-cnt" id="cnt-m3k">—</span>
         </div>
-        <ul class="todo-list" id="list-m3k">
-          <li style="padding:1rem 1.25rem;color:#6b6b66;font-size:13px">Carregando...</li>
-        </ul>
+        <ul class="todo-list" id="list-m3k"></ul>
       </div>
       <div class="marco-section">
         <div class="date-banner-ro unset" id="db-m4k">
@@ -249,22 +197,19 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--text
           <div class="mprog-wrap"><div class="mprog-bar" id="bar-m4k"></div></div>
           <span class="marco-cnt" id="cnt-m4k">—</span>
         </div>
-        <ul class="todo-list" id="list-m4k">
-          <li style="padding:1rem 1.25rem;color:#6b6b66;font-size:13px">Carregando...</li>
-        </ul>
+        <ul class="todo-list" id="list-m4k"></ul>
       </div>
 </main>
 <footer>Orange Viagens · Plano confidencial · Março 2026 &nbsp;·&nbsp; <a href="index.html">← Início</a></footer>
 
-<!-- Submit Modal -->
 <div class="modal-overlay" id="submit-modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <h2>Concluir tarefa</h2>
     <div class="modal-sub" id="m-task-text"></div>
     <input type="hidden" id="m-task-id">
     <label for="m-exec">Resumo de execução</label>
-    <p class="modal-hint">Descreva o que foi feito, resultado, evidências. Pode incluir links, dados e qualquer contexto relevante.</p>
-    <textarea id="m-exec" placeholder="Ex: Mapeei todos os 12 processos operacionais. Documento disponível em [link]. Principais gargalos identificados: X, Y, Z..."></textarea>
+    <p class="modal-hint">Descreva o que foi feito, resultado, evidências. Pode incluir links e qualquer contexto relevante.</p>
+    <textarea id="m-exec" placeholder="Ex: Mapeei todos os processos. Link do documento: https://..."></textarea>
     <div class="modal-char" id="m-char">0 caracteres</div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
@@ -274,337 +219,267 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--text
 </div>
 
 <script>
-const SB_URL = 'https://xyxjcbxmedkonyxafurf.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
-const TEAM = {"key": "katharine", "name": "Katharine Casteluci", "role": "Coordenadora de Operações", "initials": "KC", "color": "#00B894", "marcos": [{"id": "m1k", "label": "M1", "fase": "Fundação", "range": "Meses 1–5", "todos": [{"id": "k1", "text": "Mapear todos os processos operacionais (AS-IS)"}, {"id": "k2", "text": "Criar dashboard v1 de SLA, erros e ciclo"}, {"id": "k3", "text": "Estabelecer baseline de KPIs (SLA, erro, custo/booking)"}, {"id": "k4", "text": "Identificar top 5 gargalos operacionais"}, {"id": "k5", "text": "Documentar top 3 processos em playbook"}, {"id": "k6", "text": "Instalar tracking semanal de erros"}, {"id": "k7", "text": "Assumir liderança da rotina diária de Ops"}, {"id": "k8", "text": "Atingir SLA ≥90% e taxa de erro ≤4%"}, {"id": "k9", "text": "Participar do WBR semanal com bloco de 15 min"}]}, {"id": "m2k", "label": "M2", "fase": "Estruturação", "range": "Meses 6–10", "todos": [{"id": "k10", "text": "Implantar pós-mortem (incidentes >R$5k ou >5 clientes)"}, {"id": "k11", "text": "Quality gate ativo (amostra 5% semanal, score ≥80)"}, {"id": "k12", "text": "Liderar automações IA em Ops (assistentes, predição)", "ia": true}, {"id": "k13", "text": "Ops rodou 1 semana completa sem Dhayane"}, {"id": "k14", "text": "SLA ≥92%, erro ≤3%"}, {"id": "k15", "text": "80% de autonomia operacional atingida"}]}, {"id": "m3k", "label": "M3", "fase": "Aceleração", "range": "Meses 11–15", "todos": [{"id": "k16", "text": "SLA ≥94%, erro ≤2,5%"}, {"id": "k17", "text": "Custo/booking reduzido em −15%"}, {"id": "k18", "text": "Autonomia total — Dhayane não precisa intervir no dia a dia"}, {"id": "k19", "text": "Time opera 2 semanas sem Dhayane sem degradação"}, {"id": "k20", "text": "IA em uso ativo na operação (automação, predição de erros)", "ia": true}]}, {"id": "m4k", "label": "M4", "fase": "Escala", "range": "Meses 16–18", "todos": [{"id": "k21", "text": "SLA ≥95%, erro ≤2%"}, {"id": "k22", "text": "Custo/booking −20%"}, {"id": "k23", "text": "GMV/FTE +25%"}, {"id": "k24", "text": "Sistema operacional autônomo consolidado"}, {"id": "k25", "text": "Dashboard v2 com histórico e métricas de IA", "ia": true}]}]};
+const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co', SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
+const TEAM={"key": "katharine", "name": "Katharine Casteluci", "role": "Coordenadora de Operações", "initials": "KC", "color": "#00B894", "marcos": [{"id": "m1k", "label": "M1", "fase": "Fundação", "range": "Meses 1–5", "todos": [{"id": "k1", "text": "Mapear todos os processos operacionais (AS-IS)"}, {"id": "k2", "text": "Criar dashboard v1 de SLA, erros e ciclo"}, {"id": "k3", "text": "Estabelecer baseline de KPIs (SLA, erro, custo/booking)"}, {"id": "k4", "text": "Identificar top 5 gargalos operacionais"}, {"id": "k5", "text": "Documentar top 3 processos em playbook"}, {"id": "k6", "text": "Instalar tracking semanal de erros"}, {"id": "k7", "text": "Assumir liderança da rotina diária de Ops"}, {"id": "k8", "text": "Atingir SLA ≥90% e taxa de erro ≤4%"}, {"id": "k9", "text": "Participar do WBR semanal com bloco de 15 min"}]}, {"id": "m2k", "label": "M2", "fase": "Estruturação", "range": "Meses 6–10", "todos": [{"id": "k10", "text": "Implantar pós-mortem (incidentes >R$5k ou >5 clientes)"}, {"id": "k11", "text": "Quality gate ativo (amostra 5% semanal, score ≥80)"}, {"id": "k12", "text": "Liderar automações IA em Ops (assistentes, predição)", "ia": true}, {"id": "k13", "text": "Ops rodou 1 semana completa sem Dhayane"}, {"id": "k14", "text": "SLA ≥92%, erro ≤3%"}, {"id": "k15", "text": "80% de autonomia operacional atingida"}]}, {"id": "m3k", "label": "M3", "fase": "Aceleração", "range": "Meses 11–15", "todos": [{"id": "k16", "text": "SLA ≥94%, erro ≤2,5%"}, {"id": "k17", "text": "Custo/booking reduzido em −15%"}, {"id": "k18", "text": "Autonomia total — Dhayane não precisa intervir no dia a dia"}, {"id": "k19", "text": "Time opera 2 semanas sem Dhayane sem degradação"}, {"id": "k20", "text": "IA em uso ativo na operação (automação, predição de erros)", "ia": true}]}, {"id": "m4k", "label": "M4", "fase": "Escala", "range": "Meses 16–18", "todos": [{"id": "k21", "text": "SLA ≥95%, erro ≤2%"}, {"id": "k22", "text": "Custo/booking −20%"}, {"id": "k23", "text": "GMV/FTE +25%"}, {"id": "k24", "text": "Sistema operacional autônomo consolidado"}, {"id": "k25", "text": "Dashboard v2 com histórico e métricas de IA", "ia": true}]}]};
 
-// ── State (nunca resetado durante digitação) ─────────────────────────────────
-let state = {};
-let planDates = {};
-let historyCache = {};
-let notesCache = {};
-let isRefreshing = false; // evita re-render enquanto usuário digita
+let state={}, planDates={}, historyCache={}, notesCache={};
 
-// ── API ──────────────────────────────────────────────────────────────────────
-async function sbFetch(path, opts = {}) {
-  const r = await fetch(SB_URL + path, {
+async function sbFetch(path, opts={}) {
+  const r = await fetch(SB_URL+path, {
     ...opts,
-    headers: { apikey: SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', ...(opts.headers || {}) }
+    headers:{apikey:SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json',...(opts.headers||{})}
   });
+  if(!r.ok) throw new Error(r.status+' '+await r.text());
   return r.json();
 }
 
-function loading(on) {
-  const b = document.getElementById('lbar');
-  b.style.width = on ? '70%' : '100%';
-  if (!on) setTimeout(() => b.style.width = '0', 300);
+function loading(on){
+  const b=document.getElementById('lbar');
+  b.style.width=on?'70%':'100%';
+  if(!on) setTimeout(()=>b.style.width='0',300);
 }
 
-// ── Refresh inteligente: não re-renderiza se usuário estiver digitando ────────
-function userIsTyping() {
-  const active = document.activeElement;
-  return active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT');
+function fmtDate(iso){
+  if(!iso) return '';
+  const d=new Date(iso+'T12:00:00');
+  return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+function fmtDT(iso){
+  if(!iso) return '';
+  const d=new Date(iso);
+  return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+function isLate(e){return e?new Date(e+'T23:59:59')<new Date():false;}
+function isNear(e,days=7){
+  if(!e) return false;
+  const diff=(new Date(e+'T23:59:59')-new Date())/(1000*60*60*24);
+  return diff>=0&&diff<=days;
+}
+function daysLeft(e){
+  return e?Math.round((new Date(e+'T23:59:59')-new Date())/(1000*60*60*24)):null;
+}
+function statusLabel(s){
+  return {open:'Aberta',pending:'Aguardando aprovação',approved:'Aprovada',partial:'Feito parcialmente',rejected:'Não aprovado'}[s]||s;
+}
+function badgeClass(s){
+  return {open:'b-open',pending:'b-pending',approved:'b-approved',partial:'b-partial',rejected:'b-rejected'}[s]||'b-open';
 }
 
-async function refresh(force=false) {
-  if (!force && userIsTyping()) return;
-  loading(true);
-
-  // Load state
-  try {
-    const stRows = await sbFetch('/rest/v1/task_states?select=*');
-    state = {};
-    for (const r of (stRows || [])) state[r.task_id] = r;
-  } catch(e) { console.error('state error:', e); }
-
-  // Load plan dates
-  try {
-    const dateRows = await sbFetch('/rest/v1/plan_dates?select=*');
-    planDates = {};
-    for (const r of (dateRows || [])) {
-      if (!planDates[r.team_key]) planDates[r.team_key] = {};
-      planDates[r.team_key][r.marco_id] = r;
-    }
-  } catch(e) { console.error('dates error:', e); }
-
-  // Load notes
-  try {
-    const noteRows = await sbFetch('/rest/v1/task_notes?team_key=eq.' + TEAM.key + '&select=*');
-    for (const r of (noteRows || [])) {
-      const focused = document.activeElement?.id === 'note-ta-' + r.task_id;
-      if (!focused) notesCache[r.task_id] = r;
-    }
-  } catch(e) { console.error('notes error:', e); }
-
-  // Load history
-  try {
-    const ids = Object.keys(state);
-    historyCache = {};
-    if (ids.length) {
-      const rows = await sbFetch('/rest/v1/task_history?task_id=in.(' + ids.join(',') + ')&order=created_at.asc');
-      for (const r of (rows || [])) {
-        if (!historyCache[r.task_id]) historyCache[r.task_id] = [];
-        historyCache[r.task_id].push(r);
-      }
-    }
-  } catch(e) { console.error('history error:', e); }
-
-  loading(false);
-  renderDateBanners(planDates[TEAM.key] || {});
-  renderAll();
-}
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-function fmtDate(iso) {
-  if (!iso) return '';
-  const d = new Date(iso + 'T12:00:00');
-  return d.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'});
-}
-function fmtDT(iso) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  return d.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'2-digit'}) + ' ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
-}
-function isLate(e) { return e ? new Date(e + 'T23:59:59') < new Date() : false; }
-function isNear(e, days=7) {
-  if (!e) return false;
-  const diff = (new Date(e + 'T23:59:59') - new Date()) / (1000*60*60*24);
-  return diff >= 0 && diff <= days;
-}
-function daysLeft(e) {
-  return e ? Math.round((new Date(e + 'T23:59:59') - new Date()) / (1000*60*60*24)) : null;
-}
-function statusLabel(s) {
-  return {open:'Aberta',pending:'Aguardando aprovação',approved:'Aprovada',partial:'Feito parcialmente',rejected:'Não aprovado'}[s] || s;
-}
-function badgeClass(s) {
-  return {open:'b-open',pending:'b-pending',approved:'b-approved',partial:'b-partial',rejected:'b-rejected'}[s] || 'b-open';
-}
-
-// ── Date banners ──────────────────────────────────────────────────────────────
-function renderDateBanners(myDates) {
-  for (const m of TEAM.marcos) {
-    const pd = myDates[m.id];
-    const el = document.getElementById('db-' + m.id);
-    if (!el) continue;
-    if (!pd || (!pd.start_date && !pd.end_date)) {
-      el.className = 'date-banner-ro unset';
-      el.innerHTML = '<span class="db-icon">📅</span><div class="db-content"><div class="db-title">' + m.label + ' — ' + m.fase + '</div><div class="db-dates" style="font-style:italic">Aguardando definição de datas pela gestão</div></div><span class="db-badge unset">Não definido</span>';
+function renderDateBanners(myDates){
+  for(const m of TEAM.marcos){
+    const pd=myDates[m.id];
+    const el=document.getElementById('db-'+m.id);
+    if(!el) continue;
+    if(!pd||(!pd.start_date&&!pd.end_date)){
+      el.className='date-banner-ro unset';
+      el.innerHTML='<span class="db-icon">📅</span><div class="db-content"><div class="db-title">'+m.label+' — '+m.fase+'</div><div class="db-dates" style="font-style:italic">Aguardando definição de datas pela gestão</div></div><span class="db-badge unset">Não definido</span>';
       continue;
     }
-    const late = isLate(pd.end_date), near = !late && isNear(pd.end_date, 7);
-    const cls = late ? 'late' : near ? 'near' : 'ok';
-    const dl = daysLeft(pd.end_date);
-    const badgeTxt = late ? 'Prazo vencido' : near ? 'Vence em breve' : dl !== null ? dl + ' dias restantes' : 'No prazo';
-    el.className = 'date-banner-ro ' + cls;
-    el.innerHTML = '<span class="db-icon">📅</span><div class="db-content"><div class="db-title">' + m.label + ' — ' + m.fase + '</div><div class="db-dates">' +
-      (pd.start_date ? 'Início: <strong>' + fmtDate(pd.start_date) + '</strong>' : '') +
-      (pd.start_date && pd.end_date ? ' · ' : '') +
-      (pd.end_date ? 'Conclusão prevista: <strong>' + fmtDate(pd.end_date) + '</strong>' : '') + '</div>' +
-      (pd.note ? '<div class="db-note">' + pd.note + '</div>' : '') +
-      '</div><span class="db-badge ' + cls + '">' + badgeTxt + '</span>';
+    const late=isLate(pd.end_date), near=!late&&isNear(pd.end_date,7);
+    const cls=late?'late':near?'near':'ok';
+    const dl=daysLeft(pd.end_date);
+    const badgeTxt=late?'Prazo vencido':near?'Vence em breve':dl!==null?dl+' dias restantes':'No prazo';
+    el.className='date-banner-ro '+cls;
+    el.innerHTML='<span class="db-icon">📅</span><div class="db-content"><div class="db-title">'+m.label+' — '+m.fase+'</div><div class="db-dates">'+(pd.start_date?'Início: <strong>'+fmtDate(pd.start_date)+'</strong>':'')+(pd.start_date&&pd.end_date?' · ':'')+(pd.end_date?'Conclusão prevista: <strong>'+fmtDate(pd.end_date)+'</strong>':'')+'</div>'+(pd.note?'<div class="db-note">'+pd.note+'</div>':'')+'</div><span class="db-badge '+cls+'">'+badgeTxt+'</span>';
   }
 }
 
-// ── Thread ────────────────────────────────────────────────────────────────────
-function renderThread(taskId) {
-  const entries = historyCache[taskId] || [];
-  if (!entries.length) return '';
-  const labels = {submitted:'Enviado',approved:'Dhayane aprovou',partial:'Dhayane: feito parcialmente',rejected:'Dhayane: não aprovado'};
-  return '<div class="thread">' + entries.map(e =>
-    '<div class="thread-entry te-' + e.action + '">' +
-    '<div class="te-who ' + e.action + '">' + (labels[e.action] || e.action) + '</div>' +
-    '<div style="white-space:pre-wrap;word-break:break-word">' + e.message + '</div>' +
-    '<div class="te-date">' + fmtDT(e.created_at) + '</div></div>'
-  ).join('') + '</div>';
+function renderThread(taskId){
+  const entries=historyCache[taskId]||[];
+  if(!entries.length) return '';
+  const labels={submitted:'Enviado',approved:'Dhayane aprovou',partial:'Dhayane: feito parcialmente',rejected:'Dhayane: não aprovado'};
+  return '<div class="thread">'+entries.map(e=>'<div class="thread-entry te-'+e.action+'"><div class="te-who '+e.action+'">'+(labels[e.action]||e.action)+'</div><div style="white-space:pre-wrap;word-break:break-word">'+e.message+'</div><div class="te-date">'+fmtDT(e.created_at)+'</div></div>').join('')+'</div>';
 }
 
-// ── Notas ─────────────────────────────────────────────────────────────────────
-function toggleNote(taskId) {
-  const editor = document.getElementById('note-editor-' + taskId);
-  const btn    = document.getElementById('note-btn-' + taskId);
-  if (!editor || !btn) return;
-  const opening = !editor.classList.contains('open');
-  editor.classList.toggle('open', opening);
-  btn.classList.toggle('open', opening);
-  if (opening) {
-    // Foca no textarea quando abre
-    setTimeout(() => {
-      const ta = document.getElementById('note-ta-' + taskId);
-      if (ta) ta.focus();
-    }, 50);
-  }
+function toggleNote(taskId){
+  const editor=document.getElementById('note-editor-'+taskId);
+  const btn=document.getElementById('note-btn-'+taskId);
+  if(!editor||!btn) return;
+  const opening=!editor.classList.contains('open');
+  editor.classList.toggle('open',opening);
+  btn.classList.toggle('open',opening);
+  if(opening) setTimeout(()=>{const ta=document.getElementById('note-ta-'+taskId);if(ta)ta.focus();},50);
 }
 
-async function saveNote(taskId) {
-  const ta = document.getElementById('note-ta-' + taskId);
-  if (!ta) return;
-  const val = ta.value.trim();
-  if (!val) return;
-  const saveBtn = document.getElementById('note-save-' + taskId);
-  const now = new Date().toISOString();
-  if (saveBtn) { saveBtn.textContent = 'Salvando...'; saveBtn.disabled = true; }
-  try {
-    await sbFetch('/rest/v1/task_notes', {
-      method: 'POST',
-      headers: { Prefer: 'resolution=merge-duplicates' },
-      body: JSON.stringify({ task_id: taskId, team_key: TEAM.key, note: val, updated_at: now })
-    });
-    // Atualiza cache local sem re-render
-    notesCache[taskId] = { task_id: taskId, note: val, updated_at: now };
-    // Atualiza timestamp e preview inline
-    const tsEl = document.getElementById('note-ts-' + taskId);
-    if (tsEl) tsEl.textContent = 'Salvo em ' + fmtDT(now);
-    const previewEl = document.getElementById('note-preview-' + taskId);
-    if (previewEl) { previewEl.textContent = val; previewEl.style.display = ''; }
-    const btnLabel = document.getElementById('note-label-' + taskId);
-    if (btnLabel) btnLabel.textContent = 'Anotação';
-    if (saveBtn) { saveBtn.textContent = '✓ Salvo'; saveBtn.classList.add('ok'); saveBtn.disabled = false; }
-    setTimeout(() => { if (saveBtn) { saveBtn.textContent = 'Salvar'; saveBtn.classList.remove('ok'); } }, 2000);
-  } catch(e) {
+async function saveNote(taskId){
+  const ta=document.getElementById('note-ta-'+taskId);
+  if(!ta) return;
+  const val=ta.value.trim();
+  if(!val) return;
+  const btn=document.getElementById('note-save-'+taskId);
+  const now=new Date().toISOString();
+  if(btn){btn.textContent='Salvando...';btn.disabled=true;}
+  try{
+    await sbFetch('/rest/v1/task_notes',{method:'POST',headers:{Prefer:'resolution=merge-duplicates'},body:JSON.stringify({task_id:taskId,team_key:TEAM.key,note:val,updated_at:now})});
+    notesCache[taskId]={task_id:taskId,note:val,updated_at:now};
+    const tsEl=document.getElementById('note-ts-'+taskId);
+    if(tsEl) tsEl.textContent='Salvo em '+fmtDT(now);
+    const previewEl=document.getElementById('note-preview-'+taskId);
+    if(previewEl){previewEl.textContent=val;previewEl.style.display='';}
+    const labelEl=document.getElementById('note-label-'+taskId);
+    if(labelEl) labelEl.textContent='Anotação';
+    if(btn){btn.textContent='✓ Salvo';btn.classList.add('ok');btn.disabled=false;}
+    setTimeout(()=>{if(btn){btn.textContent='Salvar';btn.classList.remove('ok');}},2000);
+  }catch(e){
     console.error(e);
-    if (saveBtn) { saveBtn.textContent = 'Salvar'; saveBtn.disabled = false; }
+    if(btn){btn.textContent='Salvar';btn.disabled=false;}
   }
 }
 
-function buildNoteHtml(taskId) {
-  const n = notesCache[taskId];
-  const val = n ? n.note : '';
-  const ts  = n ? 'Salvo em ' + fmtDT(n.updated_at) : '';
-  const hasNote = !!val;
-  return '<div class="note-section">' +
-    '<button class="note-toggle-btn' + (hasNote ? ' open' : '') + '" id="note-btn-' + taskId + '" onclick="toggleNote('' + taskId + '')">' +
-    '<span class="note-arrow">▶</span>' +
-    '<span id="note-label-' + taskId + '">' + (hasNote ? 'Anotação' : 'Adicionar anotação') + '</span>' +
-    '</button>' +
-    '<div id="note-preview-' + taskId + '" class="note-preview-text"' + (hasNote ? '' : ' style="display:none"') + '>' + (val || '') + '</div>' +
-    '<div class="note-editor' + (hasNote ? ' open' : '') + '" id="note-editor-' + taskId + '">' +
-    '<textarea class="note-textarea" id="note-ta-' + taskId + '" placeholder="Escreva suas observações, andamento, contexto, pendências, links... Salve quantas vezes quiser antes de concluir.">' + val + '</textarea>' +
-    '<div class="note-footer">' +
-    '<span class="note-ts" id="note-ts-' + taskId + '">' + ts + '</span>' +
-    '<button class="note-save" id="note-save-' + taskId + '" onclick="saveNote('' + taskId + '')">Salvar</button>' +
+function buildNoteHtml(taskId){
+  const n=notesCache[taskId];
+  const val=n?n.note:'';
+  const ts=n?'Salvo em '+fmtDT(n.updated_at):'';
+  const hasNote=!!val;
+  return '<div class="note-section">'+
+    '<button class="note-toggle-btn'+(hasNote?' open':'')+'" id="note-btn-'+taskId+'" onclick="toggleNote(''+taskId+'')">'+
+    '<span class="note-arrow">▶</span>'+
+    '<span id="note-label-'+taskId+'">'+(hasNote?'Anotação':'Adicionar anotação')+'</span>'+
+    '</button>'+
+    '<div id="note-preview-'+taskId+'" class="note-preview-text"'+(hasNote?'':' style="display:none"')+'>'+(val||'')+'</div>'+
+    '<div class="note-editor'+(hasNote?' open':'')+'" id="note-editor-'+taskId+'">'+
+    '<textarea class="note-textarea" id="note-ta-'+taskId+'" placeholder="Escreva suas observações, andamento, contexto, links... Salve quantas vezes quiser antes de concluir.">'+val+'</textarea>'+
+    '<div class="note-footer">'+
+    '<span class="note-ts" id="note-ts-'+taskId+'">'+ts+'</span>'+
+    '<button class="note-save" id="note-save-'+taskId+'" onclick="saveNote(''+taskId+'')">Salvar</button>'+
     '</div></div></div>';
 }
 
-// ── Render ────────────────────────────────────────────────────────────────────
-function renderTodoItem(t) {
-  const ts = state[t.id] || {status: 'open'};
-  const ia = t.ia ? '<span class="ia-tag">IA</span>' : '';
-  const canSubmit = ts.status === 'open' || ts.status === 'partial' || ts.status === 'rejected';
-  const btnLabel = ts.status === 'open' ? 'Concluir' : 'Reenviar';
-  const safeText = t.text.replace(/\/g,'\\').replace(/'/g,"\'");
-  const action = canSubmit
-    ? '<div class="todo-action"><button class="btn btn-primary" onclick="openModal('' + t.id + '','' + safeText + '')">' + btnLabel + '</button></div>'
-    : '';
-  return '<li class="todo-item">' +
-    '<div class="todo-top">' +
-    '<span class="badge ' + badgeClass(ts.status) + '">' + statusLabel(ts.status) + '</span>' +
-    '<div class="todo-body">' +
-    '<span class="todo-text' + (ts.status === 'approved' ? ' done' : '') + '">' + t.text + ia + '</span>' +
-    renderThread(t.id) +
-    '</div>' + action +
-    '</div>' +
-    buildNoteHtml(t.id) +
+function renderTodoItem(t){
+  const ts=state[t.id]||{status:'open'};
+  const ia=t.ia?'<span class="ia-tag">IA</span>':'';
+  const canSubmit=ts.status==='open'||ts.status==='partial'||ts.status==='rejected';
+  const btnLabel=ts.status==='open'?'Concluir':'Reenviar';
+  const safeId=t.id.replace(/'/g,"\'");
+  const safeText=t.text.replace(/\/g,'\\').replace(/'/g,"\'");
+  const action=canSubmit?'<div class="todo-action"><button class="btn btn-primary" onclick="openModal(''+safeId+'',''+safeText+'')">'+btnLabel+'</button></div>':'';
+  return '<li class="todo-item">'+
+    '<div class="todo-top">'+
+    '<span class="badge '+badgeClass(ts.status)+'">'+statusLabel(ts.status)+'</span>'+
+    '<div class="todo-body"><span class="todo-text'+(ts.status==='approved'?' done':'')+'">'+''+t.text+ia+'</span>'+renderThread(t.id)+'</div>'+
+    action+'</div>'+
+    buildNoteHtml(t.id)+
     '</li>';
 }
 
-function renderAll() {
-  let totalAll = 0, apprAll = 0, pendAll = 0, partAll = 0;
-  for (const m of TEAM.marcos) {
-    let mAppr = 0;
-    for (const t of m.todos) {
+function renderAll(){
+  let totalAll=0,apprAll=0,pendAll=0,partAll=0;
+  for(const m of TEAM.marcos){
+    let mAppr=0;
+    for(const t of m.todos){
       totalAll++;
-      const st = (state[t.id] || {}).status || 'open';
-      if (st === 'approved') { apprAll++; mAppr++; }
-      if (st === 'pending') pendAll++;
-      if (st === 'partial') partAll++;
+      const st=(state[t.id]||{}).status||'open';
+      if(st==='approved'){apprAll++;mAppr++;}
+      if(st==='pending') pendAll++;
+      if(st==='partial') partAll++;
     }
-    const pct = m.todos.length ? mAppr / m.todos.length : 0;
-    const bar = document.getElementById('bar-' + m.id);
-    const cnt = document.getElementById('cnt-' + m.id);
-    if (bar) bar.style.width = (pct * 100) + '%';
-    if (cnt) cnt.textContent = mAppr + '/' + m.todos.length;
-    const list = document.getElementById('list-' + m.id);
-    if (list) list.innerHTML = m.todos.map(renderTodoItem).join('');
+    const pct=m.todos.length?mAppr/m.todos.length:0;
+    const bar=document.getElementById('bar-'+m.id);
+    const cnt=document.getElementById('cnt-'+m.id);
+    if(bar) bar.style.width=(pct*100)+'%';
+    if(cnt) cnt.textContent=mAppr+'/'+m.todos.length;
+    const list=document.getElementById('list-'+m.id);
+    if(list) list.innerHTML=m.todos.map(renderTodoItem).join('');
   }
-  document.getElementById('s-appr').textContent = apprAll;
-  document.getElementById('s-pend').textContent = pendAll;
-  document.getElementById('s-part').textContent = partAll;
-  document.getElementById('s-total').textContent = totalAll;
-  const circ = 175.9;
-  const ring = document.getElementById('ring');
-  if (ring) ring.setAttribute('stroke-dashoffset', (circ * (1 - (totalAll ? apprAll / totalAll : 0))).toFixed(1));
+  document.getElementById('s-appr').textContent=apprAll;
+  document.getElementById('s-pend').textContent=pendAll;
+  document.getElementById('s-part').textContent=partAll;
+  document.getElementById('s-total').textContent=totalAll;
+  const circ=175.9, ring=document.getElementById('ring');
+  if(ring) ring.setAttribute('stroke-dashoffset',(circ*(1-(totalAll?apprAll/totalAll:0))).toFixed(1));
 }
 
-// ── Modal de conclusão ────────────────────────────────────────────────────────
-function openModal(id, text) {
-  document.getElementById('m-task-id').value = id;
-  document.getElementById('m-task-text').textContent = text;
-  const ta = document.getElementById('m-exec');
-  ta.value = '';
-  ta.style.borderColor = '';
-  document.getElementById('m-char').textContent = '0 caracteres';
+async function loadAll(){
+  loading(true);
+  // Load sequentially — each in its own try/catch so one failure doesn't stop the rest
+  try{
+    const rows=await sbFetch('/rest/v1/task_states?select=*');
+    state={};
+    for(const r of(rows||[])) state[r.task_id]=r;
+  }catch(e){console.error('task_states:',e);}
+
+  try{
+    const rows=await sbFetch('/rest/v1/plan_dates?select=*');
+    planDates={};
+    for(const r of(rows||[])){
+      if(!planDates[r.team_key]) planDates[r.team_key]={};
+      planDates[r.team_key][r.marco_id]=r;
+    }
+  }catch(e){console.error('plan_dates:',e);}
+
+  try{
+    const rows=await sbFetch('/rest/v1/task_notes?team_key=eq.'+TEAM.key+'&select=*');
+    for(const r of(rows||[])){
+      if(document.activeElement?.id!=='note-ta-'+r.task_id)
+        notesCache[r.task_id]=r;
+    }
+  }catch(e){console.error('task_notes:',e);}
+
+  try{
+    const ids=Object.keys(state);
+    historyCache={};
+    if(ids.length){
+      const rows=await sbFetch('/rest/v1/task_history?task_id=in.('+ids.join(',')+')'+'&order=created_at.asc');
+      for(const r of(rows||[])){
+        if(!historyCache[r.task_id]) historyCache[r.task_id]=[];
+        historyCache[r.task_id].push(r);
+      }
+    }
+  }catch(e){console.error('task_history:',e);}
+
+  loading(false);
+  renderDateBanners(planDates[TEAM.key]||{});
+  renderAll();
+}
+
+function openModal(id,text){
+  document.getElementById('m-task-id').value=id;
+  document.getElementById('m-task-text').textContent=text;
+  const ta=document.getElementById('m-exec');
+  ta.value='';ta.style.outline='';
+  document.getElementById('m-char').textContent='0 caracteres';
   document.getElementById('submit-modal').classList.add('open');
-  setTimeout(() => ta.focus(), 80);
+  setTimeout(()=>ta.focus(),80);
 }
+function closeModal(){document.getElementById('submit-modal').classList.remove('open');}
 
-function closeModal() {
-  document.getElementById('submit-modal').classList.remove('open');
-}
-
-// Contador de caracteres no modal
-document.addEventListener('DOMContentLoaded', () => {
-  const ta = document.getElementById('m-exec');
-  if (ta) {
-    ta.addEventListener('input', () => {
-      const n = ta.value.trim().length;
-      const el = document.getElementById('m-char');
-      if (el) el.textContent = n.toLocaleString('pt-BR') + ' caractere' + (n !== 1 ? 's' : '');
-    });
-  }
+document.getElementById('m-exec').addEventListener('input',function(){
+  const n=this.value.trim().length;
+  const el=document.getElementById('m-char');
+  if(el) el.textContent=n.toLocaleString('pt-BR')+' caractere'+(n!==1?'s':'');
 });
 
-async function submitTask() {
-  const id   = document.getElementById('m-task-id').value;
-  const ta   = document.getElementById('m-exec');
-  const exec = ta.value.trim();
-  if (!exec) {
-    ta.style.borderColor = '#D63031';
-    ta.focus();
-    return;
-  }
-  const btn = document.getElementById('submit-btn');
-  btn.textContent = 'Enviando...';
-  btn.disabled = true;
+async function submitTask(){
+  const id=document.getElementById('m-task-id').value;
+  const ta=document.getElementById('m-exec');
+  const exec=ta.value.trim();
+  if(!exec){ta.style.outline='2px solid #D63031';ta.focus();return;}
+  const btn=document.getElementById('submit-btn');
+  btn.textContent='Enviando...';btn.disabled=true;
   loading(true);
-  try {
-    const now = new Date().toISOString();
-    await sbFetch('/rest/v1/task_states', {
-      method: 'POST',
-      headers: { Prefer: 'resolution=merge-duplicates' },
-      body: JSON.stringify({ task_id: id, status: 'pending', submitted_by: TEAM.key, submitted_at: now, execution: exec, reviewed_at: null, review_comment: null, updated_at: now })
-    });
-    await sbFetch('/rest/v1/task_history', {
-      method: 'POST',
-      body: JSON.stringify({ task_id: id, action: 'submitted', actor: TEAM.key, message: exec, created_at: now })
-    });
+  try{
+    const now=new Date().toISOString();
+    await sbFetch('/rest/v1/task_states',{method:'POST',headers:{Prefer:'resolution=merge-duplicates'},body:JSON.stringify({task_id:id,status:'pending',submitted_by:TEAM.key,submitted_at:now,execution:exec,reviewed_at:null,review_comment:null,updated_at:now})});
+    await sbFetch('/rest/v1/task_history',{method:'POST',body:JSON.stringify({task_id:id,action:'submitted',actor:TEAM.key,message:exec,created_at:now})});
     closeModal();
-    await refresh();
-  } catch(e) {
+    await loadAll();
+  }catch(e){
     console.error(e);
     alert('Erro ao enviar. Verifique sua conexão e tente novamente.');
-  } finally {
-    btn.textContent = 'Enviar para aprovação';
-    btn.disabled = false;
+  }finally{
+    btn.textContent='Enviar para aprovação';btn.disabled=false;
     loading(false);
   }
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
 
-// Carrega dados na inicialização (forçado) e depois a cada 20s
-refresh(true);
-setInterval(() => refresh(false), 20000);
+// Carrega na inicialização e atualiza a cada 20s sem interromper digitação
+loadAll();
+setInterval(()=>{
+  if(document.activeElement?.tagName!=='TEXTAREA'&&document.activeElement?.tagName!=='INPUT')
+    loadAll();
+},20000);
 </script>
 </body>
 </html>
