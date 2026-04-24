@@ -295,29 +295,37 @@ function userIsTyping() {
 }
 
 async function refresh(force=false) {
-  if (!force && userIsTyping()) return; // não interrompe digitação
+  if (!force && userIsTyping()) return;
   loading(true);
+
+  // Load state
   try {
-    const [stRows, dateRows, noteRows] = await Promise.all([
-      sbFetch('/rest/v1/task_states?select=*'),
-      sbFetch('/rest/v1/plan_dates?select=*'),
-      sbFetch('/rest/v1/task_notes?team_key=eq.' + TEAM.key + '&select=*')
-    ]);
+    const stRows = await sbFetch('/rest/v1/task_states?select=*');
     state = {};
     for (const r of (stRows || [])) state[r.task_id] = r;
+  } catch(e) { console.error('state error:', e); }
+
+  // Load plan dates
+  try {
+    const dateRows = await sbFetch('/rest/v1/plan_dates?select=*');
     planDates = {};
     for (const r of (dateRows || [])) {
       if (!planDates[r.team_key]) planDates[r.team_key] = {};
       planDates[r.team_key][r.marco_id] = r;
     }
-    // Só atualiza notesCache para tarefas sem editor aberto
+  } catch(e) { console.error('dates error:', e); }
+
+  // Load notes
+  try {
+    const noteRows = await sbFetch('/rest/v1/task_notes?team_key=eq.' + TEAM.key + '&select=*');
     for (const r of (noteRows || [])) {
-      const editorOpen = document.getElementById('note-editor-' + r.task_id)?.classList.contains('open');
       const focused = document.activeElement?.id === 'note-ta-' + r.task_id;
-      if (!editorOpen || !focused) {
-        notesCache[r.task_id] = r;
-      }
+      if (!focused) notesCache[r.task_id] = r;
     }
+  } catch(e) { console.error('notes error:', e); }
+
+  // Load history
+  try {
     const ids = Object.keys(state);
     historyCache = {};
     if (ids.length) {
@@ -327,7 +335,8 @@ async function refresh(force=false) {
         historyCache[r.task_id].push(r);
       }
     }
-  } catch(e) { console.error(e); }
+  } catch(e) { console.error('history error:', e); }
+
   loading(false);
   renderDateBanners(planDates[TEAM.key] || {});
   renderAll();
