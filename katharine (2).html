@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Katharine Casteluci — Orange Viagens</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--c:#00B894;--cl:#e6faf6;--amber:#e6a817;--red:#e17055;--bg:#f5f4f1;--w:#fff;--txt:#1a1a1a;--muted:#888;--border:#e8e5e0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);}
+.ph{background:var(--w);border-bottom:1px solid var(--border);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.ph-org{font-family:'DM Serif Display',serif;font-size:1.1rem;}
+.ph-meta{font-size:12px;color:var(--muted);}
+.hero{background:var(--w);border-bottom:1px solid var(--border);padding:2rem;}
+.hero-in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.av{width:64px;height:64px;border-radius:50%;background:var(--c);color:#fff;font-size:1.3rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hero-txt h1{font-family:'DM Serif Display',serif;font-size:1.8rem;}
+.hero-txt .role{color:var(--muted);font-size:.9rem;margin-top:2px;}
+.hstats{display:flex;gap:1.5rem;margin-top:.75rem;flex-wrap:wrap;}
+.hv{font-size:1.3rem;font-weight:600;color:var(--c);}
+.hv.am{color:var(--amber);} .hv.rd{color:var(--red);}
+.hl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.ring-w{margin-left:auto;position:relative;flex-shrink:0;}
+.ring-lbl{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
+main{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
+.banner{background:var(--cl);border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:#333;display:flex;gap:8px;align-items:flex-start;}
+.marco-hdr{background:var(--w);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-top:1.5rem;flex-wrap:wrap;}
+.marco-pill{background:var(--c);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.marco-dates{font-size:12px;color:var(--muted);}
+.marco-bar-wrap{flex:1;background:#eee;border-radius:4px;height:6px;min-width:60px;}
+.marco-bar{height:6px;background:var(--c);border-radius:4px;width:0%;transition:width .4s;}
+.marco-cnt{font-size:12px;color:var(--muted);white-space:nowrap;}
+.marco-sub{font-size:11px;color:var(--muted);background:#fafafa;border-left:1px solid var(--border);border-right:1px solid var(--border);padding:4px 16px;}
+.tasks-block{background:var(--w);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;}
+.task-block{border-bottom:1px solid var(--border);}
+.task-block:last-child{border-bottom:none;}
+.task-row{display:flex;align-items:center;padding:12px 16px;gap:10px;}
+.task-left{flex:1;display:flex;align-items:center;gap:10px;min-width:0;}
+.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;background:#f0f0f0;color:var(--muted);flex-shrink:0;white-space:nowrap;}
+.chip.aprovada{background:#dcfff6;color:#00795e;}
+.chip.aguardando{background:#fff7e0;color:#8a6000;}
+.task-text{font-size:14px;overflow:hidden;text-overflow:ellipsis;}
+.ia-badge{background:#ede9ff;color:#5B21B6;font-size:10px;font-weight:600;padding:1px 6px;border-radius:8px;margin-right:4px;}
+.btn-concluir{background:var(--c);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.btn-concluir:disabled{background:#ccc;cursor:default;}
+.mgr-obs{display:none;margin:0 16px 8px;padding:10px 14px;background:linear-gradient(135deg,#fff9f0,#fffdf7);border:1px solid #f0d8a0;border-left:3px solid #e6a817;border-radius:8px;}
+.mgr-obs.on{display:block;}
+.mgr-obs-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.mgr-av{width:22px;height:22px;border-radius:50%;background:#6C5CE7;color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.mgr-lbl{font-size:11px;font-weight:600;color:#7a5c00;}
+.mgr-txt{font-size:13px;color:#4a3a00;line-height:1.55;white-space:pre-wrap;}
+.note-wrap{}
+.note-toggle{padding:8px 16px;font-size:12px;color:var(--c);cursor:pointer;user-select:none;}
+.note-editor{display:none;padding:0 16px 12px;}
+.note-editor.open{display:block;}
+.note-prev{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:6px;}
+.note-editor textarea{width:100%;min-height:80px;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
+.note-editor textarea:focus{border-color:var(--c);}
+.note-foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+.note-ts{font-size:11px;color:var(--muted);}
+.btn-save-note{background:transparent;border:1px solid var(--c);color:var(--c);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;}
+.modal-ov.open{display:flex;}
+.modal{background:var(--w);border-radius:14px;padding:2rem;width:90%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.modal h2{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:.5rem;}
+.modal-task{font-size:13px;color:var(--muted);margin-bottom:1rem;padding:10px;background:var(--bg);border-radius:6px;}
+.modal label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;}
+.modal textarea{width:100%;min-height:100px;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
+.modal textarea:focus{border-color:var(--c);}
+.modal-acts{display:flex;gap:10px;justify-content:flex-end;margin-top:1rem;}
+.btn-cancel{background:transparent;border:1px solid var(--border);padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;}
+.btn-submit{background:var(--c);color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;}
+.btn-submit:disabled{background:#ccc;cursor:default;}
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);}
+footer a{color:var(--c);text-decoration:none;}
+@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:6px;}}
+</style>
+</head>
+<body>
+<header class="ph"><div class="ph-org">Orange Viagens</div><div class="ph-meta">Plano 18 meses · Março 2026</div></header>
+<div class="hero"><div class="hero-in">
+  <div class="av">KC</div>
+  <div class="hero-txt">
+    <h1>Katharine Casteluci</h1>
+    <div class="role">Coordenadora de Operações</div>
+    <div class="hstats">
+      <div><div class="hv" id="sd">—</div><div class="hl">Aprovadas</div></div>
+      <div><div class="hv am" id="sp">—</div><div class="hl">Aguardando</div></div>
+      <div><div class="hv rd" id="sx">—</div><div class="hl">Parciais</div></div>
+      <div><div class="hv" id="st">—</div><div class="hl">Total</div></div>
+    </div>
+  </div>
+  <div class="ring-w">
+    <svg width="70" height="70" viewBox="0 0 72 72">
+      <circle cx="36" cy="36" r="28" fill="none" stroke="#e6faf6" stroke-width="6"/>
+      <circle id="ring" cx="36" cy="36" r="28" fill="none" stroke="#00B894" stroke-width="6"
+        stroke-linecap="round" stroke-dasharray="175.9" stroke-dashoffset="175.9"
+        transform="rotate(-90 36 36)" style="transition:stroke-dashoffset .5s"/>
+    </svg>
+    <div class="ring-lbl">GERAL</div>
+  </div>
+</div></div>
+<main>
+  <div class="banner">
+    <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#00B894" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#00B894" stroke-width="2" stroke-linecap="round"/></svg>
+    Use <strong>&nbsp;Adicionar anotação&nbsp;</strong> para registrar observações a qualquer momento. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
+  </div>
+  
+    <div class="marco-hdr">
+      <span class="marco-pill">M1 — Fundação</span>
+      <span class="marco-dates" id="md-m1k"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m1k"></div></div>
+      <span class="marco-cnt" id="mc-m1k">0/9</span>
+    </div>
+    <div class="marco-sub">M1 — Fundação · Meses 1–5</div>
+    <div class="tasks-block">
+        <div class="task-block" id="tb-k1">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k1">Aberta</span>
+              <span class="task-text">Mapear todos os processos operacionais (AS-IS)</span>
+            </div>
+            <button class="btn-concluir" id="btn-k1" onclick="openModal('k1',`Mapear todos os processos operacionais (AS-IS)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k1"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k1')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k1">
+              <div class="note-prev" id="np-k1"></div>
+              <textarea id="nta-k1" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k1"></span>
+                <button class="btn-save-note" onclick="saveNote('k1')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k2">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k2">Aberta</span>
+              <span class="task-text">Criar dashboard v1 de SLA, erros e ciclo</span>
+            </div>
+            <button class="btn-concluir" id="btn-k2" onclick="openModal('k2',`Criar dashboard v1 de SLA, erros e ciclo`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k2"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k2')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k2">
+              <div class="note-prev" id="np-k2"></div>
+              <textarea id="nta-k2" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k2"></span>
+                <button class="btn-save-note" onclick="saveNote('k2')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k3">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k3">Aberta</span>
+              <span class="task-text">Estabelecer baseline de KPIs (SLA, erro, custo/booking)</span>
+            </div>
+            <button class="btn-concluir" id="btn-k3" onclick="openModal('k3',`Estabelecer baseline de KPIs (SLA, erro, custo/booking)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k3"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k3')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k3">
+              <div class="note-prev" id="np-k3"></div>
+              <textarea id="nta-k3" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k3"></span>
+                <button class="btn-save-note" onclick="saveNote('k3')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k4">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k4">Aberta</span>
+              <span class="task-text">Identificar top 5 gargalos operacionais</span>
+            </div>
+            <button class="btn-concluir" id="btn-k4" onclick="openModal('k4',`Identificar top 5 gargalos operacionais`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k4"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k4')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k4">
+              <div class="note-prev" id="np-k4"></div>
+              <textarea id="nta-k4" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k4"></span>
+                <button class="btn-save-note" onclick="saveNote('k4')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k5">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k5">Aberta</span>
+              <span class="task-text">Documentar top 3 processos em playbook</span>
+            </div>
+            <button class="btn-concluir" id="btn-k5" onclick="openModal('k5',`Documentar top 3 processos em playbook`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k5"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k5')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k5">
+              <div class="note-prev" id="np-k5"></div>
+              <textarea id="nta-k5" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k5"></span>
+                <button class="btn-save-note" onclick="saveNote('k5')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k6">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k6">Aberta</span>
+              <span class="task-text">Instalar tracking semanal de erros</span>
+            </div>
+            <button class="btn-concluir" id="btn-k6" onclick="openModal('k6',`Instalar tracking semanal de erros`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k6"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k6')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k6">
+              <div class="note-prev" id="np-k6"></div>
+              <textarea id="nta-k6" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k6"></span>
+                <button class="btn-save-note" onclick="saveNote('k6')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k7">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k7">Aberta</span>
+              <span class="task-text">Assumir liderança da rotina diária de Ops</span>
+            </div>
+            <button class="btn-concluir" id="btn-k7" onclick="openModal('k7',`Assumir liderança da rotina diária de Ops`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k7"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k7')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k7">
+              <div class="note-prev" id="np-k7"></div>
+              <textarea id="nta-k7" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k7"></span>
+                <button class="btn-save-note" onclick="saveNote('k7')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k8">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k8">Aberta</span>
+              <span class="task-text">Atingir SLA ≥90% e taxa de erro ≤4%</span>
+            </div>
+            <button class="btn-concluir" id="btn-k8" onclick="openModal('k8',`Atingir SLA ≥90% e taxa de erro ≤4%`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k8"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k8')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k8">
+              <div class="note-prev" id="np-k8"></div>
+              <textarea id="nta-k8" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k8"></span>
+                <button class="btn-save-note" onclick="saveNote('k8')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k9">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k9">Aberta</span>
+              <span class="task-text">Participar do WBR semanal com bloco de 15 min</span>
+            </div>
+            <button class="btn-concluir" id="btn-k9" onclick="openModal('k9',`Participar do WBR semanal com bloco de 15 min`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k9"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k9')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k9">
+              <div class="note-prev" id="np-k9"></div>
+              <textarea id="nta-k9" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k9"></span>
+                <button class="btn-save-note" onclick="saveNote('k9')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div></div>
+    <div class="marco-hdr">
+      <span class="marco-pill">M2 — Estruturação</span>
+      <span class="marco-dates" id="md-m2k"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m2k"></div></div>
+      <span class="marco-cnt" id="mc-m2k">0/6</span>
+    </div>
+    <div class="marco-sub">M2 — Estruturação · Meses 6–10</div>
+    <div class="tasks-block">
+        <div class="task-block" id="tb-k10">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k10">Aberta</span>
+              <span class="task-text">Implantar pós-mortem (incidentes >R$5k ou >5 clientes)</span>
+            </div>
+            <button class="btn-concluir" id="btn-k10" onclick="openModal('k10',`Implantar pós-mortem (incidentes >R$5k ou >5 clientes)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k10"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k10')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k10">
+              <div class="note-prev" id="np-k10"></div>
+              <textarea id="nta-k10" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k10"></span>
+                <button class="btn-save-note" onclick="saveNote('k10')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k11">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k11">Aberta</span>
+              <span class="task-text">Quality gate ativo (amostra 5% semanal, score ≥80)</span>
+            </div>
+            <button class="btn-concluir" id="btn-k11" onclick="openModal('k11',`Quality gate ativo (amostra 5% semanal, score ≥80)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k11"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k11')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k11">
+              <div class="note-prev" id="np-k11"></div>
+              <textarea id="nta-k11" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k11"></span>
+                <button class="btn-save-note" onclick="saveNote('k11')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k12">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k12">Aberta</span>
+              <span class="task-text"><span class="ia-badge">IA</span>Liderar automações IA em Ops (assistentes, predição)</span>
+            </div>
+            <button class="btn-concluir" id="btn-k12" onclick="openModal('k12',`Liderar automações IA em Ops (assistentes, predição)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k12"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k12')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k12">
+              <div class="note-prev" id="np-k12"></div>
+              <textarea id="nta-k12" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k12"></span>
+                <button class="btn-save-note" onclick="saveNote('k12')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k13">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k13">Aberta</span>
+              <span class="task-text">Ops rodou 1 semana completa sem Dhayane</span>
+            </div>
+            <button class="btn-concluir" id="btn-k13" onclick="openModal('k13',`Ops rodou 1 semana completa sem Dhayane`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k13"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k13')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k13">
+              <div class="note-prev" id="np-k13"></div>
+              <textarea id="nta-k13" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k13"></span>
+                <button class="btn-save-note" onclick="saveNote('k13')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k14">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k14">Aberta</span>
+              <span class="task-text">SLA ≥92%, erro ≤3%</span>
+            </div>
+            <button class="btn-concluir" id="btn-k14" onclick="openModal('k14',`SLA ≥92%, erro ≤3%`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k14"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k14')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k14">
+              <div class="note-prev" id="np-k14"></div>
+              <textarea id="nta-k14" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k14"></span>
+                <button class="btn-save-note" onclick="saveNote('k14')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k15">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k15">Aberta</span>
+              <span class="task-text">80% de autonomia operacional atingida</span>
+            </div>
+            <button class="btn-concluir" id="btn-k15" onclick="openModal('k15',`80% de autonomia operacional atingida`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k15"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k15')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k15">
+              <div class="note-prev" id="np-k15"></div>
+              <textarea id="nta-k15" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k15"></span>
+                <button class="btn-save-note" onclick="saveNote('k15')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div></div>
+    <div class="marco-hdr">
+      <span class="marco-pill">M3 — Aceleração</span>
+      <span class="marco-dates" id="md-m3k"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m3k"></div></div>
+      <span class="marco-cnt" id="mc-m3k">0/5</span>
+    </div>
+    <div class="marco-sub">M3 — Aceleração · Meses 11–15</div>
+    <div class="tasks-block">
+        <div class="task-block" id="tb-k16">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k16">Aberta</span>
+              <span class="task-text">SLA ≥94%, erro ≤2,5%</span>
+            </div>
+            <button class="btn-concluir" id="btn-k16" onclick="openModal('k16',`SLA ≥94%, erro ≤2,5%`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k16"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k16')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k16">
+              <div class="note-prev" id="np-k16"></div>
+              <textarea id="nta-k16" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k16"></span>
+                <button class="btn-save-note" onclick="saveNote('k16')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k17">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k17">Aberta</span>
+              <span class="task-text">Custo/booking reduzido em −15%</span>
+            </div>
+            <button class="btn-concluir" id="btn-k17" onclick="openModal('k17',`Custo/booking reduzido em −15%`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k17"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k17')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k17">
+              <div class="note-prev" id="np-k17"></div>
+              <textarea id="nta-k17" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k17"></span>
+                <button class="btn-save-note" onclick="saveNote('k17')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k18">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k18">Aberta</span>
+              <span class="task-text">Autonomia total — Dhayane não precisa intervir no dia a dia</span>
+            </div>
+            <button class="btn-concluir" id="btn-k18" onclick="openModal('k18',`Autonomia total — Dhayane não precisa intervir no dia a dia`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k18"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k18')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k18">
+              <div class="note-prev" id="np-k18"></div>
+              <textarea id="nta-k18" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k18"></span>
+                <button class="btn-save-note" onclick="saveNote('k18')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k19">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k19">Aberta</span>
+              <span class="task-text">Time opera 2 semanas sem Dhayane sem degradação</span>
+            </div>
+            <button class="btn-concluir" id="btn-k19" onclick="openModal('k19',`Time opera 2 semanas sem Dhayane sem degradação`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k19"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k19')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k19">
+              <div class="note-prev" id="np-k19"></div>
+              <textarea id="nta-k19" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k19"></span>
+                <button class="btn-save-note" onclick="saveNote('k19')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k20">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k20">Aberta</span>
+              <span class="task-text"><span class="ia-badge">IA</span>IA em uso ativo na operação (automação, predição de erros)</span>
+            </div>
+            <button class="btn-concluir" id="btn-k20" onclick="openModal('k20',`IA em uso ativo na operação (automação, predição de erros)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k20"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k20')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k20">
+              <div class="note-prev" id="np-k20"></div>
+              <textarea id="nta-k20" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k20"></span>
+                <button class="btn-save-note" onclick="saveNote('k20')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div></div>
+    <div class="marco-hdr">
+      <span class="marco-pill">M4 — Escala</span>
+      <span class="marco-dates" id="md-m4k"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m4k"></div></div>
+      <span class="marco-cnt" id="mc-m4k">0/5</span>
+    </div>
+    <div class="marco-sub">M4 — Escala · Meses 16–18</div>
+    <div class="tasks-block">
+        <div class="task-block" id="tb-k21">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k21">Aberta</span>
+              <span class="task-text">SLA ≥95%, erro ≤2%</span>
+            </div>
+            <button class="btn-concluir" id="btn-k21" onclick="openModal('k21',`SLA ≥95%, erro ≤2%`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k21"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k21')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k21">
+              <div class="note-prev" id="np-k21"></div>
+              <textarea id="nta-k21" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k21"></span>
+                <button class="btn-save-note" onclick="saveNote('k21')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k22">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k22">Aberta</span>
+              <span class="task-text">Custo/booking −20% vs baseline</span>
+            </div>
+            <button class="btn-concluir" id="btn-k22" onclick="openModal('k22',`Custo/booking −20% vs baseline`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k22"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k22')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k22">
+              <div class="note-prev" id="np-k22"></div>
+              <textarea id="nta-k22" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k22"></span>
+                <button class="btn-save-note" onclick="saveNote('k22')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k23">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k23">Aberta</span>
+              <span class="task-text">Ops 100% autônoma — Dhayane só em decisões estratégicas</span>
+            </div>
+            <button class="btn-concluir" id="btn-k23" onclick="openModal('k23',`Ops 100% autônoma — Dhayane só em decisões estratégicas`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k23"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k23')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k23">
+              <div class="note-prev" id="np-k23"></div>
+              <textarea id="nta-k23" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k23"></span>
+                <button class="btn-save-note" onclick="saveNote('k23')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k24">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k24">Aberta</span>
+              <span class="task-text">Playbook completo de todas as operações documentado</span>
+            </div>
+            <button class="btn-concluir" id="btn-k24" onclick="openModal('k24',`Playbook completo de todas as operações documentado`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k24"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k24')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k24">
+              <div class="note-prev" id="np-k24"></div>
+              <textarea id="nta-k24" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k24"></span>
+                <button class="btn-save-note" onclick="saveNote('k24')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-k25">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-k25">Aberta</span>
+              <span class="task-text"><span class="ia-badge">IA</span>IA integrada como infraestrutura de Ops</span>
+            </div>
+            <button class="btn-concluir" id="btn-k25" onclick="openModal('k25',`IA integrada como infraestrutura de Ops`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-k25"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('k25')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-k25">
+              <div class="note-prev" id="np-k25"></div>
+              <textarea id="nta-k25" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-k25"></span>
+                <button class="btn-save-note" onclick="saveNote('k25')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div></div>
+</main>
+<footer>Orange Viagens · Dashboard confidencial · Março 2026 &nbsp;·&nbsp; <a href="dashboard.html">← Visão geral</a></footer>
+<div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h2>Concluir tarefa</h2>
+    <div class="modal-task" id="mtxt"></div>
+    <input type="hidden" id="mid">
+    <label>Como foi feito?</label>
+    <textarea id="mta" placeholder="Descreva como a tarefa foi executada..."></textarea>
+    <div class="modal-acts">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-submit" id="msub" onclick="submitTask()">Enviar para aprovação</button>
+    </div>
+  </div>
+</div>
+<script>
+const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
+const TEAM_KEY='katharine';
+const MARCOS=[{"id": "m1k", "label": "M1", "fase": "Fundação", "range": "Meses 1–5", "todos": [{"id": "k1", "text": "Mapear todos os processos operacionais (AS-IS)"}, {"id": "k2", "text": "Criar dashboard v1 de SLA, erros e ciclo"}, {"id": "k3", "text": "Estabelecer baseline de KPIs (SLA, erro, custo/booking)"}, {"id": "k4", "text": "Identificar top 5 gargalos operacionais"}, {"id": "k5", "text": "Documentar top 3 processos em playbook"}, {"id": "k6", "text": "Instalar tracking semanal de erros"}, {"id": "k7", "text": "Assumir liderança da rotina diária de Ops"}, {"id": "k8", "text": "Atingir SLA ≥90% e taxa de erro ≤4%"}, {"id": "k9", "text": "Participar do WBR semanal com bloco de 15 min"}]}, {"id": "m2k", "label": "M2", "fase": "Estruturação", "range": "Meses 6–10", "todos": [{"id": "k10", "text": "Implantar pós-mortem (incidentes >R$5k ou >5 clientes)"}, {"id": "k11", "text": "Quality gate ativo (amostra 5% semanal, score ≥80)"}, {"id": "k12", "text": "Liderar automações IA em Ops (assistentes, predição)", "ia": true}, {"id": "k13", "text": "Ops rodou 1 semana completa sem Dhayane"}, {"id": "k14", "text": "SLA ≥92%, erro ≤3%"}, {"id": "k15", "text": "80% de autonomia operacional atingida"}]}, {"id": "m3k", "label": "M3", "fase": "Aceleração", "range": "Meses 11–15", "todos": [{"id": "k16", "text": "SLA ≥94%, erro ≤2,5%"}, {"id": "k17", "text": "Custo/booking reduzido em −15%"}, {"id": "k18", "text": "Autonomia total — Dhayane não precisa intervir no dia a dia"}, {"id": "k19", "text": "Time opera 2 semanas sem Dhayane sem degradação"}, {"id": "k20", "text": "IA em uso ativo na operação (automação, predição de erros)", "ia": true}]}, {"id": "m4k", "label": "M4", "fase": "Escala", "range": "Meses 16–18", "todos": [{"id": "k21", "text": "SLA ≥95%, erro ≤2%"}, {"id": "k22", "text": "Custo/booking −20% vs baseline"}, {"id": "k23", "text": "Ops 100% autônoma — Dhayane só em decisões estratégicas"}, {"id": "k24", "text": "Playbook completo de todas as operações documentado"}, {"id": "k25", "text": "IA integrada como infraestrutura de Ops", "ia": true}]}];
+let states={},notes={},mgr_obs={},dates={};
+
+async function api(path,opts={}){
+  const r=await fetch(SB_URL+path,{...opts,headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json',...(opts.headers||{})}});
+  if(!r.ok){const e=await r.text();console.error('API',r.status,path,e);return null;}
+  return r.json();
+}
+
+async function upsert(table,data,conflict='task_id'){
+  const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+conflict,{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},
+    body:JSON.stringify(data)
+  });
+  const txt=await r.text();
+  if(!r.ok){console.error('Upsert failed',table,r.status,txt);return false;}
+  return true;
+}
+
+async function load(){
+  const[st,dt,nt,mc]=await Promise.all([
+    api('/rest/v1/task_states?select=*'),
+    api('/rest/v1/plan_dates?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/task_notes?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/task_manager_comments?team_key=eq.'+TEAM_KEY+'&select=*'),
+  ]);
+  states={};(st||[]).forEach(r=>states[r.task_id]=r);
+  dates={};(dt||[]).forEach(r=>dates[r.marco_id]=r);
+  notes={};(nt||[]).forEach(r=>{if(document.activeElement?.id!=='nta-'+r.task_id)notes[r.task_id]=r;});
+  mgr_obs={};(mc||[]).forEach(r=>mgr_obs[r.task_id]=r);
+  render();
+}
+
+function render(){
+  let done=0,pend=0,part=0,tot=0;
+  for(const m of MARCOS){
+    let md=0;
+    for(const t of m.todos){
+      tot++;
+      const s=states[t.id];
+      const chip=document.getElementById('chip-'+t.id);
+      const btn=document.getElementById('btn-'+t.id);
+      if(s){
+        if(s.status==='aprovada'){md++;done++;if(chip){chip.textContent='Aprovada';chip.className='chip aprovada';}if(btn){btn.disabled=true;btn.textContent='Aprovada';}}
+        else if(s.status==='aguardando'){pend++;if(chip){chip.textContent='Aguardando';chip.className='chip aguardando';}if(btn){btn.disabled=true;btn.textContent='Enviado';}}
+      }
+      const n=notes[t.id];
+      if(n){
+        const prev=document.getElementById('np-'+t.id);
+        const ts=document.getElementById('nts-'+t.id);
+        const ta=document.getElementById('nta-'+t.id);
+        const tog=document.querySelector('[onclick="toggleNote(\''+t.id+'\')"]');
+        if(prev)prev.textContent=n.note||'';
+        if(ts)ts.textContent='Salvo em '+new Date(n.updated_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+        if(ta&&document.activeElement!==ta)ta.value=n.note||'';
+        if(tog&&n.note)tog.textContent='▼ Anotação';
+      }
+      const mo=mgr_obs[t.id];
+      const obsEl=document.getElementById('mobs-'+t.id);
+      if(obsEl){
+        if(mo?.comment){obsEl.className='mgr-obs on';obsEl.innerHTML='<div class="mgr-obs-hdr"><div class="mgr-av">DA</div><div class="mgr-lbl">Observação da Dhayane</div></div><div class="mgr-txt">'+mo.comment+'</div>';}
+        else{obsEl.className='mgr-obs';obsEl.innerHTML='';}
+      }
+    }
+    const bar=document.getElementById('mb-'+m.id);
+    const cnt=document.getElementById('mc-'+m.id);
+    if(bar)bar.style.width=(m.todos.length?md/m.todos.length*100:0)+'%';
+    if(cnt)cnt.textContent=md+'/'+m.todos.length;
+    const d=dates[m.id];
+    const dEl=document.getElementById('md-'+m.id);
+    if(dEl&&d){const f=x=>new Date(x).toLocaleDateString('pt-BR');dEl.textContent='Início: '+f(d.start_date)+' · Conclusão: '+f(d.end_date);}
+  }
+  document.getElementById('sd').textContent=done;
+  document.getElementById('sp').textContent=pend;
+  document.getElementById('sx').textContent=part;
+  document.getElementById('st').textContent=tot;
+  document.getElementById('ring').style.strokeDashoffset=175.9*(1-(tot?done/tot:0));
+}
+
+function toggleNote(id){
+  const ed=document.getElementById('ne-'+id);
+  const tog=document.querySelector('[onclick="toggleNote(\''+id+'\')"]');
+  if(ed.classList.toggle('open'))tog.textContent='▼ Anotação';
+  else tog.textContent=(notes[id]?.note?'▼ ':'▶ ')+'Anotação'+(notes[id]?.note?'':' — Adicionar');
+}
+
+async function saveNote(id){
+  const ta=document.getElementById('nta-'+id);
+  const btn=ta.closest('.note-editor').querySelector('.btn-save-note');
+  btn.textContent='Salvando...';btn.disabled=true;
+  const ok=await upsert('task_notes',{task_id:id,team_key:TEAM_KEY,note:ta.value,note_text:ta.value,updated_at:new Date().toISOString()});
+  btn.disabled=false;
+  if(ok){btn.textContent='Salvo ✓';setTimeout(()=>btn.textContent='Salvar',2000);}
+  else{btn.textContent='Erro — tente novamente';setTimeout(()=>btn.textContent='Salvar',3000);}
+  await load();
+}
+
+function openModal(id,txt){
+  document.getElementById('mid').value=id;
+  document.getElementById('mtxt').textContent=txt;
+  document.getElementById('mta').value='';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+async function submitTask(){
+  const id=document.getElementById('mid').value;
+  const how=document.getElementById('mta').value.trim();
+  if(!how){alert('Por favor descreva como a tarefa foi feita.');return;}
+  const btn=document.getElementById('msub');
+  btn.disabled=true;btn.textContent='Enviando...';
+  const ok=await upsert('task_states',{task_id:id,team_key:TEAM_KEY,status:'aguardando',how_done:how,execution:how,submitted_at:new Date().toISOString()});
+  btn.disabled=false;btn.textContent='Enviar para aprovação';
+  if(ok){closeModal();await load();}
+  else alert('Erro ao enviar. Tente novamente.');
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+load();
+setInterval(()=>{if(document.activeElement?.tagName!=='TEXTAREA')load();},20000);
+</script>
+</body>
+</html>
