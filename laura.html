@@ -722,29 +722,39 @@ const TEAM_KEY='laura';
 const MARCOS=[{"id": "m1l", "label": "M1", "fase": "Estruturação", "range": "Jun–Ago 2026", "todos": [{"id": "l1", "text": "Mapear e estruturar portfólio inicial com ≥20 produtos de cruzeiros"}, {"id": "l2", "text": "Identificar e mapear ≥5 parceiros/fornecedores estratégicos"}, {"id": "l3", "text": "Iniciar negociações com fornecedores: desconto por volume (meta 10–15%)"}, {"id": "l4", "text": "Documentar fluxos e rotinas operacionais da área de cruzeiros"}, {"id": "l5", "text": "Desenvolver 1º guia de treinamento para equipe comercial"}, {"id": "l6", "text": "Conduzir primeira sessão de capacitação com a equipe comercial", "ia": true}, {"id": "l7", "text": "Realizar 1ª análise de inteligência de mercado de cruzeiros"}, {"id": "l8", "text": "Definir critérios e estrutura para gestão de grupos exclusivos"}, {"id": "l9", "text": "Alinhar com Dhayane baseline de KPIs e metas"}]}, {"id": "m2l", "label": "M2", "fase": "Consolidação", "range": "Set–Nov 2026", "todos": [{"id": "l10", "text": "Portfólio consolidado com fichas técnicas completas"}, {"id": "l11", "text": "Fechar ≥2 acordos estratégicos com fornecedores"}, {"id": "l12", "text": "Negociar exclusividade em grupos: upgrades e benefícios diferenciados"}, {"id": "l13", "text": "Lançar ≥1 oferta de grupo exclusivo como diferencial competitivo"}, {"id": "l14", "text": "Entregar ≥2 relatórios mensais de inteligência de mercado"}, {"id": "l15", "text": "Desenvolver materiais de treinamento com suporte de IA", "ia": true}, {"id": "l16", "text": "Conduzir ≥2 sessões de capacitação para equipe comercial e CS"}, {"id": "l17", "text": "Mapear oportunidades de pacotes integrados com add-ons"}, {"id": "l18", "text": "Avaliar e documentar condições operacionais: rebookings e suporte"}]}, {"id": "m3l", "label": "M3", "fase": "Maturidade Estratégica", "range": "Dez 2026+", "todos": [{"id": "l19", "text": "Portfólio gerenciado de forma autônoma"}, {"id": "l20", "text": "Fechar ≥1 contrato de longo prazo com fornecedor"}, {"id": "l21", "text": "Pipeline ativo de grupos exclusivos"}, {"id": "l22", "text": "Comissão recorrente via add-ons estruturada"}, {"id": "l23", "text": "IA integrada ao fluxo de vendas de cruzeiros", "ia": true}, {"id": "l24", "text": "Análise estratégica do período e roadmap para ano seguinte"}]}];
 let state={},notesCache={},planDates={},managerComments={};
 
-async function sbFetch(path,opts={}){
-  try{
-    const r=await fetch('https://xyxjcbxmedkonyxafurf.supabase.co'+path,{...opts,headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',...(opts.headers||{})}});
-    if(!r.ok)return[];
-    const d=await r.json();return Array.isArray(d)?d:[];
-  }catch(e){return[];}
+async function sbFetch(table, filters={}) {
+  try {
+    const r = await fetch('https://xyxjcbxmedkonyxafurf.supabase.co/functions/v1/db-proxy', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'select', table, filters})
+    });
+    const j = await r.json();
+    if (j.error) { console.error('sbFetch error', j.error); return []; }
+    return Array.isArray(j.data) ? j.data : [];
+  } catch(e) { console.error('sbFetch exception', e); return []; }
 }
-async function sbUpsert(table,data,conflict='task_id'){
-  try{
-    const url='https://xyxjcbxmedkonyxafurf.supabase.co/rest/v1/'+table+'?on_conflict='+conflict;
-    const r=await fetch(url,{method:'POST',headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM','Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify(data)});
-    const txt=await r.text();
-    if(!r.ok){console.error('upsert failed',table,r.status,txt);return false;}
+
+async function sbUpsert(table, data, conflict) {
+  try {
+    const r = await fetch('https://xyxjcbxmedkonyxafurf.supabase.co/functions/v1/db-proxy', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'upsert', table, data, conflict: conflict || 'task_id'})
+    });
+    const j = await r.json();
+    if (j.error) { console.error('sbUpsert error', j.error); return false; }
     return true;
-  }catch(e){console.error('upsert exception',e);return false;}
+  } catch(e) { console.error('sbUpsert exception', e); return false; }
 }
+
 
 async function loadAll(){
   const[stRows,dateRows,noteRows,mcRows]=await Promise.all([
-    sbFetch('/rest/v1/task_states?select=*'),
-    sbFetch('/rest/v1/plan_dates?team_key=eq.'+TEAM_KEY+'&select=*'),
-    sbFetch('/rest/v1/task_notes?team_key=eq.'+TEAM_KEY+'&select=*'),
-    sbFetch('/rest/v1/task_manager_comments?team_key=eq.'+TEAM_KEY+'&select=*'),
+    sbFetch('task_states'),
+    sbFetch('plan_dates', {team_key: TEAM_KEY}),
+    sbFetch('task_notes', {team_key: TEAM_KEY}),
+    sbFetch('task_manager_comments', {team_key: TEAM_KEY}),
   ]);
   state={};for(const r of stRows)state[r.task_id]=r;
   planDates={};for(const r of dateRows)planDates[r.marco_id]=r;
@@ -818,7 +828,7 @@ async function saveNote(id){
   const ta=document.getElementById('note-ta-'+id);
   const btn=ta.closest('.note-editor').querySelector('.btn-save');
   btn.textContent='Salvando...';
-  const ok=await sbUpsert('task_notes',{task_id:id,team_key:TEAM_KEY,note:ta.value,note_text:ta.value,updated_at:new Date().toISOString()});
+  const ok=const ok=await sbUpsert('task_notes',{task_id:id,team_key:TEAM_KEY,note:ta.value,note_text:ta.value,updated_at:new Date().toISOString()});
   btn.disabled=false;
   if(ok){btn.textContent='Salvo ✓';setTimeout(()=>btn.textContent='Salvar',2000);}else{btn.textContent='Erro';setTimeout(()=>btn.textContent='Salvar',3000);}
   await loadAll();

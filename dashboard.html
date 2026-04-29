@@ -176,24 +176,38 @@ const MARCOS_META={"katharine": [{"id": "m1k", "label": "M1 — Fundação", "ta
 
 let allStates=[],allDates=[],allManagerObs=[],histFilter='all';
 
-async function sbFetch(path){
-  try{const r=await fetch('https://xyxjcbxmedkonyxafurf.supabase.co'+path,{headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM',Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM'}});if(!r.ok)return[];const d=await r.json();return Array.isArray(d)?d:[];}catch(e){return[];}
+async function sbFetch(table, filters={}) {
+  try {
+    const r = await fetch('https://xyxjcbxmedkonyxafurf.supabase.co/functions/v1/db-proxy', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'select', table, filters})
+    });
+    const j = await r.json();
+    if (j.error) { console.error('sbFetch error', j.error); return []; }
+    return Array.isArray(j.data) ? j.data : [];
+  } catch(e) { console.error('sbFetch exception', e); return []; }
 }
-async function sbUpsert(table,data,conflict='task_id'){
-  try{
-    const url='https://xyxjcbxmedkonyxafurf.supabase.co/rest/v1/'+table+'?on_conflict='+conflict;
-    const r=await fetch(url,{method:'POST',headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM','Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify(data)});
-    const txt=await r.text();
-    if(!r.ok){console.error('upsert failed',table,r.status,txt);return false;}
+
+async function sbUpsert(table, data, conflict) {
+  try {
+    const r = await fetch('https://xyxjcbxmedkonyxafurf.supabase.co/functions/v1/db-proxy', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'upsert', table, data, conflict: conflict || 'task_id'})
+    });
+    const j = await r.json();
+    if (j.error) { console.error('sbUpsert error', j.error); return false; }
     return true;
-  }catch(e){console.error('upsert exception',e);return false;}
+  } catch(e) { console.error('sbUpsert exception', e); return false; }
 }
+
 
 async function loadAll(){
   const[states,dates,obs]=await Promise.all([
-    sbFetch('/rest/v1/task_states?select=*'),
-    sbFetch('/rest/v1/plan_dates?select=*'),
-    sbFetch('/rest/v1/task_manager_comments?select=*'),
+    sbFetch('task_states'),
+    sbFetch('plan_dates'),
+    sbFetch('task_manager_comments'),
   ]);
   allStates=states;allDates=dates;allManagerObs=obs;
   renderAll();
