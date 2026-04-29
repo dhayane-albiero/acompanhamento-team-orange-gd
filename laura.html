@@ -1,717 +1,651 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Laura — Orange Viagens</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--c:#0984e3;--cl:#e8f4ff;--amber:#e6a817;--red:#e17055;--bg:#f5f4f1;--white:#fff;--text:#1a1a1a;--muted:#888;--border:#e8e5e0;}
+:root{--c:#0984e3;--cl:#e8f4ff;--amber:#e6a817;--red:#e17055;--bg:#f5f4f1;--w:#fff;--txt:#1a1a1a;--muted:#888;--border:#e8e5e0;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-.page-header{background:var(--white);border-bottom:1px solid var(--border);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;}
-.org-name{font-family:'DM Serif Display',serif;font-size:1.1rem;}
-.header-meta{font-size:12px;color:var(--muted);}
-.hero{background:var(--white);border-bottom:1px solid var(--border);padding:2rem;}
-.hero-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
-.avatar{width:64px;height:64px;border-radius:50%;background:var(--c);color:#fff;font-size:1.3rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.hero-text h1{font-family:'DM Serif Display',serif;font-size:1.8rem;}
-.hero-text .role{color:var(--muted);font-size:.9rem;margin-top:2px;}
-.hero-stats{display:flex;gap:1.5rem;margin-top:.75rem;flex-wrap:wrap;}
-.hstat-val{font-size:1.3rem;font-weight:600;color:var(--c);}
-.hstat-val.amber{color:var(--amber);}
-.hstat-val.red{color:var(--red);}
-.hstat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
-.ring-wrap{margin-left:auto;position:relative;flex-shrink:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);}
+.ph{background:var(--w);border-bottom:1px solid var(--border);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.ph-org{font-family:'DM Serif Display',serif;font-size:1.1rem;}
+.ph-meta{font-size:12px;color:var(--muted);}
+.hero{background:var(--w);border-bottom:1px solid var(--border);padding:2rem;}
+.hero-in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.av{width:64px;height:64px;border-radius:50%;background:var(--c);color:#fff;font-size:1.3rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hero-txt h1{font-family:'DM Serif Display',serif;font-size:1.8rem;}
+.hero-txt .role{color:var(--muted);font-size:.9rem;margin-top:2px;}
+.hstats{display:flex;gap:1.5rem;margin-top:.75rem;flex-wrap:wrap;}
+.hv{font-size:1.3rem;font-weight:600;color:var(--c);}
+.hv.am{color:var(--amber);} .hv.rd{color:var(--red);}
+.hl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.ring-w{margin-left:auto;position:relative;flex-shrink:0;}
 .ring-lbl{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
 main{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
-.info-banner{background:var(--cl);border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:#333;display:flex;align-items:flex-start;gap:8px;}
-.marco-header{background:var(--white);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-top:1.5rem;flex-wrap:wrap;}
-.marco-chip{background:var(--c);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
-.marco-dates{font-size:12px;color:var(--muted);white-space:nowrap;}
-.marco-progress-wrap{flex:1;background:#eee;border-radius:4px;height:6px;min-width:60px;}
-.marco-progress-bar{height:6px;background:var(--c);border-radius:4px;width:0%;transition:width .4s ease;}
-.marco-count{font-size:12px;color:var(--muted);white-space:nowrap;}
-.marco-range-label{font-size:11px;color:var(--muted);background:#fafafa;border-left:1px solid var(--border);border-right:1px solid var(--border);padding:4px 16px;}
-.tasks-block{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;overflow:hidden;}
+.banner{background:var(--cl);border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:#333;display:flex;gap:8px;align-items:flex-start;}
+.marco-hdr{background:var(--w);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-top:1.5rem;flex-wrap:wrap;}
+.marco-pill{background:var(--c);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.marco-dates{font-size:12px;color:var(--muted);}
+.marco-bar-wrap{flex:1;background:#eee;border-radius:4px;height:6px;min-width:60px;}
+.marco-bar{height:6px;background:var(--c);border-radius:4px;width:0%;transition:width .4s;}
+.marco-cnt{font-size:12px;color:var(--muted);white-space:nowrap;}
+.marco-sub{font-size:11px;color:var(--muted);background:#fafafa;border-left:1px solid var(--border);border-right:1px solid var(--border);padding:4px 16px;}
+.tasks-block{background:var(--w);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;}
 .task-block{border-bottom:1px solid var(--border);}
 .task-block:last-child{border-bottom:none;}
 .task-row{display:flex;align-items:center;padding:12px 16px;gap:10px;}
 .task-left{flex:1;display:flex;align-items:center;gap:10px;min-width:0;}
-.task-status-chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;white-space:nowrap;background:#f0f0f0;color:var(--muted);flex-shrink:0;}
-.task-status-chip.aprovada{background:#dcfff6;color:#00795e;}
-.task-status-chip.aguardando{background:#fff7e0;color:#8a6000;}
-.task-status-chip.parcial{background:#fff0e8;color:#a04010;}
+.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;background:#f0f0f0;color:var(--muted);flex-shrink:0;white-space:nowrap;}
+.chip.aprovada{background:#dcfff6;color:#00795e;}
+.chip.aguardando{background:#fff7e0;color:#8a6000;}
 .task-text{font-size:14px;overflow:hidden;text-overflow:ellipsis;}
 .ia-badge{background:#ede9ff;color:#5B21B6;font-size:10px;font-weight:600;padding:1px 6px;border-radius:8px;margin-right:4px;}
 .btn-concluir{background:var(--c);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.btn-concluir:hover{filter:brightness(.9);}
 .btn-concluir:disabled{background:#ccc;cursor:default;}
-/* Observação da Dhayane por tarefa */
-.manager-obs{display:none;margin:0 16px 0;padding:10px 14px;background:linear-gradient(135deg,#fff9f0,#fffdf7);border:1px solid #f0d8a0;border-left:3px solid #e6a817;border-radius:8px;}
-.manager-obs.visible{display:block;}
-.manager-obs-header{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.manager-obs-av{width:22px;height:22px;border-radius:50%;background:#6C5CE7;color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.manager-obs-label{font-size:11px;font-weight:600;color:#7a5c00;}
-.manager-obs-text{font-size:13px;color:#4a3a00;line-height:1.55;white-space:pre-wrap;}
-/* Link de referência na obs */
-.manager-obs-link{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:11px;color:#7a5c00;text-decoration:underline;word-break:break-all;}
-/* Anotação da coordenadora */
-.note-section{padding:0;}
+.mgr-obs{display:none;margin:0 16px 8px;padding:10px 14px;background:linear-gradient(135deg,#fff9f0,#fffdf7);border:1px solid #f0d8a0;border-left:3px solid #e6a817;border-radius:8px;}
+.mgr-obs.on{display:block;}
+.mgr-obs-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.mgr-av{width:22px;height:22px;border-radius:50%;background:#6C5CE7;color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.mgr-lbl{font-size:11px;font-weight:600;color:#7a5c00;}
+.mgr-txt{font-size:13px;color:#4a3a00;line-height:1.55;white-space:pre-wrap;}
+.note-wrap{}
 .note-toggle{padding:8px 16px;font-size:12px;color:var(--c);cursor:pointer;user-select:none;}
 .note-editor{display:none;padding:0 16px 12px;}
 .note-editor.open{display:block;}
-.note-saved-text{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:6px;}
+.note-prev{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:6px;}
 .note-editor textarea{width:100%;min-height:80px;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
 .note-editor textarea:focus{border-color:var(--c);}
-.note-footer{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
-.note-timestamp{font-size:11px;color:var(--muted);}
-.btn-save{background:transparent;border:1px solid var(--c);color:var(--c);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--white);border-radius:14px;padding:2rem;width:90%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.note-foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+.note-ts{font-size:11px;color:var(--muted);}
+.btn-save-note{background:transparent;border:1px solid var(--c);color:var(--c);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;}
+.modal-ov.open{display:flex;}
+.modal{background:var(--w);border-radius:14px;padding:2rem;width:90%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
 .modal h2{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:.5rem;}
 .modal-task{font-size:13px;color:var(--muted);margin-bottom:1rem;padding:10px;background:var(--bg);border-radius:6px;}
 .modal label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;}
 .modal textarea{width:100%;min-height:100px;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
 .modal textarea:focus{border-color:var(--c);}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:1rem;}
+.modal-acts{display:flex;gap:10px;justify-content:flex-end;margin-top:1rem;}
 .btn-cancel{background:transparent;border:1px solid var(--border);padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;}
 .btn-submit{background:var(--c);color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;}
 .btn-submit:disabled{background:#ccc;cursor:default;}
 footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);}
 footer a{color:var(--c);text-decoration:none;}
-@media(max-width:600px){
-  main{padding:1rem;}
-  .task-row{flex-wrap:wrap;}
-  .btn-concluir{width:100%;margin-top:6px;}
-}
+@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:6px;}}
 </style>
 </head>
 <body>
-<header class="page-header">
-  <div class="org-name">Orange Viagens</div>
-  <div class="header-meta">Plano 18 meses · Março 2026</div>
-</header>
-<div class="hero">
-  <div class="hero-inner">
-    <div class="avatar">LA</div>
-    <div class="hero-text">
-      <h1>Laura</h1>
-      <div class="role">Coordenadora de Produtos — Cruzeiros</div>
-      <div class="hero-stats">
-        <div><div class="hstat-val" id="stat-done">—</div><div class="hstat-lbl">Aprovadas</div></div>
-        <div><div class="hstat-val amber" id="stat-pending">—</div><div class="hstat-lbl">Aguardando</div></div>
-        <div><div class="hstat-val red" id="stat-partial">—</div><div class="hstat-lbl">Parciais</div></div>
-        <div><div class="hstat-val" id="stat-total">—</div><div class="hstat-lbl">Total</div></div>
-      </div>
-    </div>
-    <div class="ring-wrap">
-      <svg width="70" height="70" viewBox="0 0 72 72">
-        <circle cx="36" cy="36" r="28" fill="none" stroke="#e8f4ff" stroke-width="6"/>
-        <circle id="ring" cx="36" cy="36" r="28" fill="none" stroke="#0984e3" stroke-width="6"
-          stroke-linecap="round" stroke-dasharray="175.9" stroke-dashoffset="175.9"
-          transform="rotate(-90 36 36)" style="transition:stroke-dashoffset .5s ease"/>
-      </svg>
-      <div class="ring-lbl">GERAL</div>
+<header class="ph"><div class="ph-org">Orange Viagens</div><div class="ph-meta">Plano 18 meses · Março 2026</div></header>
+<div class="hero"><div class="hero-in">
+  <div class="av">LA</div>
+  <div class="hero-txt">
+    <h1>Laura</h1>
+    <div class="role">Coordenadora de Produtos — Cruzeiros</div>
+    <div class="hstats">
+      <div><div class="hv" id="sd">—</div><div class="hl">Aprovadas</div></div>
+      <div><div class="hv am" id="sp">—</div><div class="hl">Aguardando</div></div>
+      <div><div class="hv rd" id="sx">—</div><div class="hl">Parciais</div></div>
+      <div><div class="hv" id="st">—</div><div class="hl">Total</div></div>
     </div>
   </div>
-</div>
+  <div class="ring-w">
+    <svg width="70" height="70" viewBox="0 0 72 72">
+      <circle cx="36" cy="36" r="28" fill="none" stroke="#e8f4ff" stroke-width="6"/>
+      <circle id="ring" cx="36" cy="36" r="28" fill="none" stroke="#0984e3" stroke-width="6"
+        stroke-linecap="round" stroke-dasharray="175.9" stroke-dashoffset="175.9"
+        transform="rotate(-90 36 36)" style="transition:stroke-dashoffset .5s"/>
+    </svg>
+    <div class="ring-lbl">GERAL</div>
+  </div>
+</div></div>
 <main>
-  <div class="info-banner">
+  <div class="banner">
     <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#0984e3" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#0984e3" stroke-width="2" stroke-linecap="round"/></svg>
     Use <strong>&nbsp;Adicionar anotação&nbsp;</strong> para registrar observações a qualquer momento. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
   </div>
   
-    <div class="marco-header">
-      <span class="marco-chip">M1 — Estruturação</span>
-      <span class="marco-dates" id="dates-m1l"></span>
-      <div class="marco-progress-wrap"><div class="marco-progress-bar" id="bar-m1l"></div></div>
-      <span class="marco-count" id="cnt-m1l">0/9</span>
+    <div class="marco-hdr">
+      <span class="marco-pill">M1 — Estruturação</span>
+      <span class="marco-dates" id="md-m1l"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m1l"></div></div>
+      <span class="marco-cnt" id="mc-m1l">0/9</span>
     </div>
-    <div class="marco-range-label">M1 — Estruturação &nbsp;·&nbsp; Jun–Ago 2026</div>
+    <div class="marco-sub">M1 — Estruturação · Jun–Ago 2026</div>
     <div class="tasks-block">
-        <div class="task-block" id="task-block-l1">
-          <div class="task-row" id="task-l1">
+        <div class="task-block" id="tb-l1">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l1">Aberta</div>
+              <span class="chip" id="chip-l1">Aberta</span>
               <span class="task-text">Mapear e estruturar portfólio inicial com ≥20 produtos de cruzeiros</span>
             </div>
-            <button class="btn-concluir" id="btn-l1" onclick="openModal('l1', `Mapear e estruturar portfólio inicial com ≥20 produtos de cruzeiros`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l1" onclick="openModal('l1',`Mapear e estruturar portfólio inicial com ≥20 produtos de cruzeiros`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l1"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l1"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l1')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l1">
-              <div class="note-saved-text" id="note-display-l1"></div>
-              <textarea id="note-ta-l1" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l1"></span>
-                <button class="btn-save" onclick="saveNote('l1')">Salvar</button>
+            <div class="note-editor" id="ne-l1">
+              <div class="note-prev" id="np-l1"></div>
+              <textarea id="nta-l1" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l1"></span>
+                <button class="btn-save-note" onclick="saveNote('l1')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l2">
-          <div class="task-row" id="task-l2">
+        <div class="task-block" id="tb-l2">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l2">Aberta</div>
+              <span class="chip" id="chip-l2">Aberta</span>
               <span class="task-text">Identificar e mapear ≥5 parceiros/fornecedores estratégicos</span>
             </div>
-            <button class="btn-concluir" id="btn-l2" onclick="openModal('l2', `Identificar e mapear ≥5 parceiros/fornecedores estratégicos`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l2" onclick="openModal('l2',`Identificar e mapear ≥5 parceiros/fornecedores estratégicos`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l2"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l2"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l2')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l2">
-              <div class="note-saved-text" id="note-display-l2"></div>
-              <textarea id="note-ta-l2" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l2"></span>
-                <button class="btn-save" onclick="saveNote('l2')">Salvar</button>
+            <div class="note-editor" id="ne-l2">
+              <div class="note-prev" id="np-l2"></div>
+              <textarea id="nta-l2" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l2"></span>
+                <button class="btn-save-note" onclick="saveNote('l2')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l3">
-          <div class="task-row" id="task-l3">
+        <div class="task-block" id="tb-l3">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l3">Aberta</div>
+              <span class="chip" id="chip-l3">Aberta</span>
               <span class="task-text">Iniciar negociações com fornecedores: desconto por volume (meta 10–15%)</span>
             </div>
-            <button class="btn-concluir" id="btn-l3" onclick="openModal('l3', `Iniciar negociações com fornecedores: desconto por volume (meta 10–15%)`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l3" onclick="openModal('l3',`Iniciar negociações com fornecedores: desconto por volume (meta 10–15%)`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l3"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l3"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l3')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l3">
-              <div class="note-saved-text" id="note-display-l3"></div>
-              <textarea id="note-ta-l3" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l3"></span>
-                <button class="btn-save" onclick="saveNote('l3')">Salvar</button>
+            <div class="note-editor" id="ne-l3">
+              <div class="note-prev" id="np-l3"></div>
+              <textarea id="nta-l3" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l3"></span>
+                <button class="btn-save-note" onclick="saveNote('l3')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l4">
-          <div class="task-row" id="task-l4">
+        <div class="task-block" id="tb-l4">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l4">Aberta</div>
+              <span class="chip" id="chip-l4">Aberta</span>
               <span class="task-text">Documentar fluxos e rotinas operacionais da área de cruzeiros</span>
             </div>
-            <button class="btn-concluir" id="btn-l4" onclick="openModal('l4', `Documentar fluxos e rotinas operacionais da área de cruzeiros`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l4" onclick="openModal('l4',`Documentar fluxos e rotinas operacionais da área de cruzeiros`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l4"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l4"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l4')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l4">
-              <div class="note-saved-text" id="note-display-l4"></div>
-              <textarea id="note-ta-l4" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l4"></span>
-                <button class="btn-save" onclick="saveNote('l4')">Salvar</button>
+            <div class="note-editor" id="ne-l4">
+              <div class="note-prev" id="np-l4"></div>
+              <textarea id="nta-l4" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l4"></span>
+                <button class="btn-save-note" onclick="saveNote('l4')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l5">
-          <div class="task-row" id="task-l5">
+        <div class="task-block" id="tb-l5">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l5">Aberta</div>
+              <span class="chip" id="chip-l5">Aberta</span>
               <span class="task-text">Desenvolver 1º guia de treinamento para equipe comercial</span>
             </div>
-            <button class="btn-concluir" id="btn-l5" onclick="openModal('l5', `Desenvolver 1º guia de treinamento para equipe comercial`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l5" onclick="openModal('l5',`Desenvolver 1º guia de treinamento para equipe comercial`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l5"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l5"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l5')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l5">
-              <div class="note-saved-text" id="note-display-l5"></div>
-              <textarea id="note-ta-l5" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l5"></span>
-                <button class="btn-save" onclick="saveNote('l5')">Salvar</button>
+            <div class="note-editor" id="ne-l5">
+              <div class="note-prev" id="np-l5"></div>
+              <textarea id="nta-l5" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l5"></span>
+                <button class="btn-save-note" onclick="saveNote('l5')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l6">
-          <div class="task-row" id="task-l6">
+        <div class="task-block" id="tb-l6">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l6">Aberta</div>
+              <span class="chip" id="chip-l6">Aberta</span>
               <span class="task-text"><span class="ia-badge">IA</span>Conduzir primeira sessão de capacitação com a equipe comercial</span>
             </div>
-            <button class="btn-concluir" id="btn-l6" onclick="openModal('l6', `Conduzir primeira sessão de capacitação com a equipe comercial`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l6" onclick="openModal('l6',`Conduzir primeira sessão de capacitação com a equipe comercial`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l6"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l6"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l6')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l6">
-              <div class="note-saved-text" id="note-display-l6"></div>
-              <textarea id="note-ta-l6" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l6"></span>
-                <button class="btn-save" onclick="saveNote('l6')">Salvar</button>
+            <div class="note-editor" id="ne-l6">
+              <div class="note-prev" id="np-l6"></div>
+              <textarea id="nta-l6" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l6"></span>
+                <button class="btn-save-note" onclick="saveNote('l6')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l7">
-          <div class="task-row" id="task-l7">
+        <div class="task-block" id="tb-l7">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l7">Aberta</div>
+              <span class="chip" id="chip-l7">Aberta</span>
               <span class="task-text">Realizar 1ª análise de inteligência de mercado de cruzeiros</span>
             </div>
-            <button class="btn-concluir" id="btn-l7" onclick="openModal('l7', `Realizar 1ª análise de inteligência de mercado de cruzeiros`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l7" onclick="openModal('l7',`Realizar 1ª análise de inteligência de mercado de cruzeiros`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l7"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l7"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l7')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l7">
-              <div class="note-saved-text" id="note-display-l7"></div>
-              <textarea id="note-ta-l7" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l7"></span>
-                <button class="btn-save" onclick="saveNote('l7')">Salvar</button>
+            <div class="note-editor" id="ne-l7">
+              <div class="note-prev" id="np-l7"></div>
+              <textarea id="nta-l7" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l7"></span>
+                <button class="btn-save-note" onclick="saveNote('l7')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l8">
-          <div class="task-row" id="task-l8">
+        <div class="task-block" id="tb-l8">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l8">Aberta</div>
+              <span class="chip" id="chip-l8">Aberta</span>
               <span class="task-text">Definir critérios e estrutura para gestão de grupos exclusivos</span>
             </div>
-            <button class="btn-concluir" id="btn-l8" onclick="openModal('l8', `Definir critérios e estrutura para gestão de grupos exclusivos`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l8" onclick="openModal('l8',`Definir critérios e estrutura para gestão de grupos exclusivos`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l8"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l8"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l8')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l8">
-              <div class="note-saved-text" id="note-display-l8"></div>
-              <textarea id="note-ta-l8" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l8"></span>
-                <button class="btn-save" onclick="saveNote('l8')">Salvar</button>
+            <div class="note-editor" id="ne-l8">
+              <div class="note-prev" id="np-l8"></div>
+              <textarea id="nta-l8" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l8"></span>
+                <button class="btn-save-note" onclick="saveNote('l8')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l9">
-          <div class="task-row" id="task-l9">
+        <div class="task-block" id="tb-l9">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l9">Aberta</div>
+              <span class="chip" id="chip-l9">Aberta</span>
               <span class="task-text">Alinhar com Dhayane baseline de KPIs e metas</span>
             </div>
-            <button class="btn-concluir" id="btn-l9" onclick="openModal('l9', `Alinhar com Dhayane baseline de KPIs e metas`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l9" onclick="openModal('l9',`Alinhar com Dhayane baseline de KPIs e metas`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l9"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l9"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l9')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l9">
-              <div class="note-saved-text" id="note-display-l9"></div>
-              <textarea id="note-ta-l9" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l9"></span>
-                <button class="btn-save" onclick="saveNote('l9')">Salvar</button>
+            <div class="note-editor" id="ne-l9">
+              <div class="note-prev" id="np-l9"></div>
+              <textarea id="nta-l9" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l9"></span>
+                <button class="btn-save-note" onclick="saveNote('l9')">Salvar</button>
               </div>
             </div>
           </div>
         </div></div>
-    <div class="marco-header">
-      <span class="marco-chip">M2 — Consolidação</span>
-      <span class="marco-dates" id="dates-m2l"></span>
-      <div class="marco-progress-wrap"><div class="marco-progress-bar" id="bar-m2l"></div></div>
-      <span class="marco-count" id="cnt-m2l">0/9</span>
+    <div class="marco-hdr">
+      <span class="marco-pill">M2 — Consolidação</span>
+      <span class="marco-dates" id="md-m2l"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m2l"></div></div>
+      <span class="marco-cnt" id="mc-m2l">0/9</span>
     </div>
-    <div class="marco-range-label">M2 — Consolidação &nbsp;·&nbsp; Set–Nov 2026</div>
+    <div class="marco-sub">M2 — Consolidação · Set–Nov 2026</div>
     <div class="tasks-block">
-        <div class="task-block" id="task-block-l10">
-          <div class="task-row" id="task-l10">
+        <div class="task-block" id="tb-l10">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l10">Aberta</div>
+              <span class="chip" id="chip-l10">Aberta</span>
               <span class="task-text">Portfólio consolidado com fichas técnicas completas</span>
             </div>
-            <button class="btn-concluir" id="btn-l10" onclick="openModal('l10', `Portfólio consolidado com fichas técnicas completas`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l10" onclick="openModal('l10',`Portfólio consolidado com fichas técnicas completas`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l10"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l10"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l10')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l10">
-              <div class="note-saved-text" id="note-display-l10"></div>
-              <textarea id="note-ta-l10" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l10"></span>
-                <button class="btn-save" onclick="saveNote('l10')">Salvar</button>
+            <div class="note-editor" id="ne-l10">
+              <div class="note-prev" id="np-l10"></div>
+              <textarea id="nta-l10" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l10"></span>
+                <button class="btn-save-note" onclick="saveNote('l10')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l11">
-          <div class="task-row" id="task-l11">
+        <div class="task-block" id="tb-l11">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l11">Aberta</div>
+              <span class="chip" id="chip-l11">Aberta</span>
               <span class="task-text">Fechar ≥2 acordos estratégicos com fornecedores</span>
             </div>
-            <button class="btn-concluir" id="btn-l11" onclick="openModal('l11', `Fechar ≥2 acordos estratégicos com fornecedores`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l11" onclick="openModal('l11',`Fechar ≥2 acordos estratégicos com fornecedores`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l11"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l11"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l11')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l11">
-              <div class="note-saved-text" id="note-display-l11"></div>
-              <textarea id="note-ta-l11" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l11"></span>
-                <button class="btn-save" onclick="saveNote('l11')">Salvar</button>
+            <div class="note-editor" id="ne-l11">
+              <div class="note-prev" id="np-l11"></div>
+              <textarea id="nta-l11" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l11"></span>
+                <button class="btn-save-note" onclick="saveNote('l11')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l12">
-          <div class="task-row" id="task-l12">
+        <div class="task-block" id="tb-l12">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l12">Aberta</div>
+              <span class="chip" id="chip-l12">Aberta</span>
               <span class="task-text">Negociar exclusividade em grupos: upgrades e benefícios diferenciados</span>
             </div>
-            <button class="btn-concluir" id="btn-l12" onclick="openModal('l12', `Negociar exclusividade em grupos: upgrades e benefícios diferenciados`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l12" onclick="openModal('l12',`Negociar exclusividade em grupos: upgrades e benefícios diferenciados`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l12"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l12"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l12')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l12">
-              <div class="note-saved-text" id="note-display-l12"></div>
-              <textarea id="note-ta-l12" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l12"></span>
-                <button class="btn-save" onclick="saveNote('l12')">Salvar</button>
+            <div class="note-editor" id="ne-l12">
+              <div class="note-prev" id="np-l12"></div>
+              <textarea id="nta-l12" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l12"></span>
+                <button class="btn-save-note" onclick="saveNote('l12')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l13">
-          <div class="task-row" id="task-l13">
+        <div class="task-block" id="tb-l13">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l13">Aberta</div>
+              <span class="chip" id="chip-l13">Aberta</span>
               <span class="task-text">Lançar ≥1 oferta de grupo exclusivo como diferencial competitivo</span>
             </div>
-            <button class="btn-concluir" id="btn-l13" onclick="openModal('l13', `Lançar ≥1 oferta de grupo exclusivo como diferencial competitivo`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l13" onclick="openModal('l13',`Lançar ≥1 oferta de grupo exclusivo como diferencial competitivo`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l13"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l13"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l13')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l13">
-              <div class="note-saved-text" id="note-display-l13"></div>
-              <textarea id="note-ta-l13" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l13"></span>
-                <button class="btn-save" onclick="saveNote('l13')">Salvar</button>
+            <div class="note-editor" id="ne-l13">
+              <div class="note-prev" id="np-l13"></div>
+              <textarea id="nta-l13" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l13"></span>
+                <button class="btn-save-note" onclick="saveNote('l13')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l14">
-          <div class="task-row" id="task-l14">
+        <div class="task-block" id="tb-l14">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l14">Aberta</div>
+              <span class="chip" id="chip-l14">Aberta</span>
               <span class="task-text">Entregar ≥2 relatórios mensais de inteligência de mercado</span>
             </div>
-            <button class="btn-concluir" id="btn-l14" onclick="openModal('l14', `Entregar ≥2 relatórios mensais de inteligência de mercado`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l14" onclick="openModal('l14',`Entregar ≥2 relatórios mensais de inteligência de mercado`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l14"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l14"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l14')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l14">
-              <div class="note-saved-text" id="note-display-l14"></div>
-              <textarea id="note-ta-l14" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l14"></span>
-                <button class="btn-save" onclick="saveNote('l14')">Salvar</button>
+            <div class="note-editor" id="ne-l14">
+              <div class="note-prev" id="np-l14"></div>
+              <textarea id="nta-l14" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l14"></span>
+                <button class="btn-save-note" onclick="saveNote('l14')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l15">
-          <div class="task-row" id="task-l15">
+        <div class="task-block" id="tb-l15">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l15">Aberta</div>
+              <span class="chip" id="chip-l15">Aberta</span>
               <span class="task-text"><span class="ia-badge">IA</span>Desenvolver materiais de treinamento com suporte de IA</span>
             </div>
-            <button class="btn-concluir" id="btn-l15" onclick="openModal('l15', `Desenvolver materiais de treinamento com suporte de IA`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l15" onclick="openModal('l15',`Desenvolver materiais de treinamento com suporte de IA`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l15"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l15"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l15')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l15">
-              <div class="note-saved-text" id="note-display-l15"></div>
-              <textarea id="note-ta-l15" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l15"></span>
-                <button class="btn-save" onclick="saveNote('l15')">Salvar</button>
+            <div class="note-editor" id="ne-l15">
+              <div class="note-prev" id="np-l15"></div>
+              <textarea id="nta-l15" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l15"></span>
+                <button class="btn-save-note" onclick="saveNote('l15')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l16">
-          <div class="task-row" id="task-l16">
+        <div class="task-block" id="tb-l16">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l16">Aberta</div>
+              <span class="chip" id="chip-l16">Aberta</span>
               <span class="task-text">Conduzir ≥2 sessões de capacitação para equipe comercial e CS</span>
             </div>
-            <button class="btn-concluir" id="btn-l16" onclick="openModal('l16', `Conduzir ≥2 sessões de capacitação para equipe comercial e CS`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l16" onclick="openModal('l16',`Conduzir ≥2 sessões de capacitação para equipe comercial e CS`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l16"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l16"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l16')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l16">
-              <div class="note-saved-text" id="note-display-l16"></div>
-              <textarea id="note-ta-l16" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l16"></span>
-                <button class="btn-save" onclick="saveNote('l16')">Salvar</button>
+            <div class="note-editor" id="ne-l16">
+              <div class="note-prev" id="np-l16"></div>
+              <textarea id="nta-l16" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l16"></span>
+                <button class="btn-save-note" onclick="saveNote('l16')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l17">
-          <div class="task-row" id="task-l17">
+        <div class="task-block" id="tb-l17">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l17">Aberta</div>
+              <span class="chip" id="chip-l17">Aberta</span>
               <span class="task-text">Mapear oportunidades de pacotes integrados com add-ons</span>
             </div>
-            <button class="btn-concluir" id="btn-l17" onclick="openModal('l17', `Mapear oportunidades de pacotes integrados com add-ons`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l17" onclick="openModal('l17',`Mapear oportunidades de pacotes integrados com add-ons`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l17"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l17"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l17')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l17">
-              <div class="note-saved-text" id="note-display-l17"></div>
-              <textarea id="note-ta-l17" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l17"></span>
-                <button class="btn-save" onclick="saveNote('l17')">Salvar</button>
+            <div class="note-editor" id="ne-l17">
+              <div class="note-prev" id="np-l17"></div>
+              <textarea id="nta-l17" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l17"></span>
+                <button class="btn-save-note" onclick="saveNote('l17')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l18">
-          <div class="task-row" id="task-l18">
+        <div class="task-block" id="tb-l18">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l18">Aberta</div>
+              <span class="chip" id="chip-l18">Aberta</span>
               <span class="task-text">Avaliar e documentar condições operacionais: rebookings e suporte</span>
             </div>
-            <button class="btn-concluir" id="btn-l18" onclick="openModal('l18', `Avaliar e documentar condições operacionais: rebookings e suporte`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l18" onclick="openModal('l18',`Avaliar e documentar condições operacionais: rebookings e suporte`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l18"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l18"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l18')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l18">
-              <div class="note-saved-text" id="note-display-l18"></div>
-              <textarea id="note-ta-l18" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l18"></span>
-                <button class="btn-save" onclick="saveNote('l18')">Salvar</button>
+            <div class="note-editor" id="ne-l18">
+              <div class="note-prev" id="np-l18"></div>
+              <textarea id="nta-l18" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l18"></span>
+                <button class="btn-save-note" onclick="saveNote('l18')">Salvar</button>
               </div>
             </div>
           </div>
         </div></div>
-    <div class="marco-header">
-      <span class="marco-chip">M3 — Maturidade Estratégica</span>
-      <span class="marco-dates" id="dates-m3l"></span>
-      <div class="marco-progress-wrap"><div class="marco-progress-bar" id="bar-m3l"></div></div>
-      <span class="marco-count" id="cnt-m3l">0/6</span>
+    <div class="marco-hdr">
+      <span class="marco-pill">M3 — Maturidade Estratégica</span>
+      <span class="marco-dates" id="md-m3l"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m3l"></div></div>
+      <span class="marco-cnt" id="mc-m3l">0/6</span>
     </div>
-    <div class="marco-range-label">M3 — Maturidade Estratégica &nbsp;·&nbsp; Dez 2026+</div>
+    <div class="marco-sub">M3 — Maturidade Estratégica · Dez 2026+</div>
     <div class="tasks-block">
-        <div class="task-block" id="task-block-l19">
-          <div class="task-row" id="task-l19">
+        <div class="task-block" id="tb-l19">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l19">Aberta</div>
+              <span class="chip" id="chip-l19">Aberta</span>
               <span class="task-text">Portfólio gerenciado de forma autônoma</span>
             </div>
-            <button class="btn-concluir" id="btn-l19" onclick="openModal('l19', `Portfólio gerenciado de forma autônoma`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l19" onclick="openModal('l19',`Portfólio gerenciado de forma autônoma`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l19"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l19"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l19')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l19">
-              <div class="note-saved-text" id="note-display-l19"></div>
-              <textarea id="note-ta-l19" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l19"></span>
-                <button class="btn-save" onclick="saveNote('l19')">Salvar</button>
+            <div class="note-editor" id="ne-l19">
+              <div class="note-prev" id="np-l19"></div>
+              <textarea id="nta-l19" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l19"></span>
+                <button class="btn-save-note" onclick="saveNote('l19')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l20">
-          <div class="task-row" id="task-l20">
+        <div class="task-block" id="tb-l20">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l20">Aberta</div>
+              <span class="chip" id="chip-l20">Aberta</span>
               <span class="task-text">Fechar ≥1 contrato de longo prazo com fornecedor</span>
             </div>
-            <button class="btn-concluir" id="btn-l20" onclick="openModal('l20', `Fechar ≥1 contrato de longo prazo com fornecedor`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l20" onclick="openModal('l20',`Fechar ≥1 contrato de longo prazo com fornecedor`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l20"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l20"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l20')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l20">
-              <div class="note-saved-text" id="note-display-l20"></div>
-              <textarea id="note-ta-l20" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l20"></span>
-                <button class="btn-save" onclick="saveNote('l20')">Salvar</button>
+            <div class="note-editor" id="ne-l20">
+              <div class="note-prev" id="np-l20"></div>
+              <textarea id="nta-l20" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l20"></span>
+                <button class="btn-save-note" onclick="saveNote('l20')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l21">
-          <div class="task-row" id="task-l21">
+        <div class="task-block" id="tb-l21">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l21">Aberta</div>
+              <span class="chip" id="chip-l21">Aberta</span>
               <span class="task-text">Pipeline ativo de grupos exclusivos</span>
             </div>
-            <button class="btn-concluir" id="btn-l21" onclick="openModal('l21', `Pipeline ativo de grupos exclusivos`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l21" onclick="openModal('l21',`Pipeline ativo de grupos exclusivos`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l21"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l21"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l21')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l21">
-              <div class="note-saved-text" id="note-display-l21"></div>
-              <textarea id="note-ta-l21" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l21"></span>
-                <button class="btn-save" onclick="saveNote('l21')">Salvar</button>
+            <div class="note-editor" id="ne-l21">
+              <div class="note-prev" id="np-l21"></div>
+              <textarea id="nta-l21" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l21"></span>
+                <button class="btn-save-note" onclick="saveNote('l21')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l22">
-          <div class="task-row" id="task-l22">
+        <div class="task-block" id="tb-l22">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l22">Aberta</div>
+              <span class="chip" id="chip-l22">Aberta</span>
               <span class="task-text">Comissão recorrente via add-ons estruturada</span>
             </div>
-            <button class="btn-concluir" id="btn-l22" onclick="openModal('l22', `Comissão recorrente via add-ons estruturada`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l22" onclick="openModal('l22',`Comissão recorrente via add-ons estruturada`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l22"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l22"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l22')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l22">
-              <div class="note-saved-text" id="note-display-l22"></div>
-              <textarea id="note-ta-l22" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l22"></span>
-                <button class="btn-save" onclick="saveNote('l22')">Salvar</button>
+            <div class="note-editor" id="ne-l22">
+              <div class="note-prev" id="np-l22"></div>
+              <textarea id="nta-l22" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l22"></span>
+                <button class="btn-save-note" onclick="saveNote('l22')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l23">
-          <div class="task-row" id="task-l23">
+        <div class="task-block" id="tb-l23">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l23">Aberta</div>
+              <span class="chip" id="chip-l23">Aberta</span>
               <span class="task-text"><span class="ia-badge">IA</span>IA integrada ao fluxo de vendas de cruzeiros</span>
             </div>
-            <button class="btn-concluir" id="btn-l23" onclick="openModal('l23', `IA integrada ao fluxo de vendas de cruzeiros`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l23" onclick="openModal('l23',`IA integrada ao fluxo de vendas de cruzeiros`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l23"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l23"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l23')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l23">
-              <div class="note-saved-text" id="note-display-l23"></div>
-              <textarea id="note-ta-l23" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l23"></span>
-                <button class="btn-save" onclick="saveNote('l23')">Salvar</button>
+            <div class="note-editor" id="ne-l23">
+              <div class="note-prev" id="np-l23"></div>
+              <textarea id="nta-l23" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l23"></span>
+                <button class="btn-save-note" onclick="saveNote('l23')">Salvar</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="task-block" id="task-block-l24">
-          <div class="task-row" id="task-l24">
+        <div class="task-block" id="tb-l24">
+          <div class="task-row">
             <div class="task-left">
-              <div class="task-status-chip" id="chip-l24">Aberta</div>
+              <span class="chip" id="chip-l24">Aberta</span>
               <span class="task-text">Análise estratégica do período e roadmap para ano seguinte</span>
             </div>
-            <button class="btn-concluir" id="btn-l24" onclick="openModal('l24', `Análise estratégica do período e roadmap para ano seguinte`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l24" onclick="openModal('l24',`Análise estratégica do período e roadmap para ano seguinte`)">Concluir</button>
           </div>
-          <!-- Observação da Dhayane por tarefa -->
-          <div class="manager-obs" id="mobs-l24"></div>
-          <!-- Anotação da coordenadora -->
-          <div class="note-section">
+          <div class="mgr-obs" id="mobs-l24"></div>
+          <div class="note-wrap">
             <div class="note-toggle" onclick="toggleNote('l24')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="note-editor-l24">
-              <div class="note-saved-text" id="note-display-l24"></div>
-              <textarea id="note-ta-l24" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-footer">
-                <span class="note-timestamp" id="note-ts-l24"></span>
-                <button class="btn-save" onclick="saveNote('l24')">Salvar</button>
+            <div class="note-editor" id="ne-l24">
+              <div class="note-prev" id="np-l24"></div>
+              <textarea id="nta-l24" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-l24"></span>
+                <button class="btn-save-note" onclick="saveNote('l24')">Salvar</button>
               </div>
             </div>
           </div>
         </div></div>
 </main>
 <footer>Orange Viagens · Dashboard confidencial · Março 2026 &nbsp;·&nbsp; <a href="dashboard.html">← Visão geral</a></footer>
-<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+<div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <h2>Concluir tarefa</h2>
-    <div class="modal-task" id="modal-task-text"></div>
-    <input type="hidden" id="modal-task-id">
-    <label for="modal-textarea">Como foi feito?</label>
-    <textarea id="modal-textarea" placeholder="Descreva brevemente como a tarefa foi executada..."></textarea>
-    <div class="modal-actions">
+    <div class="modal-task" id="mtxt"></div>
+    <input type="hidden" id="mid">
+    <label>Como foi feito?</label>
+    <textarea id="mta" placeholder="Descreva como a tarefa foi executada..."></textarea>
+    <div class="modal-acts">
       <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="btn-submit" id="modal-submit" onclick="submitTask()">Enviar para aprovação</button>
+      <button class="btn-submit" id="msub" onclick="submitTask()">Enviar para aprovação</button>
     </div>
   </div>
 </div>
@@ -720,138 +654,126 @@ const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
 const TEAM_KEY='laura';
 const MARCOS=[{"id": "m1l", "label": "M1", "fase": "Estruturação", "range": "Jun–Ago 2026", "todos": [{"id": "l1", "text": "Mapear e estruturar portfólio inicial com ≥20 produtos de cruzeiros"}, {"id": "l2", "text": "Identificar e mapear ≥5 parceiros/fornecedores estratégicos"}, {"id": "l3", "text": "Iniciar negociações com fornecedores: desconto por volume (meta 10–15%)"}, {"id": "l4", "text": "Documentar fluxos e rotinas operacionais da área de cruzeiros"}, {"id": "l5", "text": "Desenvolver 1º guia de treinamento para equipe comercial"}, {"id": "l6", "text": "Conduzir primeira sessão de capacitação com a equipe comercial", "ia": true}, {"id": "l7", "text": "Realizar 1ª análise de inteligência de mercado de cruzeiros"}, {"id": "l8", "text": "Definir critérios e estrutura para gestão de grupos exclusivos"}, {"id": "l9", "text": "Alinhar com Dhayane baseline de KPIs e metas"}]}, {"id": "m2l", "label": "M2", "fase": "Consolidação", "range": "Set–Nov 2026", "todos": [{"id": "l10", "text": "Portfólio consolidado com fichas técnicas completas"}, {"id": "l11", "text": "Fechar ≥2 acordos estratégicos com fornecedores"}, {"id": "l12", "text": "Negociar exclusividade em grupos: upgrades e benefícios diferenciados"}, {"id": "l13", "text": "Lançar ≥1 oferta de grupo exclusivo como diferencial competitivo"}, {"id": "l14", "text": "Entregar ≥2 relatórios mensais de inteligência de mercado"}, {"id": "l15", "text": "Desenvolver materiais de treinamento com suporte de IA", "ia": true}, {"id": "l16", "text": "Conduzir ≥2 sessões de capacitação para equipe comercial e CS"}, {"id": "l17", "text": "Mapear oportunidades de pacotes integrados com add-ons"}, {"id": "l18", "text": "Avaliar e documentar condições operacionais: rebookings e suporte"}]}, {"id": "m3l", "label": "M3", "fase": "Maturidade Estratégica", "range": "Dez 2026+", "todos": [{"id": "l19", "text": "Portfólio gerenciado de forma autônoma"}, {"id": "l20", "text": "Fechar ≥1 contrato de longo prazo com fornecedor"}, {"id": "l21", "text": "Pipeline ativo de grupos exclusivos"}, {"id": "l22", "text": "Comissão recorrente via add-ons estruturada"}, {"id": "l23", "text": "IA integrada ao fluxo de vendas de cruzeiros", "ia": true}, {"id": "l24", "text": "Análise estratégica do período e roadmap para ano seguinte"}]}];
-let state={},notesCache={},planDates={},managerComments={};
+let states={},notes={},mgr_obs={},dates={};
 
-async function sbFetch(table, filters={}) {
-  try {
-    const r = await fetch('/db', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({action: 'select', table, filters})
-    });
-    const j = await r.json();
-    if (j.error) { console.error('sbFetch error', j.error); return []; }
-    return Array.isArray(j.data) ? j.data : [];
-  } catch(e) { console.error('sbFetch exception', e); return []; }
+async function api(path,opts={}){
+  const r=await fetch(SB_URL+path,{...opts,headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json',...(opts.headers||{})}});
+  if(!r.ok){const e=await r.text();console.error('API',r.status,path,e);return null;}
+  return r.json();
 }
 
-async function sbUpsert(table, data, conflict) {
-  try {
-    const r = await fetch('/db', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({action: 'upsert', table, data, conflict: conflict || 'task_id'})
-    });
-    const j = await r.json();
-    if (j.error) { console.error('sbUpsert error', j.error); return false; }
-    return true;
-  } catch(e) { console.error('sbUpsert exception', e); return false; }
+async function upsert(table,data,conflict='task_id'){
+  const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+conflict,{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},
+    body:JSON.stringify(data)
+  });
+  const txt=await r.text();
+  if(!r.ok){console.error('Upsert failed',table,r.status,txt);return false;}
+  return true;
 }
 
-
-async function loadAll(){
-  const[stRows,dateRows,noteRows,mcRows]=await Promise.all([
-    sbFetch('task_states'),
-    sbFetch('plan_dates', {team_key: TEAM_KEY}),
-    sbFetch('task_notes', {team_key: TEAM_KEY}),
-    sbFetch('task_manager_comments', {team_key: TEAM_KEY}),
+async function load(){
+  const[st,dt,nt,mc]=await Promise.all([
+    api('/rest/v1/task_states?select=*'),
+    api('/rest/v1/plan_dates?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/task_notes?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/task_manager_comments?team_key=eq.'+TEAM_KEY+'&select=*'),
   ]);
-  state={};for(const r of stRows)state[r.task_id]=r;
-  planDates={};for(const r of dateRows)planDates[r.marco_id]=r;
-  for(const r of noteRows){if(document.activeElement?.id!=='note-ta-'+r.task_id)notesCache[r.task_id]=r;}
-  managerComments={};for(const r of mcRows)managerComments[r.task_id]=r;
-  renderAll();
+  states={};(st||[]).forEach(r=>states[r.task_id]=r);
+  dates={};(dt||[]).forEach(r=>dates[r.marco_id]=r);
+  notes={};(nt||[]).forEach(r=>{if(document.activeElement?.id!=='nta-'+r.task_id)notes[r.task_id]=r;});
+  mgr_obs={};(mc||[]).forEach(r=>mgr_obs[r.task_id]=r);
+  render();
 }
 
-function renderAll(){
-  let done=0,pending=0,partial=0,total=0;
+function render(){
+  let done=0,pend=0,part=0,tot=0;
   for(const m of MARCOS){
-    let mDone=0;
+    let md=0;
     for(const t of m.todos){
-      total++;
-      const s=state[t.id];
+      tot++;
+      const s=states[t.id];
       const chip=document.getElementById('chip-'+t.id);
       const btn=document.getElementById('btn-'+t.id);
       if(s){
-        if(s.status==='aprovada'){mDone++;done++;if(chip){chip.textContent='Aprovada';chip.className='task-status-chip aprovada';}if(btn){btn.disabled=true;btn.textContent='Aprovada';}}
-        else if(s.status==='aguardando'){pending++;if(chip){chip.textContent='Aguardando';chip.className='task-status-chip aguardando';}if(btn){btn.disabled=true;btn.textContent='Enviado';}}
-        else if(s.status==='parcial'){partial++;if(chip){chip.textContent='Parcial';chip.className='task-status-chip parcial';}}
+        if(s.status==='aprovada'){md++;done++;if(chip){chip.textContent='Aprovada';chip.className='chip aprovada';}if(btn){btn.disabled=true;btn.textContent='Aprovada';}}
+        else if(s.status==='aguardando'){pend++;if(chip){chip.textContent='Aguardando';chip.className='chip aguardando';}if(btn){btn.disabled=true;btn.textContent='Enviado';}}
       }
-      // anotação da coordenadora
-      const nc=notesCache[t.id];
-      if(nc){
-        const disp=document.getElementById('note-display-'+t.id);
-        const ts=document.getElementById('note-ts-'+t.id);
-        const ta=document.getElementById('note-ta-'+t.id);
-        if(disp)disp.textContent=nc.note_text||'';
-        if(ts)ts.textContent='Salvo em '+new Date(nc.updated_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
-        if(ta&&document.activeElement!==ta)ta.value=nc.note_text||'';
-        const toggle=document.querySelector('[onclick="toggleNote(\''+t.id+'\')"]');
-        if(toggle&&nc.note_text)toggle.textContent='▼ Anotação';
+      const n=notes[t.id];
+      if(n){
+        const prev=document.getElementById('np-'+t.id);
+        const ts=document.getElementById('nts-'+t.id);
+        const ta=document.getElementById('nta-'+t.id);
+        const tog=document.querySelector('[onclick="toggleNote(\''+t.id+'\')"]');
+        if(prev)prev.textContent=n.note||'';
+        if(ts)ts.textContent='Salvo em '+new Date(n.updated_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+        if(ta&&document.activeElement!==ta)ta.value=n.note||'';
+        if(tog&&n.note)tog.textContent='▼ Anotação';
       }
-      // observação da Dhayane por tarefa
-      const mc=managerComments[t.id];
+      const mo=mgr_obs[t.id];
       const obsEl=document.getElementById('mobs-'+t.id);
       if(obsEl){
-        if(mc&&mc.comment){
-          obsEl.className='manager-obs visible';
-          obsEl.innerHTML=`<div class="manager-obs-header"><div class="manager-obs-av">DA</div><div class="manager-obs-label">Observação da Dhayane</div></div><div class="manager-obs-text">${mc.comment}</div>`;
-        }else{
-          obsEl.className='manager-obs';
-          obsEl.innerHTML='';
-        }
+        if(mo?.comment){obsEl.className='mgr-obs on';obsEl.innerHTML='<div class="mgr-obs-hdr"><div class="mgr-av">DA</div><div class="mgr-lbl">Observação da Dhayane</div></div><div class="mgr-txt">'+mo.comment+'</div>';}
+        else{obsEl.className='mgr-obs';obsEl.innerHTML='';}
       }
     }
-    const bar=document.getElementById('bar-'+m.id);
-    const cnt=document.getElementById('cnt-'+m.id);
-    if(bar)bar.style.width=(m.todos.length?(mDone/m.todos.length*100):0)+'%';
-    if(cnt)cnt.textContent=mDone+'/'+m.todos.length;
-    const dates=planDates[m.id];
-    const dEl=document.getElementById('dates-'+m.id);
-    if(dEl&&dates){const fmt=d=>new Date(d).toLocaleDateString('pt-BR');dEl.textContent='Início: '+fmt(dates.start_date)+' · Conclusão: '+fmt(dates.end_date);}
+    const bar=document.getElementById('mb-'+m.id);
+    const cnt=document.getElementById('mc-'+m.id);
+    if(bar)bar.style.width=(m.todos.length?md/m.todos.length*100:0)+'%';
+    if(cnt)cnt.textContent=md+'/'+m.todos.length;
+    const d=dates[m.id];
+    const dEl=document.getElementById('md-'+m.id);
+    if(dEl&&d){const f=x=>new Date(x).toLocaleDateString('pt-BR');dEl.textContent='Início: '+f(d.start_date)+' · Conclusão: '+f(d.end_date);}
   }
-  document.getElementById('stat-done').textContent=done;
-  document.getElementById('stat-pending').textContent=pending;
-  document.getElementById('stat-partial').textContent=partial;
-  document.getElementById('stat-total').textContent=total;
-  const pct=total?(done/total*100):0;
-  document.getElementById('ring').style.strokeDashoffset=175.9*(1-pct/100);
+  document.getElementById('sd').textContent=done;
+  document.getElementById('sp').textContent=pend;
+  document.getElementById('sx').textContent=part;
+  document.getElementById('st').textContent=tot;
+  document.getElementById('ring').style.strokeDashoffset=175.9*(1-(tot?done/tot:0));
 }
 
 function toggleNote(id){
-  const ed=document.getElementById('note-editor-'+id);
+  const ed=document.getElementById('ne-'+id);
   const tog=document.querySelector('[onclick="toggleNote(\''+id+'\')"]');
   if(ed.classList.toggle('open'))tog.textContent='▼ Anotação';
-  else tog.textContent=(notesCache[id]?.note_text?'▼ ':'▶ ')+'Anotação'+(notesCache[id]?.note_text?'':' — Adicionar');
+  else tog.textContent=(notes[id]?.note?'▼ ':'▶ ')+'Anotação'+(notes[id]?.note?'':' — Adicionar');
 }
+
 async function saveNote(id){
-  const ta=document.getElementById('note-ta-'+id);
-  const btn=ta.closest('.note-editor').querySelector('.btn-save');
-  btn.textContent='Salvando...';
-  const ok=const ok=await sbUpsert('task_notes',{task_id:id,team_key:TEAM_KEY,note:ta.value,note_text:ta.value,updated_at:new Date().toISOString()});
+  const ta=document.getElementById('nta-'+id);
+  const btn=ta.closest('.note-editor').querySelector('.btn-save-note');
+  btn.textContent='Salvando...';btn.disabled=true;
+  const ok=await upsert('task_notes',{task_id:id,team_key:TEAM_KEY,note:ta.value,note_text:ta.value,updated_at:new Date().toISOString()});
   btn.disabled=false;
-  if(ok){btn.textContent='Salvo ✓';setTimeout(()=>btn.textContent='Salvar',2000);}else{btn.textContent='Erro';setTimeout(()=>btn.textContent='Salvar',3000);}
-  await loadAll();
+  if(ok){btn.textContent='Salvo ✓';setTimeout(()=>btn.textContent='Salvar',2000);}
+  else{btn.textContent='Erro — tente novamente';setTimeout(()=>btn.textContent='Salvar',3000);}
+  await load();
 }
-function openModal(id,text){
-  document.getElementById('modal-task-id').value=id;
-  document.getElementById('modal-task-text').textContent=text;
-  document.getElementById('modal-textarea').value='';
+
+function openModal(id,txt){
+  document.getElementById('mid').value=id;
+  document.getElementById('mtxt').textContent=txt;
+  document.getElementById('mta').value='';
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
+
 async function submitTask(){
-  const id=document.getElementById('modal-task-id').value;
-  const how=document.getElementById('modal-textarea').value.trim();
+  const id=document.getElementById('mid').value;
+  const how=document.getElementById('mta').value.trim();
   if(!how){alert('Por favor descreva como a tarefa foi feita.');return;}
-  const btn=document.getElementById('modal-submit');
+  const btn=document.getElementById('msub');
   btn.disabled=true;btn.textContent='Enviando...';
-  await sbUpsert('task_states',{task_id:id,team_key:TEAM_KEY,status:'aguardando',how_done:how,submitted_at:new Date().toISOString()});
-  if(saved){closeModal();btn.disabled=false;btn.textContent='Enviar para aprovação';await loadAll();}else{btn.disabled=false;btn.textContent='Erro — tente novamente';alert('Não foi possível salvar. Verifique sua conexão.');}
+  const ok=await upsert('task_states',{task_id:id,team_key:TEAM_KEY,status:'aguardando',how_done:how,execution:how,submitted_at:new Date().toISOString()});
+  btn.disabled=false;btn.textContent='Enviar para aprovação';
+  if(ok){closeModal();await load();}
+  else alert('Erro ao enviar. Tente novamente.');
 }
+
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
-loadAll();
-setInterval(()=>{if(document.activeElement?.tagName!=='TEXTAREA')loadAll();},20000);
+load();
+setInterval(()=>{if(document.activeElement?.tagName!=='TEXTAREA')load();},20000);
 </script>
 </body>
 </html>
