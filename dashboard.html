@@ -1,756 +1,418 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Dhayane — Orange Viagens</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Orange Viagens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#f7f6f3;--card:#fff;--text:#1a1a18;--muted:#6b6b66;--border:#e5e5de;--radius:12px;
-  --font-display:'DM Serif Display',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif}
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6}
-.lbar{position:fixed;top:0;left:0;height:3px;background:#6C5CE7;width:0;transition:width .3s;z-index:999}
-.page-header{background:var(--card);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:200}
-.header-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:1rem 0}
-.org-name{font-family:var(--font-display);font-size:17px}
-.hd{flex:1;height:1px;background:var(--border)}
-.header-meta{font-size:12px;color:var(--muted)}
-.hdr-badge{background:#e6a817;color:#fff;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;display:none}
-.hero{background:#1a1a18;padding:2.5rem 2rem;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 50%,rgba(108,92,231,.15) 0%,transparent 55%),radial-gradient(circle at 15% 80%,rgba(0,184,148,.1) 0%,transparent 50%);pointer-events:none}
-.hero-inner{max-width:1060px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem;position:relative;z-index:1}
-.hero h1{font-family:var(--font-display);font-size:30px;font-weight:400;color:#fff;margin-bottom:.3rem}
-.hero p{font-size:13px;color:rgba(255,255,255,.4)}
-.hero-kpis{display:flex;gap:24px;flex-wrap:wrap}
-.hkpi-val{font-family:var(--font-display);font-size:26px;color:#fff;line-height:1}
-.hkpi-val.pend{color:#f5d87a}.hkpi-val.part{color:#ffb07c}
-.hkpi-lbl{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em}
-.tabs-bar{background:var(--card);border-bottom:1px solid var(--border);padding:0 2rem}
-.tabs-inner{max-width:1060px;margin:0 auto;display:flex;flex-wrap:wrap}
-.tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:.75rem 1rem;font-family:var(--font-body);font-size:13px;color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s;display:flex;align-items:center;gap:6px}
-.tab-btn:hover{color:var(--text)}.tab-btn.active{color:var(--text);border-bottom-color:#6C5CE7;font-weight:500}
-.tab-pill{font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:20px;display:inline-flex;align-items:center;justify-content:center;color:#fff;padding:0 5px}
-.tp-amber{background:#e6a817}.tp-green{background:#00B894}.tp-red{background:#D63031}
-main{max-width:1060px;margin:0 auto;padding:2rem}
-.view{display:none}.view.active{display:block}
-.sec-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:1rem}
-/* Team overview cards */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:2rem}
-.team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;text-decoration:none;color:inherit;display:block;transition:box-shadow .2s,transform .15s;position:relative;overflow:hidden}
-.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--tc);opacity:0;transition:opacity .2s}
-.team-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);transform:translateY(-1px)}.team-card:hover::before{opacity:1}
-.tc-top{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
-.tc-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;color:#fff;flex-shrink:0}
-.tc-name{font-size:14px;font-weight:500}.tc-role{font-size:11px;color:var(--muted)}
-.tc-nums{display:flex;align-items:baseline;gap:6px;margin-bottom:8px}
-.tc-big{font-family:var(--font-display);font-size:22px}.tc-of{font-size:12px;color:var(--muted)}
-.tc-pend{font-size:11px;background:#fff8e0;color:#7a5c00;padding:2px 8px;border-radius:20px;margin-left:auto}
-.tc-bar-wrap{height:4px;border-radius:10px;overflow:hidden;margin-bottom:8px}
-.tc-bar{height:100%;border-radius:10px;transition:width .5s}
-.tc-hint{font-size:11px;color:var(--muted)}
-/* Dates editor */
-.dates-team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.25rem;overflow:hidden}
-.dtc-head{padding:1rem 1.25rem;border-bottom:1px solid var(--border);background:#fafaf8;display:flex;align-items:center;gap:10px}
-.dtc-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;color:#fff;flex-shrink:0}
-.dtc-name{font-size:14px;font-weight:500}.dtc-role{font-size:12px;color:var(--muted)}
-.dtc-hint{margin-left:auto;font-size:11px;color:var(--muted)}
-.dtc-body{padding:1rem 1.25rem;display:flex;flex-direction:column;gap:10px}
-.marco-date-row{display:grid;grid-template-columns:130px 1fr 1fr auto;gap:12px;align-items:center;background:var(--bg);border-radius:8px;padding:10px 12px}
-.mdr-label{font-size:13px;font-weight:500}.mdr-fase{font-size:11px;color:var(--muted)}
-.mdr-field label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px;display:block}
-.mdr-field input[type=date]{width:100%;border:1px solid var(--border);border-radius:7px;padding:6px 9px;font-family:var(--font-body);font-size:13px;color:var(--text);background:var(--card)}
-.mdr-field input:focus{outline:none;border-color:#6C5CE7}
-.mdr-note{grid-column:1/-1;margin-top:4px}
-.mdr-note input{width:100%;border:1px solid var(--border);border-radius:7px;padding:6px 9px;font-family:var(--font-body);font-size:13px;color:var(--text);background:var(--card)}
-.mdr-note input:focus{outline:none;border-color:#6C5CE7}
-.save-row-btn{background:#6C5CE7;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-family:var(--font-body);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;transition:opacity .15s}
-.save-row-btn:hover{opacity:.85}
-.save-row-btn.saved{background:#00B894}
-.mdr-status{font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;white-space:nowrap}
-.mdr-status.ok{background:#e6faf4;color:#0a6b4a}
-.mdr-status.late{background:#fff0f0;color:#7a1a1a}
-.mdr-status.near{background:#fff8e0;color:#7a5c00}
-.mdr-status.unset{background:#f0f0ec;color:#6b6b66}
-/* Approvals */
-.empty-state{text-align:center;padding:4rem 1rem;color:var(--muted)}
-.empty-state svg{display:block;margin:0 auto 1rem;opacity:.25}
-.appr-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem;}
-.ac-head{padding:.9rem 1.25rem;display:flex;align-items:center;gap:10px;background:#fafaf8;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.ac-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;color:#fff;flex-shrink:0}
-.ac-who-name{font-size:13px;font-weight:500}.ac-sub{font-size:11px;color:var(--muted)}
-.ac-date{font-size:11px;color:var(--muted);margin-left:auto}
-.ac-body{padding:1.25rem;position:relative;z-index:1;}
-.ac-task{font-size:15px;font-weight:500;margin-bottom:.75rem;line-height:1.4}
-.prev-thread{margin-bottom:1.25rem}
-.prev-thread-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
-.thread-entry{border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.5;margin-bottom:5px}
-.te-submitted{background:#f7f6f3;border-left:3px solid #ccc}
-.te-approved{background:#e6faf4;border-left:3px solid #00B894}
-.te-partial{background:#fff0e6;border-left:3px solid #E17055}
-.te-rejected{background:#fff0f0;border-left:3px solid #D63031}
-.te-who{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-.te-who.submitted{color:#888}.te-who.approved{color:#0a6b4a}.te-who.partial{color:#7a3b00}.te-who.rejected{color:#7a1a1a}
-.te-date{font-size:11px;color:var(--muted);margin-top:2px}
-.ac-exec-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
-.ac-exec{background:#f7f6f3;border-left:3px solid #ccc;border-radius:0 8px 8px 0;padding:10px 12px;font-size:14px;line-height:1.6;margin-bottom:1rem}
-.review-form label{display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
-.review-form .review-hint{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.5}
-.review-form textarea{
-  width:100%;
-  border:1.5px solid var(--border);
-  border-radius:8px;
-  padding:12px;
-  font-family:var(--font-body);
-  font-size:14px;
-  resize:vertical;
-  min-height:180px;
-  color:var(--text);
-  background:#fff;
-  margin-bottom:4px;
-  line-height:1.7;
-  white-space:pre-wrap;
-  word-break:break-word;
-  overflow-wrap:break-word;
-  position:relative;
-  z-index:2;
-  pointer-events:all !important;
-  cursor:text !important;
-  -webkit-user-select:text !important;
-  user-select:text !important;
-  transition:border-color .15s,box-shadow .15s;
-  display:block;
-}
-.review-form textarea:focus{
-  outline:2px solid #6C5CE7;
-  outline-offset:0;
-  border-color:#6C5CE7;
-  box-shadow:0 0 0 3px rgba(108,92,231,.1);
-}
-.review-char-count{font-size:11px;color:var(--muted);text-align:right;margin-bottom:10px}
-.review-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.review-actions .btn{padding:9px 20px;font-size:13px}
-.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:13px;font-weight:500;padding:7px 16px;border-radius:8px;border:none;cursor:pointer;transition:opacity .15s,transform .1s}
-.btn:active{transform:scale(.97)}.btn:hover{opacity:.85}
-.btn-approve{background:#00B894;color:#fff}
-.btn-partial{background:#E17055;color:#fff}
-.btn-reject{background:#fff0f0;color:#D63031;border:1px solid #D63031}
-/* History */
-.hist-filters{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
-.filt{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-family:var(--font-body);font-size:12px;color:var(--muted);cursor:pointer;transition:all .15s}
-.filt.active{background:#f0eeff;border-color:#a89ddd;color:#4a3faa;font-weight:500}
-.hist-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem;overflow:hidden}
-.hc-head{padding:.75rem 1.25rem;background:#fafaf8;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.hc-task{font-size:14px;font-weight:500;flex:1}
-.hc-body{padding:1rem 1.25rem}
-.hs{font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;white-space:nowrap}
-.hs.approved{background:#e6faf4;color:#0a6b4a}.hs.partial{background:#fff0e6;color:#7a3b00}.hs.rejected{background:#fff0f0;color:#7a1a1a}
-/* Report */
-.perf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:1.5rem}
-.perf-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1rem}
-.pc-val{font-family:var(--font-display);font-size:26px;line-height:1;margin-bottom:3px}
-.pc-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.pc-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.team-perf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:1.5rem}
-.tperf-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem}
-.tperf-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
-.tperf-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;color:#fff;flex-shrink:0}
-.tperf-name{font-size:14px;font-weight:500}.tperf-role{font-size:11px;color:var(--muted)}
-.tperf-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px}
-.tperf-row:last-child{border-bottom:none}
-.green{color:#0a6b4a}.amber{color:#7a5c00}.red{color:#7a1a1a}
-.quality-bar{display:flex;height:8px;border-radius:20px;overflow:hidden;gap:2px;margin-top:8px}
-.qb-seg{height:100%;border-radius:2px}
-footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;--text:#e6edf3;--muted:#7d8590;--green:#00B894;--amber:#e6a817;--red:#e17055;--purple:#6C5CE7;--blue:#0984e3;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.org-name{font-family:'DM Serif Display',serif;font-size:1.1rem;}
+.hero{background:linear-gradient(135deg,#0d2818 0%,#0d1117 60%);border-bottom:1px solid var(--border);padding:2.5rem 2rem;}
+.hero-inner{max-width:1000px;margin:0 auto;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:2rem;margin-bottom:.25rem;}
+.hero-sub{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem;}
+.hero-stats{display:flex;gap:2rem;flex-wrap:wrap;}
+.hstat-val{font-size:1.8rem;font-weight:700;}
+.hstat-val.green{color:var(--green);}
+.hstat-val.amber{color:var(--amber);}
+.hstat-val.red{color:var(--red);}
+.hstat-val.muted{color:var(--muted);}
+.hstat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.tabs{background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 2rem;}
+.tab{padding:12px 20px;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;}
+.tab.active{color:var(--text);border-bottom-color:var(--green);font-weight:600;}
+.tab .badge{background:var(--amber);color:#000;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px;}
+.panel{display:none;max-width:1000px;margin:0 auto;padding:2rem;}
+.panel.active{display:block;}
 
-/* ── MOBILE ──────────────────────────────────────────────────────── */
-@media(max-width:700px){
-  /* layout padding */
-  main{padding:1rem}
-  .page-header{padding:0 1rem}
-  .tabs-bar{padding:0 .5rem}
-  .hero{padding:1.5rem 1rem}
+/* OVERVIEW */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2rem;}
+.team-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;cursor:pointer;transition:border-color .15s;text-decoration:none;color:var(--text);display:block;}
+.team-card:hover{border-color:var(--green);}
+.tc-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.tc-av{width:38px;height:38px;border-radius:50%;color:#fff;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tc-name{font-weight:600;font-size:.9rem;}
+.tc-role{font-size:11px;color:var(--muted);}
+.tc-progress{background:var(--surface2);border-radius:4px;height:4px;margin-bottom:.75rem;}
+.tc-bar{height:4px;border-radius:4px;transition:width .4s;}
+.tc-stats{display:flex;gap:.75rem;font-size:12px;}
 
-  /* header: hide divider and meta text to save space */
-  .hd{display:none}
-  .header-meta{font-size:11px}
+/* DATES */
+.section-title{font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:.5rem;}
+.section-desc{font-size:13px;color:var(--muted);margin-bottom:1.5rem;}
+.dates-team-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
+.dtc-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.dtc-av{width:32px;height:32px;border-radius:50%;color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.dtc-body{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;}
+.date-row{background:var(--surface2);border-radius:8px;padding:.75rem;}
+.date-row .marco-tag{font-size:12px;font-weight:600;margin-bottom:.5rem;}
+.date-inputs{display:flex;flex-direction:column;gap:.4rem;}
+.date-inputs input{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:13px;width:100%;outline:none;font-family:inherit;}
+.date-inputs input:focus{border-color:var(--green);}
+.btn-save-dates{margin-top:.75rem;background:var(--green);color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
+.save-ok{font-size:12px;color:var(--green);margin-left:10px;opacity:0;transition:opacity .3s;}
+.save-ok.show{opacity:1;}
 
-  /* hero: stack title and kpis */
-  .hero-inner{flex-direction:column;gap:1.25rem;align-items:flex-start}
-  .hero h1{font-size:22px}
-  .hero-kpis{gap:16px}
-  .hkpi-val{font-size:22px}
+/* OBS EDITOR */
+.obs-team-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
+.obs-team-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem;cursor:pointer;user-select:none;}
+.obs-team-body{display:none;}
+.obs-team-body.open{display:block;}
+.obs-task-row{border-bottom:1px solid var(--border);padding:.75rem 0;}
+.obs-task-row:last-child{border-bottom:none;}
+.obs-task-label{font-size:13px;font-weight:500;margin-bottom:.5rem;color:var(--text);}
+.obs-task-label .task-id{font-size:11px;color:var(--muted);margin-right:6px;}
+.obs-textarea{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;font-family:inherit;resize:vertical;min-height:60px;outline:none;}
+.obs-textarea:focus{border-color:var(--amber);}
+.obs-task-footer{display:flex;justify-content:flex-end;margin-top:.4rem;gap:.5rem;align-items:center;}
+.obs-saved-label{font-size:11px;color:var(--muted);}
+.btn-save-obs{background:var(--amber);color:#000;border:none;padding:4px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
+.obs-has-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block;margin-left:6px;vertical-align:middle;}
 
-  /* tabs: scrollable row, no wrap, smaller text */
-  .tabs-inner{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .tabs-inner::-webkit-scrollbar{display:none}
-  .tab-btn{font-size:12px;padding:.65rem .75rem;white-space:nowrap;flex-shrink:0}
+/* APPROVALS */
+.approval-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
+.ac-header{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;}
+.ac-av{width:34px;height:34px;border-radius:50%;color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ac-time{font-size:11px;color:var(--muted);margin-left:auto;}
+.ac-task{font-size:14px;font-weight:600;margin-bottom:.5rem;}
+.ac-how{font-size:13px;color:var(--muted);background:var(--surface2);border-radius:8px;padding:.75rem;margin-bottom:.75rem;line-height:1.5;}
+.ac-actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;}
+.btn-approve{background:var(--green);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
+.btn-return{background:transparent;border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer;}
+.return-input{flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;font-size:13px;font-family:inherit;outline:none;}
+.empty-state{text-align:center;padding:3rem;color:var(--muted);}
 
-  /* team grid: 1 column on mobile */
-  .team-grid{grid-template-columns:1fr}
+/* HISTORY */
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.filter-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;}
+.filter-btn.active{background:var(--green);border-color:var(--green);color:#fff;font-weight:600;}
+.hist-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.75rem;display:flex;gap:1rem;align-items:flex-start;}
+.hist-av{width:30px;height:30px;border-radius:50%;color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hist-main{flex:1;min-width:0;}
+.hist-task{font-size:13px;font-weight:600;margin-bottom:3px;}
+.hist-how{font-size:12px;color:var(--muted);margin-bottom:4px;}
+.hist-right{text-align:right;flex-shrink:0;}
+.hist-status{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;}
+.hist-status.aprovada{background:#dcfff6;color:#00795e;}
+.hist-status.devolvida{background:#fff0e8;color:#a04010;}
+.hist-date{font-size:11px;color:var(--muted);margin-top:4px;}
 
-  /* marcos do plano: 2×2 grid instead of 4 columns */
-  .marcos-grid{grid-template-columns:1fr 1fr !important}
-
-  /* dates editor rows: stack vertically */
-  .marco-date-row{grid-template-columns:1fr 1fr;row-gap:8px}
-  .mdr-label{grid-column:1/-1}
-  .save-row-btn{grid-column:1/-1;width:100%;justify-content:center}
-  .dtc-hint{display:none}
-
-  /* approval / history cards */
-  .ac-head{flex-wrap:wrap;gap:6px}
-  .ac-date{margin-left:0;width:100%}
-  .review-actions{flex-direction:column}
-  .review-actions .btn{width:100%;justify-content:center}
-
-  /* perf grid: 2 cols */
-  .perf-grid{grid-template-columns:1fr 1fr}
-  .team-perf-grid{grid-template-columns:1fr}
-
-  /* hist filters: scroll */
-  .hist-filters{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
-  .hist-filters::-webkit-scrollbar{display:none}
-  .filt{white-space:nowrap;flex-shrink:0}
-}
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:2rem;}
+@media(max-width:600px){.panel{padding:1rem;}.tabs{padding:0 1rem;}}
 </style>
 </head>
 <body>
-<div class="lbar" id="lbar"></div>
 <header class="page-header">
-  <div class="header-inner">
-    <div class="org-name">Orange Viagens</div><div class="hd"></div>
-    <span class="hdr-badge" id="hdr-badge"></span>
-    <div class="header-meta">Dashboard · Dhayane Albiero</div>
-  </div>
+  <div class="org-name">Orange Viagens</div>
+  <div style="font-size:12px;color:var(--muted)">Dashboard · Dhayane Albiero</div>
 </header>
 <div class="hero">
   <div class="hero-inner">
-    <div>
-      <h1>Dashboard de acompanhamento</h1>
-      <p>Plano 18 meses · 3 times · Orange Viagens · Março 2026</p>
-    </div>
-    <div class="hero-kpis">
-      <div><div class="hkpi-val pend" id="h-pend">—</div><div class="hkpi-lbl">aguardando</div></div>
-      <div><div class="hkpi-val part" id="h-part">—</div><div class="hkpi-lbl">parciais</div></div>
-      <div><div class="hkpi-val" id="h-appr">—</div><div class="hkpi-lbl">aprovadas</div></div>
-      <div><div class="hkpi-val" id="h-total">—</div><div class="hkpi-lbl">total</div></div>
+    <h1>Dashboard de acompanhamento</h1>
+    <div class="hero-sub">Plano 18 meses · 4 times · Orange Viagens · Março 2026</div>
+    <div class="hero-stats">
+      <div><div class="hstat-val amber" id="gs-pending">—</div><div class="hstat-lbl">Aguardando</div></div>
+      <div><div class="hstat-val red" id="gs-partial">—</div><div class="hstat-lbl">Parciais</div></div>
+      <div><div class="hstat-val green" id="gs-done">—</div><div class="hstat-lbl">Aprovadas</div></div>
+      <div><div class="hstat-val muted" id="gs-total">—</div><div class="hstat-lbl">Total</div></div>
     </div>
   </div>
 </div>
-<div class="tabs-bar">
-  <div class="tabs-inner">
-    <button class="tab-btn active" onclick="switchTab('overview')">Visão geral</button>
-    <button class="tab-btn" onclick="switchTab('dates')">
-      Datas dos marcos <span class="tab-pill tp-red" id="tp-late" style="display:none">!</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('approvals')">
-      Aprovações <span class="tab-pill tp-amber" id="tp-pend">0</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('history')">
-      Histórico <span class="tab-pill tp-green" id="tp-hist">0</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('report')">Relatório</button>
-  </div>
+<div class="tabs">
+  <div class="tab active" onclick="showTab('overview',this)">Visão geral</div>
+  <div class="tab" onclick="showTab('dates',this)">Datas dos marcos</div>
+  <div class="tab" onclick="showTab('obs',this)">Observações por tarefa</div>
+  <div class="tab" id="tab-approvals" onclick="showTab('approvals',this)">Aprovações <span class="badge" id="badge-pending" style="display:none">0</span></div>
+  <div class="tab" onclick="showTab('history',this)">Histórico</div>
 </div>
 
-<main>
+<div class="panel active" id="panel-overview"><div class="team-grid" id="team-grid"></div></div>
 
-  <!-- OVERVIEW -->
-  <div id="view-overview" class="view active">
-    <div class="sec-label" style="margin-top:.5rem">Times</div>
-    <div class="team-grid" id="team-grid"></div>
-    <div class="sec-label">Marcos do plano</div>
-    <div class="marcos-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;min-width:0"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#2d6a4f;font-weight:500;margin-bottom:4px">M1 — Fundação</div><div style="font-size:13px;font-weight:500">Meses 1–5</div><div style="font-size:12px;color:var(--muted)">Diagnóstico, baseline, 1ª automação IA</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;min-width:0"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#5c4299;font-weight:500;margin-bottom:4px">M2 — Estruturação</div><div style="font-size:13px;font-weight:500">Meses 6–10</div><div style="font-size:12px;color:var(--muted)">Academia, 3 automações, 1 bundle</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;min-width:0"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#9b4f12;font-weight:500;margin-bottom:4px">M3 — Aceleração</div><div style="font-size:13px;font-weight:500">Meses 11–15</div><div style="font-size:12px;color:var(--muted)">IA nos 3 pilares, impacto ≥R$1M</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;min-width:0"><div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#7d1a1a;font-weight:500;margin-bottom:4px">M4 — Escala</div><div style="font-size:13px;font-weight:500">Meses 16–18</div><div style="font-size:12px;color:var(--muted)">Sistema autônomo, impacto ≥R$1,5M</div></div>
-    </div>
-  </div>
+<div class="panel" id="panel-dates">
+  <div class="section-title">Datas dos marcos</div>
+  <div class="section-desc">Defina as datas de início e conclusão de cada marco. As datas ficam visíveis para as coordenadoras.</div>
+  <div id="dates-editor"></div>
+  <button class="btn-save-dates" onclick="saveDates()">Salvar todas as datas</button>
+  <span class="save-ok" id="save-dates-ok">Salvo!</span>
+</div>
 
-  <!-- DATES EDITOR -->
-  <div id="view-dates" class="view">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px">
-      <div>
-        <div class="sec-label" style="margin:0">Datas dos marcos por coordenação</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px">Definidas por você. As coordenadoras visualizam mas não editam.</div>
-      </div>
-    </div>
-    <div id="dates-editor"></div>
-  </div>
+<div class="panel" id="panel-obs">
+  <div class="section-title">Observações por tarefa</div>
+  <div class="section-desc">Escreva observações vinculadas a tarefas específicas. Elas aparecem para a coordenadora dentro da tarefa correspondente.</div>
+  <div id="obs-editor"></div>
+</div>
 
-  <!-- APPROVALS -->
-  <div id="view-approvals" class="view">
-    <div class="sec-label" style="margin-top:.5rem">Tarefas aguardando sua revisão</div>
-    <div id="approvals-list"></div>
-  </div>
+<div class="panel" id="panel-approvals"><div id="approvals-list"></div></div>
 
-  <!-- HISTORY -->
-  <div id="view-history" class="view">
-    <div class="hist-filters">
-      <button class="filt active" onclick="setFilt('all',this)">Todas as tratativas</button>
-      <button class="filt" onclick="setFilt('approved',this)">Aprovadas</button>
-      <button class="filt" onclick="setFilt('partial',this)">Feito parcialmente</button>
-      <button class="filt" onclick="setFilt('rejected',this)">Não aprovadas</button>
-      <button class="filt" onclick="setFilt('katharine',this)">Katharine</button>
-      <button class="filt" onclick="setFilt('roberta',this)">Roberta</button>
-      <button class="filt" onclick="setFilt('rafaella',this)">Rafaella</button>
-    </div>
-    <div id="history-list"></div>
+<div class="panel" id="panel-history">
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('all',this)">Todas as tratativas</button>
+    <button class="filter-btn" onclick="setFilter('aprovada',this)">Aprovadas</button>
+    <button class="filter-btn" onclick="setFilter('parcial',this)">Feito parcialmente</button>
+    <button class="filter-btn" onclick="setFilter('devolvida',this)">Não aprovadas</button>
+    <button class="filter-btn" onclick="setFilter('katharine',this)">Katharine</button>
+    <button class="filter-btn" onclick="setFilter('roberta',this)">Roberta</button>
+    <button class="filter-btn" onclick="setFilter('rafaella',this)">Rafaella</button>
+    <button class="filter-btn" onclick="setFilter('laura',this)">Laura</button>
   </div>
-
-  <!-- REPORT -->
-  <div id="view-report" class="view">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px">
-      <div class="sec-label" style="margin:0">Relatório de performance</div>
-      <button class="btn" style="background:#6C5CE7;color:#fff;font-size:12px" onclick="generateReport()">
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M4 4v16h16V8l-4-4H4z" stroke="white" stroke-width="1.8"/><path d="M14 4v4h4M8 13h8M8 17h5" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-        Atualizar relatório
-      </button>
-    </div>
-    <div id="report-content"><div style="text-align:center;padding:4rem 1rem;color:var(--muted);font-size:13px">Clique em "Atualizar relatório" para gerar a análise.</div></div>
-  </div>
-</main>
+  <div id="history-list"></div>
+</div>
 
 <footer>Orange Viagens · Dashboard confidencial · Março 2026</footer>
 
 <script>
 const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
-async function sbFetch(path,opts={}){const r=await fetch(SB_URL+path,{...opts,headers:{apikey:SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json',...(opts.headers||{})}});return r.json();}
-function loading(on){const b=document.getElementById('lbar');b.style.width=on?'70%':'100%';if(!on)setTimeout(()=>b.style.width='0',300);}
-function fmtDate(iso){if(!iso)return'';const d=new Date(iso+'T12:00:00');return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});}
-function fmtDT(iso){if(!iso)return'';const d=new Date(iso);return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
-function isLate(e){if(!e)return false;return new Date(e+'T23:59:59')<new Date();}
-function isNear(e,days=7){if(!e)return false;const diff=(new Date(e+'T23:59:59')-new Date())/(1000*60*60*24);return diff>=0&&diff<=days;}
-function daysLeftFn(e){if(!e)return null;return Math.round((new Date(e+'T23:59:59')-new Date())/(1000*60*60*24));}
+const TEAMS=[{"key": "katharine", "name": "Katharine Casteluci", "role": "Coordenadora de Operações", "initials": "KC", "color": "#00B894"}, {"key": "roberta", "name": "Roberta", "role": "Coordenadora de Treinamento & Qualidade", "initials": "RO", "color": "#6C5CE7"}, {"key": "rafaella", "name": "Rafaella Reis", "role": "Coordenadora de Produtos Hoteleiros & Vacation Home", "initials": "RR", "color": "#D63031"}, {"key": "laura", "name": "Laura", "role": "Coordenadora de Produtos — Cruzeiros", "initials": "LA", "color": "#0984e3"}];
+const ALL_TASK_IDS={"katharine": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12", "k13", "k14", "k15", "k16", "k17", "k18", "k19", "k20", "k21", "k22", "k23", "k24", "k25"], "roberta": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "r16", "r17", "r18", "r19", "r20", "r21", "r22", "r23", "r24", "r25", "r26", "r27"], "rafaella": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28"], "laura": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9", "l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18", "l19", "l20", "l21", "l22", "l23", "l24"]};
+const TASKS_LABELS={"k1": {"label": "Mapear todos os processos operacionais (AS-IS)", "team": "katharine"}, "k2": {"label": "Criar dashboard v1 de SLA, erros e ciclo", "team": "katharine"}, "k3": {"label": "Estabelecer baseline de KPIs (SLA, erro, custo/booking)", "team": "katharine"}, "k4": {"label": "Identificar top 5 gargalos operacionais", "team": "katharine"}, "k5": {"label": "Documentar top 3 processos em playbook", "team": "katharine"}, "k6": {"label": "Instalar tracking semanal de erros", "team": "katharine"}, "k7": {"label": "Assumir liderança da rotina diária de Ops", "team": "katharine"}, "k8": {"label": "Atingir SLA ≥90% e taxa de erro ≤4%", "team": "katharine"}, "k9": {"label": "Participar do WBR semanal com bloco de 15 min", "team": "katharine"}, "k10": {"label": "Implantar pós-mortem (incidentes >R$5k ou >5 clientes)", "team": "katharine"}, "k11": {"label": "Quality gate ativo (amostra 5% semanal, score ≥80)", "team": "katharine"}, "k12": {"label": "Liderar automações IA em Ops", "team": "katharine"}, "k13": {"label": "Ops rodou 1 semana completa sem Dhayane", "team": "katharine"}, "k14": {"label": "SLA ≥92%, erro ≤3%", "team": "katharine"}, "k15": {"label": "80% de autonomia operacional atingida", "team": "katharine"}, "k16": {"label": "SLA ≥94%, erro ≤2,5%", "team": "katharine"}, "k17": {"label": "Custo/booking reduzido em −15%", "team": "katharine"}, "k18": {"label": "Autonomia total", "team": "katharine"}, "k19": {"label": "Time opera 2 semanas sem Dhayane", "team": "katharine"}, "k20": {"label": "IA em uso ativo na operação", "team": "katharine"}, "k21": {"label": "SLA ≥95%, erro ≤2%", "team": "katharine"}, "k22": {"label": "Custo/booking −20% vs baseline", "team": "katharine"}, "k23": {"label": "Ops 100% autônoma", "team": "katharine"}, "k24": {"label": "Playbook completo documentado", "team": "katharine"}, "k25": {"label": "IA integrada como infraestrutura de Ops", "team": "katharine"}, "r1": {"label": "Mapear jornada de aprendizagem atual do time", "team": "roberta"}, "r2": {"label": "Definir perfil de competências por função", "team": "roberta"}, "r3": {"label": "Criar plano de treinamento v1 por área", "team": "roberta"}, "r4": {"label": "Implementar NPS interno de treinamento", "team": "roberta"}, "r5": {"label": "Estabelecer baseline de qualidade de atendimento", "team": "roberta"}, "r6": {"label": "Criar checklist de qualidade por processo", "team": "roberta"}, "r7": {"label": "Conduzir 1ª sessão de treinamento com time completo", "team": "roberta"}, "r8": {"label": "Definir SLA de resposta e resolução para CS", "team": "roberta"}, "r9": {"label": "Alinhar trilha de onboarding com RH", "team": "roberta"}, "r10": {"label": "NPS de treinamento ≥8", "team": "roberta"}, "r11": {"label": "Trilha de onboarding completa e validada", "team": "roberta"}, "r12": {"label": "Quality score médio ≥80 no time", "team": "roberta"}, "r13": {"label": "Programa de mentoria interno lançado", "team": "roberta"}, "r14": {"label": "SLA de qualidade medido semanalmente", "team": "roberta"}, "r15": {"label": "IA assistindo treinamentos", "team": "roberta"}, "r16": {"label": "Criar academia interna v1", "team": "roberta"}, "r17": {"label": "NPS treinamento ≥9", "team": "roberta"}, "r18": {"label": "Quality score ≥85", "team": "roberta"}, "r19": {"label": "Certificação interna lançada", "team": "roberta"}, "r20": {"label": "Líderes treinando seus times com autonomia", "team": "roberta"}, "r21": {"label": "IA gerando trilhas personalizadas", "team": "roberta"}, "r22": {"label": "Programa de reconhecimento baseado em performance", "team": "roberta"}, "r23": {"label": "Quality score ≥90", "team": "roberta"}, "r24": {"label": "Academia interna consolidada", "team": "roberta"}, "r25": {"label": "Programa de desenvolvimento de lideranças ativo", "team": "roberta"}, "r26": {"label": "ROI de treinamento IA: 3x investimento", "team": "roberta"}, "r27": {"label": "Academia como ativo da empresa", "team": "roberta"}, "p1": {"label": "Listar portfólio completo de produtos hoteleiros", "team": "rafaella"}, "p2": {"label": "Calcular margem e volume por produto", "team": "rafaella"}, "p3": {"label": "Identificar top 3 e bottom 3 por margem", "team": "rafaella"}, "p4": {"label": "Levantar attach rate atual", "team": "rafaella"}, "p5": {"label": "Criar funil de produto v1", "team": "rafaella"}, "p6": {"label": "Definir critérios de priorização e kill criteria", "team": "rafaella"}, "p7": {"label": "Mapear oportunidades de bundle hoteleiro", "team": "rafaella"}, "p8": {"label": "Realizar gate review com Dhayane", "team": "rafaella"}, "p9": {"label": "Avaliar onde IA pode potencializar produtos", "team": "rafaella"}, "p10": {"label": "Lançar bundle hoteleiro gerando receita", "team": "rafaella"}, "p11": {"label": "Attach rate +3pp", "team": "rafaella"}, "p12": {"label": "Margem top 3 produtos +5%", "team": "rafaella"}, "p13": {"label": "Pipeline ≥3 itens", "team": "rafaella"}, "p14": {"label": "Gate review mensal consistente", "team": "rafaella"}, "p15": {"label": "Produto com IA embarcada", "team": "rafaella"}, "p16": {"label": "Lançar produto hoteleiro novo", "team": "rafaella"}, "p17": {"label": "Attach rate +7pp", "team": "rafaella"}, "p18": {"label": "Margem top 3 +10%", "team": "rafaella"}, "p19": {"label": "Pipeline ≥5 itens", "team": "rafaella"}, "p20": {"label": "Matar produto com baixo desempenho", "team": "rafaella"}, "p21": {"label": "Recomendação IA de upsell ativa", "team": "rafaella"}, "p22": {"label": "Personalização via IA em produto", "team": "rafaella"}, "p23": {"label": "Attach rate ≥25%", "team": "rafaella"}, "p24": {"label": "Margem top 3 +15%", "team": "rafaella"}, "p25": {"label": "≥2 produtos novos lançados", "team": "rafaella"}, "p26": {"label": "Precificação dinâmica com IA", "team": "rafaella"}, "p27": {"label": "Roadmap de produtos — ano 2", "team": "rafaella"}, "p28": {"label": "Portfólio gerenciado com autonomia", "team": "rafaella"}, "l1": {"label": "Mapear portfólio inicial ≥20 produtos de cruzeiros", "team": "laura"}, "l2": {"label": "Mapear ≥5 parceiros/fornecedores estratégicos", "team": "laura"}, "l3": {"label": "Iniciar negociações com fornecedores", "team": "laura"}, "l4": {"label": "Documentar fluxos operacionais da área de cruzeiros", "team": "laura"}, "l5": {"label": "Desenvolver 1º guia de treinamento", "team": "laura"}, "l6": {"label": "Conduzir primeira sessão de capacitação", "team": "laura"}, "l7": {"label": "Realizar 1ª análise de inteligência de mercado", "team": "laura"}, "l8": {"label": "Definir critérios para gestão de grupos exclusivos", "team": "laura"}, "l9": {"label": "Alinhar baseline de KPIs com Dhayane", "team": "laura"}, "l10": {"label": "Portfólio consolidado com fichas técnicas", "team": "laura"}, "l11": {"label": "Fechar ≥2 acordos estratégicos com fornecedores", "team": "laura"}, "l12": {"label": "Negociar exclusividade em grupos", "team": "laura"}, "l13": {"label": "Lançar ≥1 oferta de grupo exclusivo", "team": "laura"}, "l14": {"label": "Entregar ≥2 relatórios mensais de inteligência", "team": "laura"}, "l15": {"label": "Desenvolver materiais de treinamento com IA", "team": "laura"}, "l16": {"label": "Conduzir ≥2 sessões de capacitação", "team": "laura"}, "l17": {"label": "Mapear oportunidades de pacotes integrados", "team": "laura"}, "l18": {"label": "Avaliar condições operacionais: rebookings", "team": "laura"}, "l19": {"label": "Portfólio gerenciado de forma autônoma", "team": "laura"}, "l20": {"label": "Fechar ≥1 contrato de longo prazo", "team": "laura"}, "l21": {"label": "Pipeline ativo de grupos exclusivos", "team": "laura"}, "l22": {"label": "Comissão recorrente via add-ons estruturada", "team": "laura"}, "l23": {"label": "IA integrada ao fluxo de vendas de cruzeiros", "team": "laura"}, "l24": {"label": "Análise estratégica e roadmap para ano seguinte", "team": "laura"}};
+const TASKS_BY_TEAM={"katharine": [["k1", "Mapear todos os processos operacionais (AS-IS)"], ["k2", "Criar dashboard v1 de SLA, erros e ciclo"], ["k3", "Estabelecer baseline de KPIs (SLA, erro, custo/booking)"], ["k4", "Identificar top 5 gargalos operacionais"], ["k5", "Documentar top 3 processos em playbook"], ["k6", "Instalar tracking semanal de erros"], ["k7", "Assumir liderança da rotina diária de Ops"], ["k8", "Atingir SLA ≥90% e taxa de erro ≤4%"], ["k9", "Participar do WBR semanal com bloco de 15 min"], ["k10", "Implantar pós-mortem (incidentes >R$5k ou >5 clientes)"], ["k11", "Quality gate ativo (amostra 5% semanal, score ≥80)"], ["k12", "Liderar automações IA em Ops"], ["k13", "Ops rodou 1 semana completa sem Dhayane"], ["k14", "SLA ≥92%, erro ≤3%"], ["k15", "80% de autonomia operacional atingida"], ["k16", "SLA ≥94%, erro ≤2,5%"], ["k17", "Custo/booking reduzido em −15%"], ["k18", "Autonomia total"], ["k19", "Time opera 2 semanas sem Dhayane"], ["k20", "IA em uso ativo na operação"], ["k21", "SLA ≥95%, erro ≤2%"], ["k22", "Custo/booking −20% vs baseline"], ["k23", "Ops 100% autônoma"], ["k24", "Playbook completo documentado"], ["k25", "IA integrada como infraestrutura de Ops"]], "roberta": [["r1", "Mapear jornada de aprendizagem atual do time"], ["r2", "Definir perfil de competências por função"], ["r3", "Criar plano de treinamento v1 por área"], ["r4", "Implementar NPS interno de treinamento"], ["r5", "Estabelecer baseline de qualidade de atendimento"], ["r6", "Criar checklist de qualidade por processo"], ["r7", "Conduzir 1ª sessão de treinamento com time completo"], ["r8", "Definir SLA de resposta e resolução para CS"], ["r9", "Alinhar trilha de onboarding com RH"], ["r10", "NPS de treinamento ≥8"], ["r11", "Trilha de onboarding completa e validada"], ["r12", "Quality score médio ≥80 no time"], ["r13", "Programa de mentoria interno lançado"], ["r14", "SLA de qualidade medido semanalmente"], ["r15", "IA assistindo treinamentos"], ["r16", "Criar academia interna v1"], ["r17", "NPS treinamento ≥9"], ["r18", "Quality score ≥85"], ["r19", "Certificação interna lançada"], ["r20", "Líderes treinando seus times com autonomia"], ["r21", "IA gerando trilhas personalizadas"], ["r22", "Programa de reconhecimento baseado em performance"], ["r23", "Quality score ≥90"], ["r24", "Academia interna consolidada"], ["r25", "Programa de desenvolvimento de lideranças ativo"], ["r26", "ROI de treinamento IA: 3x investimento"], ["r27", "Academia como ativo da empresa"]], "rafaella": [["p1", "Listar portfólio completo de produtos hoteleiros"], ["p2", "Calcular margem e volume por produto"], ["p3", "Identificar top 3 e bottom 3 por margem"], ["p4", "Levantar attach rate atual"], ["p5", "Criar funil de produto v1"], ["p6", "Definir critérios de priorização e kill criteria"], ["p7", "Mapear oportunidades de bundle hoteleiro"], ["p8", "Realizar gate review com Dhayane"], ["p9", "Avaliar onde IA pode potencializar produtos"], ["p10", "Lançar bundle hoteleiro gerando receita"], ["p11", "Attach rate +3pp"], ["p12", "Margem top 3 produtos +5%"], ["p13", "Pipeline ≥3 itens"], ["p14", "Gate review mensal consistente"], ["p15", "Produto com IA embarcada"], ["p16", "Lançar produto hoteleiro novo"], ["p17", "Attach rate +7pp"], ["p18", "Margem top 3 +10%"], ["p19", "Pipeline ≥5 itens"], ["p20", "Matar produto com baixo desempenho"], ["p21", "Recomendação IA de upsell ativa"], ["p22", "Personalização via IA em produto"], ["p23", "Attach rate ≥25%"], ["p24", "Margem top 3 +15%"], ["p25", "≥2 produtos novos lançados"], ["p26", "Precificação dinâmica com IA"], ["p27", "Roadmap de produtos — ano 2"], ["p28", "Portfólio gerenciado com autonomia"]], "laura": [["l1", "Mapear portfólio inicial ≥20 produtos de cruzeiros"], ["l2", "Mapear ≥5 parceiros/fornecedores estratégicos"], ["l3", "Iniciar negociações com fornecedores"], ["l4", "Documentar fluxos operacionais da área de cruzeiros"], ["l5", "Desenvolver 1º guia de treinamento"], ["l6", "Conduzir primeira sessão de capacitação"], ["l7", "Realizar 1ª análise de inteligência de mercado"], ["l8", "Definir critérios para gestão de grupos exclusivos"], ["l9", "Alinhar baseline de KPIs com Dhayane"], ["l10", "Portfólio consolidado com fichas técnicas"], ["l11", "Fechar ≥2 acordos estratégicos com fornecedores"], ["l12", "Negociar exclusividade em grupos"], ["l13", "Lançar ≥1 oferta de grupo exclusivo"], ["l14", "Entregar ≥2 relatórios mensais de inteligência"], ["l15", "Desenvolver materiais de treinamento com IA"], ["l16", "Conduzir ≥2 sessões de capacitação"], ["l17", "Mapear oportunidades de pacotes integrados"], ["l18", "Avaliar condições operacionais: rebookings"], ["l19", "Portfólio gerenciado de forma autônoma"], ["l20", "Fechar ≥1 contrato de longo prazo"], ["l21", "Pipeline ativo de grupos exclusivos"], ["l22", "Comissão recorrente via add-ons estruturada"], ["l23", "IA integrada ao fluxo de vendas de cruzeiros"], ["l24", "Análise estratégica e roadmap para ano seguinte"]]};
+const MARCOS_META={"katharine": [{"id": "m1k", "label": "M1 — Fundação", "tasks": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9"]}, {"id": "m2k", "label": "M2 — Estruturação", "tasks": ["k10", "k11", "k12", "k13", "k14", "k15"]}, {"id": "m3k", "label": "M3 — Aceleração", "tasks": ["k16", "k17", "k18", "k19", "k20"]}, {"id": "m4k", "label": "M4 — Escala", "tasks": ["k21", "k22", "k23", "k24", "k25"]}], "roberta": [{"id": "m1r", "label": "M1 — Fundação", "tasks": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"]}, {"id": "m2r", "label": "M2 — Estruturação", "tasks": ["r10", "r11", "r12", "r13", "r14", "r15", "r16"]}, {"id": "m3r", "label": "M3 — Aceleração", "tasks": ["r17", "r18", "r19", "r20", "r21", "r22"]}, {"id": "m4r", "label": "M4 — Escala", "tasks": ["r23", "r24", "r25", "r26", "r27"]}], "rafaella": [{"id": "m1p", "label": "M1 — Fundação", "tasks": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9"]}, {"id": "m2p", "label": "M2 — Estruturação", "tasks": ["p10", "p11", "p12", "p13", "p14", "p15"]}, {"id": "m3p", "label": "M3 — Aceleração", "tasks": ["p16", "p17", "p18", "p19", "p20", "p21", "p22"]}, {"id": "m4p", "label": "M4 — Escala", "tasks": ["p23", "p24", "p25", "p26", "p27", "p28"]}], "laura": [{"id": "m1l", "label": "M1 — Estruturação", "tasks": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9"]}, {"id": "m2l", "label": "M2 — Consolidação", "tasks": ["l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18"]}, {"id": "m3l", "label": "M3 — Maturidade", "tasks": ["l19", "l20", "l21", "l22", "l23", "l24"]}]};
 
-const TEAMS={
-  katharine:{name:'Katharine Casteluci',initials:'KC',color:'#00B894',colorLight:'#e6faf6',file:'katharine.html',role:'Operações',
-    marcos:[{id:'m1k',label:'M1',fase:'Fundação'},{id:'m2k',label:'M2',fase:'Estruturação'},{id:'m3k',label:'M3',fase:'Aceleração'},{id:'m4k',label:'M4',fase:'Escala'}],
-    todos:['k1','k2','k3','k4','k5','k6','k7','k8','k9','k10','k11','k12','k13','k14','k15','k16','k17','k18','k19','k20','k21','k22','k23','k24','k25']},
-  roberta:{name:'Roberta Barsanti',initials:'RB',color:'#E17055',colorLight:'#fff2ee',file:'roberta.html',role:'Treinamento',
-    marcos:[{id:'m1r',label:'M1',fase:'Fundação'},{id:'m2r',label:'M2',fase:'Estruturação'},{id:'m3r',label:'M3',fase:'Aceleração'},{id:'m4r',label:'M4',fase:'Escala'}],
-    todos:['r1','r2','r3','r4','r5','r6','r7','r8','r9','r10','r11','r12','r13','r14','r15','r16','r17','r18','r19','r20','r21','r22','r23','r24','r25','r26','r27']},
-  rafaella:{name:'Rafaella Reis',initials:'RR',color:'#D63031',colorLight:'#fff0f0',file:'rafaella.html',role:'Produtos Hoteleiros',
-    marcos:[{id:'m1p',label:'M1',fase:'Fundação'},{id:'m2p',label:'M2',fase:'Estruturação'},{id:'m3p',label:'M3',fase:'Aceleração'},{id:'m4p',label:'M4',fase:'Escala'}],
-    todos:['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13','p14','p15','p16','p17','p18','p19','p20','p21','p22','p23','p24','p25','p26','p27','p28']},
-  laura:{name:'Laura',initials:'LA',color:'#0984e3',colorLight:'#e8f4ff',file:'laura.html',role:'Cruzeiros',
-    marcos:[{id:'m1l',label:'M1',fase:'Estruturação'},{id:'m2l',label:'M2',fase:'Consolidação'},{id:'m3l',label:'M3',fase:'Maturidade Estratégica'}],
-    todos:['l1','l2','l3','l4','l5','l6','l7','l8','l9','l10','l11','l12','l13','l14','l15','l16','l17','l18','l19','l20','l21','l22','l23','l24','l25','l26','l27']}
-};
-const TASK_CATALOG={k1:'Mapear processos (AS-IS)',k2:'Dashboard v1 SLA',k3:'Baseline KPIs',k4:'Top 5 gargalos',k5:'Playbook top 3 processos',k6:'Tracking erros',k7:'Liderança rotina diária',k8:'SLA ≥90%, erro ≤4%',k9:'WBR semanal',k10:'Pós-mortem',k11:'Quality gate',k12:'Automações IA em Ops',k13:'Ops 1 semana sem Dhayane',k14:'SLA ≥92%, erro ≤3%',k15:'80% autonomia operacional',k16:'SLA ≥94%, erro ≤2,5%',k17:'Custo/booking −15%',k18:'Autonomia total',k19:'2 semanas sem Dhayane',k20:'IA ativa na operação',k21:'SLA ≥95%, erro ≤2%',k22:'Custo/booking −20%',k23:'GMV/FTE +25%',k24:'Sistema autônomo',k25:'Dashboard v2 + IA',r1:'Entrevistar 10 colaboradores',r2:'Maturidade IA do time',r3:'Baseline ramp time',r4:'Top 5 gaps',r5:'Trilha IA v1',r6:'Módulo IA no dia a dia',r7:'Piloto trilha IA',r8:'≥3 playbooks',r9:'30% trilha IA',r10:'Calendário IA trimestral',r11:'Academia v1 ≥5 módulos',r12:'100% trilha IA',r13:'5 playbooks em uso',r14:'Trilha IA avançada',r15:'Turnover em queda',r16:'Score ≥80',r17:'Academia ≥8 módulos',r18:'Trilha IA avançada ativa',r19:'Turnover ≤17%, ramp ≤50d',r20:'ROI treino IA',r21:'Certificação IA',r22:'Roberta autônoma',r23:'Academia ≥10 módulos',r24:'Time domina IA',r25:'Turnover ≤15%, ramp ≤45d',r26:'ROI 3× investimento',r27:'Academia consolidada',p1:'Portfólio hoteleiros/VH',p2:'Margem e volume',p3:'Top/bottom 3',p4:'Attach rate atual',p5:'Funil v1',p6:'Kill criteria',p7:'≥3 bundles',p8:'1ª gate review',p9:'IA nos produtos',p10:'≥1 bundle com receita',p11:'Attach +3pp',p12:'Margem top3 +5%',p13:'Pipeline ≥3',p14:'Gate review mensal',p15:'Produto com IA',p16:'1 produto novo',p17:'Attach +7pp',p18:'Margem top3 +10%',p19:'Pipeline ≥5',p20:'Kill ≥1 produto',p21:'Recomendação IA upsell',p22:'Personalização IA',p23:'Attach ≥25%',p24:'Margem top3 +15%',p25:'≥2 produtos novos',p26:'Precificação dinâmica IA',p27:'Roadmap ano 2',p28:'Portfólio autônomo',
-  l1:'Portfólio inicial ≥20 produtos com fichas técnicas',l2:'Mapear ≥5 fornecedores estratégicos',l3:'Negociações de desconto por volume 10–15%',l4:'Documentar fluxos operacionais de cruzeiros',l5:'1º guia de treinamento para equipe comercial',l6:'1ª sessão de capacitação equipe comercial',l7:'1ª análise de inteligência de mercado',l8:'Estrutura para gestão de grupos exclusivos',l9:'Baseline de KPIs alinhado com Dhayane',l10:'Portfólio consolidado com fichas completas',l11:'≥2 acordos estratégicos com fornecedores',l12:'Exclusividade em grupos: upgrades e benefícios',l13:'≥1 oferta de grupo exclusivo lançada',l14:'≥2 relatórios mensais de inteligência de mercado',l15:'Materiais de treinamento com suporte de IA',l16:'≥2 sessões de capacitação equipe comercial e CS',l17:'Oportunidades de pacotes com add-ons mapeadas',l18:'Condições operacionais: rebookings e suporte dedicado',l19:'Portfólio gerenciado com autonomia',l20:'≥1 contrato de longo prazo com fornecedor',l21:'Pipeline de grupos exclusivos ≥3 ofertas',l22:'Relatórios de inteligência de mercado como rotina',l23:'Pacotes com add-ons gerando comissão recorrente',l24:'Processos documentados e escaláveis',l25:'Recomendação IA integrada ao fluxo de vendas',l26:'Análise estratégica: resultados vs. KPIs',l27:'Roadmap de crescimento da área para o ano seguinte'};
+let allStates=[],allDates=[],allManagerObs=[],histFilter='all';
 
-function teamOfTask(id){for(const[k,t]of Object.entries(TEAMS))if(t.todos.includes(id))return{key:k,...t};return null;}
+async function sbFetch(path){
+  try{const r=await fetch('/api'+path,{headers:{}});if(!r.ok)return[];const d=await r.json();return Array.isArray(d)?d:[];}catch(e){return[];}
+}
+async function sbUpsert(table,data,conflict='task_id'){
+  try{
+    const url='/api/rest/v1/'+table+'?on_conflict='+conflict;
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify(data)});
+    const txt=await r.text();
+    if(!r.ok){console.error('upsert failed',table,r.status,txt);return false;}
+    return true;
+  }catch(e){console.error('upsert exception',e);return false;}
+}
 
-let state={},history={},planDates={},allNotes={},histFilt='all';
-
-async function refresh(){
-  loading(true);
-  const [stRows,histRows,dateRows]=await Promise.all([
+async function loadAll(){
+  const[states,dates,obs]=await Promise.all([
     sbFetch('/rest/v1/task_states?select=*'),
-    sbFetch('/rest/v1/task_history?select=*&order=created_at.asc'),
-    sbFetch('/rest/v1/plan_dates?select=*')
+    sbFetch('/rest/v1/plan_dates?select=*'),
+    sbFetch('/rest/v1/task_manager_comments?select=*'),
   ]);
-  state={};for(const r of(stRows||[]))state[r.task_id]=r;
-  // Load notes for display in approvals
-  const noteRows=await sbFetch('/rest/v1/task_notes?select=*');
-  allNotes={};for(const r of(noteRows||[]))allNotes[r.task_id]=r;
-  history={};for(const r of(histRows||[])){if(!history[r.task_id])history[r.task_id]=[];history[r.task_id].push(r);}
-  planDates={};
-  for(const r of(dateRows||[])){if(!planDates[r.team_key])planDates[r.team_key]={};planDates[r.team_key][r.marco_id]=r;}
-  loading(false);
+  allStates=states;allDates=dates;allManagerObs=obs;
   renderAll();
 }
 
-async function savePlanDate(teamKey,marcoId,marcoLabel,fase){
-  const startEl = document.getElementById(`sd-${teamKey}-${marcoId}`);
-  const endEl   = document.getElementById(`ed-${teamKey}-${marcoId}`);
-  const noteEl  = document.getElementById(`nd-${teamKey}-${marcoId}`);
-  if(!startEl||!endEl||!noteEl){ alert('Erro ao localizar campos. Tente novamente.'); return; }
-  const start = startEl.value;
-  const end   = endEl.value;
-  const note  = noteEl.value.trim();
-  if(!start&&!end){ alert('Informe ao menos uma data.'); return; }
-  const btn = document.getElementById(`btn-${teamKey}-${marcoId}`);
-  const statusEl = document.querySelector(`#btn-${teamKey}-${marcoId}`)?.closest('.marco-date-row')?.querySelector('.mdr-status');
-  if(btn){ btn.textContent='Salvando...'; btn.disabled=true; }
-  try {
-    const res = await fetch(SB_URL+'/rest/v1/plan_dates', {
-      method:'POST',
-      headers:{
-        apikey:SB_KEY,
-        'Authorization':'Bearer '+SB_KEY,
-        'Content-Type':'application/json',
-        'Prefer':'resolution=merge-duplicates,return=representation'
-      },
-      body:JSON.stringify({
-        team_key:teamKey, marco_id:marcoId, marco_label:marcoLabel,
-        start_date:start||null, end_date:end||null,
-        note:note||null, created_by:'dhayane',
-        updated_at:new Date().toISOString()
-      })
-    });
-    if(!res.ok){ const err=await res.text(); console.error('Save error:',err); alert('Erro ao salvar: '+err); if(btn){btn.textContent='Salvar';btn.disabled=false;} return; }
+function renderAll(){
+  renderOverview();renderDates();renderObsEditor();renderApprovals();renderHistory();updateStats();
+}
 
-    // 1. Update cache FIRST with the values just saved
-    if(!planDates[teamKey]) planDates[teamKey]={};
-    planDates[teamKey][marcoId]={team_key:teamKey,marco_id:marcoId,marco_label:marcoLabel,start_date:start||null,end_date:end||null,note:note||null};
-
-    // 2. Update status badge inline (no re-render of fields)
-    if(statusEl){
-      const late=isLate(end);const near=!late&&isNear(end,7);const dl=daysLeftFn(end);
-      statusEl.className='mdr-status '+(late?'late':near?'near':end?'ok':'ok');
-      statusEl.textContent=late?'Prazo vencido':near?`Vence em ${dl}d`:end?`${dl}d restantes`:'Em andamento';
-    }
-
-    // 3. Button feedback only — fields stay as-is
-    if(btn){ btn.textContent='✓ Salvo'; btn.classList.add('saved'); btn.disabled=false; }
-    setTimeout(()=>{ if(btn){btn.textContent='Salvar';btn.classList.remove('saved');} },2500);
-
-    // 4. Update overview cards silently
-    renderOverview();
-
-  } catch(e) {
-    console.error(e); alert('Erro de conexão. Verifique sua internet e tente novamente.');
-    if(btn){ btn.textContent='Salvar'; btn.disabled=false; }
+function updateStats(){
+  let done=0,pending=0,partial=0,total=0;
+  for(const t of TEAMS)total+=ALL_TASK_IDS[t.key].length;
+  for(const s of allStates){
+    if(s.status==='aprovada')done++;
+    else if(s.status==='aguardando')pending++;
+    else if(s.status==='parcial')partial++;
   }
+  document.getElementById('gs-done').textContent=done;
+  document.getElementById('gs-pending').textContent=pending;
+  document.getElementById('gs-partial').textContent=partial;
+  document.getElementById('gs-total').textContent=total;
+  const b=document.getElementById('badge-pending');
+  if(pending>0){b.textContent=pending;b.style.display='inline';}else b.style.display='none';
 }
 
-function switchTab(name){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
-  document.getElementById('view-'+name).classList.add('active');
-}
-
-// ── Overview ──────────────────────────────────────────────────────────────────
 function renderOverview(){
-  let totalAll=0,apprAll=0,pendAll=0,partAll=0;let html='';
-  for(const[key,team]of Object.entries(TEAMS)){
-    const appr=team.todos.filter(id=>(state[id]||{}).status==='approved').length;
-    const pend=team.todos.filter(id=>(state[id]||{}).status==='pending').length;
-    const part=team.todos.filter(id=>(state[id]||{}).status==='partial').length;
-    const pct=team.todos.length?Math.round(appr/team.todos.length*100):0;
-    totalAll+=team.todos.length;apprAll+=appr;pendAll+=pend;partAll+=part;
-    html+=`<a class="team-card" href="${team.file}" style="--tc:${team.color}">
-      <div class="tc-top"><div class="tc-av" style="background:${team.color}">${team.initials}</div>
-      <div><div class="tc-name">${team.name}</div><div class="tc-role">${team.role}</div></div></div>
-      <div class="tc-nums"><span class="tc-big" style="color:${team.color}">${appr}</span>
-      <span class="tc-of">de ${team.todos.length} aprovadas</span>
-      ${pend+part>0?`<span class="tc-pend">${pend+part} pendente${pend+part>1?'s':''}</span>`:''}</div>
-      <div class="tc-bar-wrap" style="background:${team.colorLight}">
-        <div class="tc-bar" style="width:${pct}%;background:${team.color}"></div>
+  let html='';
+  for(const t of TEAMS){
+    const total=ALL_TASK_IDS[t.key].length;
+    const ts=allStates.filter(s=>s.team_key===t.key);
+    const done=ts.filter(s=>s.status==='aprovada').length;
+    const pending=ts.filter(s=>s.status==='aguardando').length;
+    const pct=total?(done/total*100):0;
+    html+=`<a class="team-card" href="${t.key}.html">
+      <div class="tc-head"><div class="tc-av" style="background:${t.color}">${t.initials}</div>
+      <div><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div></div>
+      <div class="tc-progress"><div class="tc-bar" style="width:${pct}%;background:${t.color}"></div></div>
+      <div class="tc-stats">
+        <div><span style="font-weight:600;color:${t.color}">${done}</span> <span style="color:var(--muted)">aprovadas</span></div>
+        ${pending?`<div><span style="font-weight:600;color:var(--amber)">${pending}</span> <span style="color:var(--muted)">aguardando</span></div>`:''}
+        <div style="margin-left:auto;color:var(--muted)">${done}/${total}</div>
       </div>
-      <div class="tc-hint">Ver plano individual →</div>
     </a>`;
   }
   document.getElementById('team-grid').innerHTML=html;
-  document.getElementById('h-appr').textContent=apprAll;
-  document.getElementById('h-pend').textContent=pendAll;
-  document.getElementById('h-part').textContent=partAll;
-  document.getElementById('h-total').textContent=totalAll;
-  document.getElementById('tp-pend').textContent=pendAll;
-  document.getElementById('tp-hist').textContent=apprAll;
-  const badge=document.getElementById('hdr-badge');
-  if(pendAll>0){badge.style.display='';badge.textContent=pendAll+' pendente'+(pendAll>1?'s':'');}
-  else badge.style.display='none';
 }
 
-// ── Dates editor ──────────────────────────────────────────────────────────────
-function renderDatesEditor(){
-  let lateCount=0;
+function renderDates(){
   let html='';
-  for(const[key,team]of Object.entries(TEAMS)){
-    const td=planDates[key]||{};
-    let marcosHtml='';
-    for(const m of team.marcos){
-      const pd=td[m.id]||{};
-      const late=isLate(pd.end_date);
-      const near=!late&&isNear(pd.end_date,7);
-      const dl=daysLeftFn(pd.end_date);
-      let statusTxt='Não definido',statusCls='mdr-status unset';
-      if(pd.start_date||pd.end_date){
-        if(late){statusTxt='Prazo vencido';statusCls='mdr-status late';lateCount++;}
-        else if(near){statusTxt=`Vence em ${dl}d`;statusCls='mdr-status near';}
-        else if(pd.end_date){statusTxt=`${dl}d restantes`;statusCls='mdr-status ok';}
-        else{statusTxt='Em andamento';statusCls='mdr-status ok';}
-      }
-      marcosHtml+=`<div class="marco-date-row">
-        <div><div class="mdr-label">${m.label} — ${m.fase}</div><span class="${statusCls}">${statusTxt}</span></div>
-        <div class="mdr-field">
-          <label>Início</label>
-          <input type="date" id="sd-${key}-${m.id}" value="${pd.start_date||''}">
-        </div>
-        <div class="mdr-field">
-          <label>Conclusão prevista</label>
-          <input type="date" id="ed-${key}-${m.id}" value="${pd.end_date||''}">
-        </div>
-        <button class="save-row-btn" id="btn-${key}-${m.id}" onclick="savePlanDate('${key}','${m.id}','${m.label}','${m.fase}')">Salvar</button>
-        <div class="mdr-note">
-          <input type="text" id="nd-${key}-${m.id}" value="${(pd.note||'').replace(/"/g,'&quot;')}" placeholder="Observação opcional (ex: aguardando integração com TI)">
-        </div>
-      </div>`;
+  for(const t of TEAMS){
+    const marcos=MARCOS_META[t.key]||[];
+    let mHtml='';
+    for(const m of marcos){
+      const saved=allDates.find(d=>d.team_key===t.key&&d.marco_id===m.id)||{};
+      mHtml+=`<div class="date-row"><div class="marco-tag" style="color:${t.color}">${m.label}</div>
+        <div class="date-inputs">
+          <input type="date" id="ds-${t.key}-${m.id}" value="${saved.start_date||''}">
+          <input type="date" id="de-${t.key}-${m.id}" value="${saved.end_date||''}">
+        </div></div>`;
     }
-    html+=`<div class="dates-team-card">
-      <div class="dtc-head">
-        <div class="dtc-av" style="background:${team.color}">${team.initials}</div>
-        <div><div class="dtc-name">${team.name}</div><div class="dtc-role">${team.role}</div></div>
-        <span class="dtc-hint">Visível para ${team.initials}, não editável por ela</span>
-      </div>
-      <div class="dtc-body">${marcosHtml}</div>
-    </div>`;
+    html+=`<div class="dates-team-card"><div class="dtc-head"><div class="dtc-av" style="background:${t.color}">${t.initials}</div>
+      <div><div style="font-weight:600;font-size:.9rem">${t.name}</div></div></div>
+      <div class="dtc-body">${mHtml}</div></div>`;
   }
   document.getElementById('dates-editor').innerHTML=html;
-  const lateEl=document.getElementById('tp-late');
-  if(lateCount>0){lateEl.style.display='';lateEl.textContent=lateCount;}
-  else lateEl.style.display='none';
 }
 
-// ── Approvals ─────────────────────────────────────────────────────────────────
-function renderThread(taskId){
-  const entries=history[taskId]||[];
-  if(!entries.length)return'';
-  const labels={submitted:'Coordenadora enviou',approved:'Dhayane aprovou',partial:'Dhayane: feito parcialmente',rejected:'Dhayane: não aprovado'};
-  return entries.map(e=>`<div class="thread-entry te-${e.action}">
-    <div class="te-who ${e.action}">${labels[e.action]||e.action}</div>
-    <div>${e.message}</div><div class="te-date">${fmtDT(e.created_at)}</div>
-  </div>`).join('');
+async function saveDates(){
+  const rows=[];
+  for(const t of TEAMS)for(const m of(MARCOS_META[t.key]||[])){
+    const s=document.getElementById(`ds-${t.key}-${m.id}`)?.value;
+    const e=document.getElementById(`de-${t.key}-${m.id}`)?.value;
+    if(s||e)rows.push({team_key:t.key,marco_id:m.id,start_date:s||null,end_date:e||null});
+  }
+  for(const r of rows)await sbUpsert('plan_dates',r);
+  const ok=document.getElementById('save-dates-ok');
+  ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),2000);
+  await loadAll();
 }
+
+function renderObsEditor(){
+  // Build lookup of existing obs
+  const obsMap={};
+  for(const o of allManagerObs)obsMap[o.task_id]=o;
+
+  let html='';
+  for(const t of TEAMS){
+    const taskList=TASKS_BY_TEAM[t.key]||[];
+    const marcos=MARCOS_META[t.key]||[];
+    // count obs for this team
+    const obsCount=taskList.filter(([tid])=>obsMap[tid]?.comment).length;
+    let marcosHtml='';
+    for(const m of marcos){
+      let tasksHtml='';
+      for(const tid of m.tasks){
+        const tlabel=TASKS_LABELS[tid]?.label||tid;
+        const existing=obsMap[tid]?.comment||'';
+        const savedAt=obsMap[tid]?.updated_at?new Date(obsMap[tid].updated_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'';
+        tasksHtml+=`<div class="obs-task-row">
+          <div class="obs-task-label"><span class="task-id">${tid}</span>${tlabel}</div>
+          <textarea class="obs-textarea" id="obs-ta-${tid}" placeholder="Escreva uma observação para esta tarefa (visível para ${t.name})...">${existing}</textarea>
+          <div class="obs-task-footer">
+            <span class="obs-saved-label" id="obs-sl-${tid}">${savedAt?'Salvo em '+savedAt:''}</span>
+            <button class="btn-save-obs" onclick="saveObs('${tid}','${t.key}')">Salvar</button>
+          </div>
+        </div>`;
+      }
+      marcosHtml+=`<div style="margin-bottom:.5rem"><div style="font-size:11px;font-weight:600;color:${t.color};text-transform:uppercase;letter-spacing:.05em;padding:.5rem 0 .25rem">${m.label}</div>${tasksHtml}</div>`;
+    }
+    html+=`<div class="obs-team-card">
+      <div class="obs-team-head" onclick="toggleObsTeam('obs-body-${t.key}')">
+        <div class="dtc-av" style="background:${t.color};width:32px;height:32px;border-radius:50%;color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;">${t.initials}</div>
+        <div style="font-weight:600;font-size:.95rem">${t.name}</div>
+        ${obsCount?`<span class="obs-has-dot"></span><span style="font-size:11px;color:var(--amber)">${obsCount} obs.</span>`:''}
+        <span style="margin-left:auto;color:var(--muted);font-size:12px">▼</span>
+      </div>
+      <div class="obs-team-body" id="obs-body-${t.key}">${marcosHtml}</div>
+    </div>`;
+  }
+  document.getElementById('obs-editor').innerHTML=html;
+}
+
+function toggleObsTeam(id){
+  const el=document.getElementById(id);
+  if(el)el.classList.toggle('open');
+}
+
+async function saveObs(taskId,teamKey){
+  const ta=document.getElementById('obs-ta-'+taskId);
+  const sl=document.getElementById('obs-sl-'+taskId);
+  const btn=ta.closest('.obs-task-row').querySelector('.btn-save-obs');
+  btn.textContent='Salvando...';
+  await sbUpsert('task_manager_comments',{task_id:taskId,team_key:teamKey,comment:ta.value,updated_at:new Date().toISOString()});
+  btn.textContent='Salvar';
+  if(sl)sl.textContent='Salvo em '+new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+  await loadAll();
+}
+
 function renderApprovals(){
-  const pending=Object.entries(state).filter(([,r])=>r.status==='pending');
+  const pending=allStates.filter(s=>s.status==='aguardando');
   if(!pending.length){
-    document.getElementById('approvals-list').innerHTML=`<div class="empty-state">
-      <svg width="48" height="48" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#888" stroke-width="1.5"/><path d="M8 12l3 3 5-5" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div style="font-size:15px;font-weight:500;margin-bottom:6px">Nenhuma tarefa pendente</div>
-      <div style="font-size:13px">Quando as coordenadoras enviarem tarefas, elas aparecem aqui.</div>
-    </div>`;return;
+    document.getElementById('approvals-list').innerHTML=`<div class="empty-state"><svg width="48" height="48" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div style="font-size:1rem;font-weight:600;margin-bottom:.5rem">Nenhuma tarefa pendente</div><div style="font-size:13px">Quando as coordenadoras enviarem tarefas, elas aparecem aqui.</div></div>`;return;
   }
   let html='';
-  for(const[id,row]of pending){
-    const team=teamOfTask(id);if(!team)continue;
-    const taskText=TASK_CATALOG[id]||id;
-    const hasPrev=(history[id]||[]).length>0;
-    html+=`<div class="appr-card">
-      <div class="ac-head">
-        <div class="ac-av" style="background:${team.color}">${team.initials}</div>
-        <div><div class="ac-who-name">${team.name}</div><div class="ac-sub">${team.role}</div></div>
-        <div class="ac-date">Enviado em ${fmtDT(row.submitted_at)}</div>
-      </div>
-      <div class="ac-body">
-        <div class="ac-task">${taskText}</div>
-        ${hasPrev?`<div class="prev-thread"><div class="prev-thread-label">Histórico desta tarefa</div>${renderThread(id)}</div>`:''}
-        <div class="ac-exec-lbl">Última execução enviada</div>
-        <div class="ac-exec">${row.execution}</div>
-        ${allNotes[id] ? `<div style="background:#f0eeff;border-left:3px solid #6C5CE7;border-radius:0 8px 8px 0;padding:8px 12px;margin-bottom:1rem;font-size:13px;color:#1a1a18;line-height:1.5"><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:#6C5CE7;margin-bottom:3px">Anotação da coordenadora</div>${allNotes[id].note}</div>` : ''}
-        <div class="review-form">
-          <label for="rc-${id}">Seu comentário e análise</label>
-          <p class="review-hint">Escreva à vontade — sem limite de caracteres. Este comentário é salvo integralmente no histórico e entra nos relatórios de performance.</p>
-          <textarea id="rc-${id}" data-task="${id}"
-            placeholder="Descreva sua análise: o que foi bem, o que falta, pontos de atenção, orientações para próximos passos, contexto para o relatório..."
-            onclick="this.focus()"
-            ></textarea>
-          <div class="review-char-count" id="cc-${id}">0 caracteres</div>
-          <div class="review-actions">
-            <button class="btn btn-approve" onclick="doReview('${id}','approved')">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Aprovado
-            </button>
-            <button class="btn btn-partial" onclick="doReview('${id}','partial')">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 8v4l3 3" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/></svg>Feito parcialmente
-            </button>
-            <button class="btn btn-reject" onclick="doReview('${id}','rejected')">
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 15L15 9M15 15L9 9" stroke="#D63031" stroke-width="2" stroke-linecap="round"/></svg>Não aprovado
-            </button>
-          </div>
-        </div>
+  for(const s of pending){
+    const t=TEAMS.find(x=>x.key===s.team_key)||{name:s.team_key,initials:'?',color:'#888'};
+    const taskLabel=TASKS_LABELS[s.task_id]?.label||s.task_id;
+    const dt=s.submitted_at?new Date(s.submitted_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'';
+    html+=`<div class="approval-card">
+      <div class="ac-header"><div class="ac-av" style="background:${t.color}">${t.initials}</div>
+        <div><div style="font-weight:600;font-size:.9rem">${t.name}</div></div>
+        <div class="ac-time">${dt}</div></div>
+      <div class="ac-task">${taskLabel}</div>
+      <div class="ac-how">${s.how_done||'(sem descrição)'}</div>
+      <div class="ac-actions">
+        <button class="btn-approve" onclick="approveTask('${s.task_id}','${t.key}')">✓ Aprovar</button>
+        <input class="return-input" id="ret-${s.task_id}" placeholder="Motivo da devolução...">
+        <button class="btn-return" onclick="returnTask('${s.task_id}','${t.key}')">↩ Devolver</button>
       </div>
     </div>`;
   }
   document.getElementById('approvals-list').innerHTML=html;
 }
 
-function updateCharCount(id, val) {
-  const el = document.getElementById('cc-' + id);
-  if (!el) return;
-  const n = val.trim().length;
-  el.textContent = n.toLocaleString('pt-BR') + ' caractere' + (n !== 1 ? 's' : '');
-  el.style.color = n === 0 ? '#D63031' : n < 50 ? '#e6a817' : '#0a6b4a';
+async function approveTask(taskId,teamKey){
+  const s=allStates.find(x=>x.task_id===taskId)||{};
+  await sbUpsert('task_states',{task_id:taskId,team_key:teamKey,status:'aprovada',how_done:s.how_done||'',submitted_at:s.submitted_at||new Date().toISOString(),reviewed_at:new Date().toISOString(),review_comment:''});
+  await loadAll();
 }
 
-// Global listener for all review textareas (avoids inline handler escaping issues)
-document.addEventListener('input', function(e) {
-  if (e.target && e.target.dataset && e.target.dataset.task) {
-    updateCharCount(e.target.dataset.task, e.target.value);
-  }
-});
-
-async function doReview(id,action){
-  const ta = document.getElementById('rc-'+id);
-  const comment = ta.value.trim();
-  if(!comment){
-    ta.style.borderColor='#D63031';
-    ta.style.boxShadow='0 0 0 3px rgba(214,48,49,.1)';
-    ta.focus();
-    ta.placeholder='Comentário obrigatório — descreva sua análise antes de continuar.';
-    return;
-  }
-  ta.style.borderColor='';
-  ta.style.boxShadow='';
-  loading(true);
-  const now=new Date().toISOString();
-  await sbFetch('/rest/v1/task_states',{method:'POST',headers:{Prefer:'resolution=merge-duplicates'},body:JSON.stringify({task_id:id,status:action,reviewed_at:now,review_comment:comment,coordinator_comment:comment,updated_at:now})});
-  await sbFetch('/rest/v1/task_history',{method:'POST',body:JSON.stringify({task_id:id,action:action,actor:'dhayane',message:comment,created_at:now})});
-  await refresh();
+async function returnTask(taskId,teamKey){
+  const comment=document.getElementById('ret-'+taskId)?.value.trim();
+  if(!comment){alert('Por favor informe o motivo da devolução.');return;}
+  const s=allStates.find(x=>x.task_id===taskId)||{};
+  await sbUpsert('task_states',{task_id:taskId,team_key:teamKey,status:'devolvida',how_done:s.how_done||'',submitted_at:s.submitted_at||new Date().toISOString(),reviewed_at:new Date().toISOString(),review_comment:comment});
+  await loadAll();
 }
 
-// ── History ───────────────────────────────────────────────────────────────────
 function renderHistory(){
-  const allTaskIds=[...new Set(Object.keys(history))];
-  let filtered=allTaskIds.filter(id=>{
-    const entries=history[id]||[];
-    if(histFilt==='all')return entries.length>0;
-    if(['approved','partial','rejected'].includes(histFilt))return entries.some(e=>e.action===histFilt);
-    const team=teamOfTask(id);return team&&team.key===histFilt;
-  });
-  filtered.sort((a,b)=>{const la=(history[a]||[]).slice(-1)[0];const lb=(history[b]||[]).slice(-1)[0];return new Date(lb?.created_at||0)-new Date(la?.created_at||0);});
-  if(!filtered.length){document.getElementById('history-list').innerHTML=`<div style="text-align:center;padding:3rem;color:var(--muted);font-size:13px">Nenhum item encontrado.</div>`;return;}
-  const statusLabel={open:'Aberta',pending:'Aguardando',approved:'Aprovada',partial:'Feito parcialmente',rejected:'Não aprovado'};
-  const labels={submitted:'Coordenadora enviou',approved:'Dhayane aprovou',partial:'Dhayane: feito parcialmente',rejected:'Dhayane: não aprovado'};
+  const reviewed=allStates.filter(s=>['aprovada','devolvida','parcial'].includes(s.status));
+  let filtered=reviewed;
+  if(histFilter==='aprovada')filtered=reviewed.filter(s=>s.status==='aprovada');
+  else if(histFilter==='devolvida')filtered=reviewed.filter(s=>s.status==='devolvida');
+  else if(histFilter==='parcial')filtered=reviewed.filter(s=>s.status==='parcial');
+  else if(['katharine','roberta','rafaella','laura'].includes(histFilter))filtered=reviewed.filter(s=>s.team_key===histFilter);
+  if(!filtered.length){document.getElementById('history-list').innerHTML='<div class="empty-state" style="color:var(--muted);text-align:center;padding:2rem">Nenhum item encontrado.</div>';return;}
   let html='';
-  for(const id of filtered){
-    const team=teamOfTask(id);if(!team)continue;
-    const taskText=TASK_CATALOG[id]||id;
-    const cur=(state[id]||{}).status||'open';
-    const badge=['approved','partial','rejected'].includes(cur)?`<span class="hs ${cur}">${statusLabel[cur]}</span>`:'';
-    html+=`<div class="hist-card">
-      <div class="hc-head">
-        <div style="width:28px;height:28px;border-radius:50%;background:${team.color};display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;color:#fff;flex-shrink:0">${team.initials}</div>
-        <div class="hc-task">${taskText}</div>
-        <span style="font-size:11px;color:var(--muted)">${team.name}</span>
-        ${badge}
+  for(const s of filtered){
+    const t=TEAMS.find(x=>x.key===s.team_key)||{name:s.team_key,initials:'?',color:'#888'};
+    const taskLabel=TASKS_LABELS[s.task_id]?.label||s.task_id;
+    const dt=s.reviewed_at?new Date(s.reviewed_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'';
+    html+=`<div class="hist-card"><div class="hist-av" style="background:${t.color}">${t.initials}</div>
+      <div class="hist-main"><div class="hist-task">${taskLabel} · ${t.name}</div>
+        <div class="hist-how">${s.how_done||''}</div>
+        ${s.review_comment?`<div style="font-size:12px;color:var(--amber)">↩ ${s.review_comment}</div>`:''}
       </div>
-      <div class="hc-body">
-        <div style="display:flex;flex-direction:column;gap:5px">
-          ${(history[id]||[]).map(e=>`<div class="thread-entry te-${e.action}">
-            <div class="te-who ${e.action}">${labels[e.action]||e.action}</div>
-            <div style="white-space:pre-wrap;line-height:1.6;word-break:break-word">${e.message}</div><div class="te-date">${fmtDT(e.created_at)}</div>
-          </div>`).join('')}
-        </div>
-      </div>
+      <div class="hist-right"><span class="hist-status ${s.status}">${s.status==='aprovada'?'Aprovada':s.status==='devolvida'?'Devolvida':'Parcial'}</span>
+        <div class="hist-date">${dt}</div></div>
     </div>`;
   }
   document.getElementById('history-list').innerHTML=html;
 }
-function setFilt(f,btn){histFilt=f;document.querySelectorAll('.filt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderHistory();}
 
-// ── Report ────────────────────────────────────────────────────────────────────
-function generateReport(){
-  const now=new Date();
-  let totalTasks=0,totalAppr=0,totalPart=0,totalRej=0,totalPend=0;
-  let teamCardsHtml='';
-  for(const[key,team]of Object.entries(TEAMS)){
-    const td={total:team.todos.length,approved:0,partial:0,rejected:0,pending:0,open:0,resubmissions:0};
-    for(const id of team.todos){
-      const st=(state[id]||{}).status||'open';td[st]=(td[st]||0)+1;totalTasks++;
-      const h=(history[id]||[]).filter(e=>e.action==='submitted');if(h.length>1)td.resubmissions+=(h.length-1);
-    }
-    totalAppr+=td.approved;totalPart+=td.partial;totalRej+=td.rejected;totalPend+=td.pending;
-    const dTeam=planDates[key]||{};
-    let lateMarcos=0,setMarcos=0;
-    for(const m of team.marcos){const pd=dTeam[m.id];if(pd&&pd.end_date){setMarcos++;if(isLate(pd.end_date))lateMarcos++;}}
-    const pct=td.total?Math.round(td.approved/td.total*100):0;
-    const rev=td.approved+td.partial+td.rejected;
-    const aRate=rev?Math.round(td.approved/rev*100):0;
-    const apprPct=td.total?Math.round(td.approved/td.total*100):0;
-    const pendPct=td.total?Math.round((td.pending+td.partial)/td.total*100):0;
-    const openPct=td.total?Math.round(td.open/td.total*100):0;
-    // Date status per marco
-    let datesHtml='';
-    for(const m of team.marcos){
-      const pd=(dTeam[m.id])||{};
-      const late=isLate(pd.end_date);const near=!late&&isNear(pd.end_date,7);
-      const dl=daysLeftFn(pd.end_date);
-      let dCls='',dTxt='Não definido';
-      if(pd.start_date||pd.end_date){dCls=late?'red':near?'amber':'green';dTxt=late?'Prazo vencido':near?`Vence em ${dl}d`:pd.end_date?`${dl}d restantes`:'Em andamento';}
-      datesHtml+=`<div class="tperf-row"><span style="color:var(--muted)">${m.label} — ${m.fase}</span><span class="tperf-stat ${dCls}">${dTxt}</span></div>`;
-    }
-    teamCardsHtml+=`<div class="tperf-card">
-      <div class="tperf-head"><div class="tperf-av" style="background:${team.color}">${team.initials}</div>
-      <div><div class="tperf-name">${team.name}</div><div class="tperf-role">${team.role}</div></div></div>
-      <div class="tperf-row"><span style="color:var(--muted)">Progresso geral</span><span class="tperf-stat ${pct>=60?'green':pct>=30?'amber':'red'}">${pct}%</span></div>
-      <div class="tperf-row"><span style="color:var(--muted)">Aprovadas</span><span class="tperf-stat green">${td.approved} / ${td.total}</span></div>
-      <div class="tperf-row"><span style="color:var(--muted)">Feito parcialmente</span><span class="tperf-stat amber">${td.partial}</span></div>
-      <div class="tperf-row"><span style="color:var(--muted)">Não aprovadas</span><span class="tperf-stat red">${td.rejected}</span></div>
-      <div class="tperf-row"><span style="color:var(--muted)">Taxa de aprovação</span><span class="tperf-stat ${aRate>=70?'green':aRate>=40?'amber':'red'}">${aRate}%</span></div>
-      <div class="tperf-row"><span style="color:var(--muted)">Reenvios</span><span class="tperf-stat">${td.resubmissions}</span></div>
-      <div style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px">Prazos dos marcos</div>
-        ${datesHtml}
-      </div>
-      <div style="margin-top:10px"><div style="font-size:11px;color:var(--muted);margin-bottom:5px">Distribuição</div>
-      <div class="quality-bar">
-        ${apprPct>0?`<div class="qb-seg" style="flex:${apprPct};background:#00B894"></div>`:''}
-        ${pendPct>0?`<div class="qb-seg" style="flex:${pendPct};background:#e6a817"></div>`:''}
-        ${openPct>0?`<div class="qb-seg" style="flex:${openPct};background:#e5e5de"></div>`:''}
-      </div></div>
-    </div>`;
-  }
-  const reviewed=totalAppr+totalPart+totalRej;
-  const approvalRate=reviewed?Math.round(totalAppr/reviewed*100):0;
-  const completionRate=totalTasks?Math.round(totalAppr/totalTasks*100):0;
-  document.getElementById('report-content').innerHTML=`
-    <div style="margin-bottom:1.5rem"><div class="sec-label">Resumo — ${now.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}</div>
-    <div class="perf-grid">
-      <div class="perf-card"><div class="pc-val" style="color:#6C5CE7">${totalTasks}</div><div class="pc-lbl">Total de tarefas</div></div>
-      <div class="perf-card"><div class="pc-val" style="color:#00B894">${totalAppr}</div><div class="pc-lbl">Aprovadas</div><div class="pc-sub">${completionRate}% do total</div></div>
-      <div class="perf-card"><div class="pc-val" style="color:#E17055">${totalPart}</div><div class="pc-lbl">Feito parcialmente</div></div>
-      <div class="perf-card"><div class="pc-val" style="color:#D63031">${totalRej}</div><div class="pc-lbl">Não aprovadas</div></div>
-      <div class="perf-card"><div class="pc-val" style="color:#e6a817">${totalPend}</div><div class="pc-lbl">Aguardando revisão</div></div>
-      <div class="perf-card"><div class="pc-val" style="color:${approvalRate>=70?'#00B894':approvalRate>=40?'#e6a817':'#D63031'}">${approvalRate}%</div><div class="pc-lbl">Taxa de aprovação</div></div>
-    </div></div>
-    <div style="margin-bottom:1.5rem"><div class="sec-label">Performance por time (com prazos)</div>
-    <div class="team-perf-grid">${teamCardsHtml}</div></div>
-    <div><div class="sec-label">Observações</div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;font-size:13px;line-height:1.9">
-      ${totalAppr===0?'<p>📋 Nenhuma tarefa aprovada ainda.</p>':''}
-      ${totalPend>2?`<p>⚠️ <strong>${totalPend} tarefas</strong> aguardando revisão.</p>`:''}
-      ${totalPart>0?`<p>🔄 <strong>${totalPart} tarefa(s)</strong> como feito parcialmente aguardam reenvio.</p>`:''}
-      ${completionRate>=50?`<p>✅ <strong>${completionRate}%</strong> de conclusão aprovada.</p>`:`<p>📊 Conclusão em <strong>${completionRate}%</strong> do total.</p>`}
-    </div></div>
-    <div style="margin-top:1.5rem">
-      <div class="sec-label">Comentários de revisão — histórico completo</div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        ${(()=>{
-          const items=Object.entries(history)
-            .filter(([,entries])=>entries.some(e=>e.actor==='dhayane'))
-            .sort((a,b)=>new Date((b[1].slice(-1)[0]||{}).created_at||0)-new Date((a[1].slice(-1)[0]||{}).created_at||0));
-          if(!items.length) return '<p style="color:var(--muted);font-size:13px;padding:.5rem 0">Nenhum comentário de revisão ainda.</p>';
-          return items.map(([taskId,entries])=>{
-            const team=teamOfTask(taskId);if(!team)return'';
-            const taskText=TASK_CATALOG[taskId]||taskId;
-            return entries.filter(e=>e.actor==='dhayane').map(e=>`
-              <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">
-                <div style="background:#fafaf8;padding:.75rem 1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border)">
-                  <div style="width:24px;height:24px;border-radius:50%;background:${team.color};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#fff;flex-shrink:0">${team.initials}</div>
-                  <span style="font-size:13px;font-weight:500;flex:1;min-width:0">${taskText}</span>
-                  <span class="hs ${e.action}">${{approved:'Aprovada',partial:'Feito parcialmente',rejected:'Não aprovado'}[e.action]||e.action}</span>
-                  <span style="font-size:11px;color:var(--muted);white-space:nowrap">${fmtDT(e.created_at)}</span>
-                </div>
-                <div style="padding:1rem;font-size:13px;color:var(--text);line-height:1.75;white-space:pre-wrap;word-break:break-word">${e.message}</div>
-              </div>`).join('');
-          }).filter(Boolean).join('');
-        })()}
-      </div>
-    </div>
-    <div style="display:none">
-    </div></div>`;
+function setFilter(f,btn){
+  histFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderHistory();
 }
 
-function renderAll(){renderOverview();renderDatesEditor();renderApprovals();renderHistory();}
-refresh();
-setInterval(refresh,12000);
+function showTab(id,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
+
+loadAll();
+setInterval(()=>loadAll(),20000);
 </script>
 </body>
 </html>
