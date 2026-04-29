@@ -724,7 +724,7 @@ let state={},notesCache={},planDates={},managerComments={};
 
 async function sbFetch(table, filters={}) {
   try {
-    const r = await fetch('https://xyxjcbxmedkonyxafurf.supabase.co/functions/v1/db-proxy', {
+    const r = await fetch('/db', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({action: 'select', table, filters})
@@ -737,7 +737,7 @@ async function sbFetch(table, filters={}) {
 
 async function sbUpsert(table, data, conflict) {
   try {
-    const r = await fetch('https://xyxjcbxmedkonyxafurf.supabase.co/functions/v1/db-proxy', {
+    const r = await fetch('/db', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({action: 'upsert', table, data, conflict: conflict || 'task_id'})
