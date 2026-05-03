@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beatriz — Orange Viagens</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--c:#e84393;--cl:#ffeef6;--amber:#e6a817;--red:#e17055;--bg:#f5f4f1;--w:#fff;--txt:#1a1a1a;--muted:#888;--border:#e8e5e0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);}
+.ph{background:var(--w);border-bottom:1px solid var(--border);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;}
+.ph-org{font-family:'DM Serif Display',serif;font-size:1.1rem;}
+.ph-meta{font-size:12px;color:var(--muted);}
+.hero{background:var(--w);border-bottom:1px solid var(--border);padding:2rem;}
+.hero-in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.av{width:64px;height:64px;border-radius:50%;background:var(--c);color:#fff;font-size:1.3rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hero-txt h1{font-family:'DM Serif Display',serif;font-size:1.8rem;}
+.hero-txt .role{color:var(--muted);font-size:.9rem;margin-top:2px;}
+.hstats{display:flex;gap:1.5rem;margin-top:.75rem;flex-wrap:wrap;}
+.hv{font-size:1.3rem;font-weight:600;color:var(--c);}
+.hv.am{color:var(--amber);} .hv.rd{color:var(--red);}
+.hl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.ring-w{margin-left:auto;position:relative;flex-shrink:0;}
+.ring-lbl{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
+main{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
+.banner{background:var(--cl);border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:#333;display:flex;gap:8px;align-items:flex-start;}
+.marco-hdr{background:var(--w);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-top:1.5rem;flex-wrap:wrap;}
+.marco-pill{background:var(--c);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.marco-dates{font-size:12px;color:var(--muted);}
+.marco-bar-wrap{flex:1;background:#eee;border-radius:4px;height:6px;min-width:60px;}
+.marco-bar{height:6px;background:var(--c);border-radius:4px;width:0%;transition:width .4s;}
+.marco-cnt{font-size:12px;color:var(--muted);white-space:nowrap;}
+.marco-sub{font-size:11px;color:var(--muted);background:#fafafa;border-left:1px solid var(--border);border-right:1px solid var(--border);padding:4px 16px;}
+.tasks-block{background:var(--w);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;}
+.task-block{border-bottom:1px solid var(--border);}
+.task-block:last-child{border-bottom:none;}
+.task-row{display:flex;align-items:center;padding:12px 16px;gap:10px;}
+.task-left{flex:1;display:flex;align-items:center;gap:10px;min-width:0;}
+.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;background:#f0f0f0;color:var(--muted);flex-shrink:0;white-space:nowrap;}
+.chip.aprovada{background:#dcfff6;color:#00795e;}
+.chip.aguardando{background:#fff7e0;color:#8a6000;}
+.task-text{font-size:14px;overflow:hidden;text-overflow:ellipsis;}
+.ia-badge{background:#ede9ff;color:#5B21B6;font-size:10px;font-weight:600;padding:1px 6px;border-radius:8px;margin-right:4px;}
+.btn-concluir{background:var(--c);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.btn-concluir:disabled{background:#ccc;cursor:default;}
+.mgr-obs{display:none;margin:0 16px 8px;padding:10px 14px;background:linear-gradient(135deg,#fff9f0,#fffdf7);border:1px solid #f0d8a0;border-left:3px solid #e6a817;border-radius:8px;}
+.mgr-obs.on{display:block;}
+.mgr-obs-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.mgr-av{width:22px;height:22px;border-radius:50%;background:#6C5CE7;color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.mgr-lbl{font-size:11px;font-weight:600;color:#7a5c00;}
+.mgr-txt{font-size:13px;color:#4a3a00;line-height:1.55;white-space:pre-wrap;}
+.note-wrap{}
+.note-toggle{padding:8px 16px;font-size:12px;color:var(--c);cursor:pointer;user-select:none;}
+.note-editor{display:none;padding:0 16px 12px;}
+.note-editor.open{display:block;}
+.note-prev{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:6px;}
+.note-editor textarea{width:100%;min-height:80px;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
+.note-editor textarea:focus{border-color:var(--c);}
+.note-foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+.note-ts{font-size:11px;color:var(--muted);}
+.btn-save-note{background:transparent;border:1px solid var(--c);color:var(--c);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;}
+.modal-ov.open{display:flex;}
+.modal{background:var(--w);border-radius:14px;padding:2rem;width:90%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.modal h2{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:.5rem;}
+.modal-task{font-size:13px;color:var(--muted);margin-bottom:1rem;padding:10px;background:var(--bg);border-radius:6px;}
+.modal label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;}
+.modal textarea{width:100%;min-height:100px;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
+.modal textarea:focus{border-color:var(--c);}
+.modal-acts{display:flex;gap:10px;justify-content:flex-end;margin-top:1rem;}
+.btn-cancel{background:transparent;border:1px solid var(--border);padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;}
+.btn-submit{background:var(--c);color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;}
+.btn-submit:disabled{background:#ccc;cursor:default;}
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);}
+footer a{color:var(--c);text-decoration:none;}
+@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:6px;}}
+</style>
+</head>
+<body>
+<header class="ph"><div class="ph-org">Orange Viagens</div><div class="ph-meta">Plano 18 meses · Março 2026</div></header>
+<div class="hero"><div class="hero-in">
+  <div class="av">BE</div>
+  <div class="hero-txt">
+    <h1>Beatriz</h1>
+    <div class="role">Coordenadora de Produto — Club Med</div>
+    <div class="hstats">
+      <div><div class="hv" id="sd">—</div><div class="hl">Aprovadas</div></div>
+      <div><div class="hv am" id="sp">—</div><div class="hl">Aguardando</div></div>
+      <div><div class="hv rd" id="sx">—</div><div class="hl">Parciais</div></div>
+      <div><div class="hv" id="st">—</div><div class="hl">Total</div></div>
+    </div>
+  </div>
+  <div class="ring-w">
+    <svg width="70" height="70" viewBox="0 0 72 72">
+      <circle cx="36" cy="36" r="28" fill="none" stroke="#ffeef6" stroke-width="6"/>
+      <circle id="ring" cx="36" cy="36" r="28" fill="none" stroke="#e84393" stroke-width="6"
+        stroke-linecap="round" stroke-dasharray="175.9" stroke-dashoffset="175.9"
+        transform="rotate(-90 36 36)" style="transition:stroke-dashoffset .5s"/>
+    </svg>
+    <div class="ring-lbl">GERAL</div>
+  </div>
+</div></div>
+<main>
+  <div class="banner">
+    <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#e84393" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#e84393" stroke-width="2" stroke-linecap="round"/></svg>
+    Use <strong>&nbsp;Adicionar anotação&nbsp;</strong> para registrar observações a qualquer momento. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
+  </div>
+  
+    <div class="marco-hdr">
+      <span class="marco-pill">M1 — Estruturação & Diagnóstico</span>
+      <span class="marco-dates" id="md-m1b"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m1b"></div></div>
+      <span class="marco-cnt" id="mc-m1b">0/9</span>
+    </div>
+    <div class="marco-sub">M1 — Estruturação & Diagnóstico · Jun–Jul 2026</div>
+    <div class="tasks-block">
+        <div class="task-block" id="tb-b1">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b1">Aberta</span>
+              <span class="task-text">Mapeamento completo do histórico de vendas Club Med na Orange</span>
+            </div>
+            <button class="btn-concluir" id="btn-b1" onclick="openModal('b1',`Mapeamento completo do histórico de vendas Club Med na Orange`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b1"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b1')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b1">
+              <div class="note-prev" id="np-b1"></div>
+              <textarea id="nta-b1" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b1"></span>
+                <button class="btn-save-note" onclick="saveNote('b1')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b2">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b2">Aberta</span>
+              <span class="task-text">Levantamento do material existente (treinamentos, conteúdos, scripts)</span>
+            </div>
+            <button class="btn-concluir" id="btn-b2" onclick="openModal('b2',`Levantamento do material existente (treinamentos, conteúdos, scripts)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b2"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b2')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b2">
+              <div class="note-prev" id="np-b2"></div>
+              <textarea id="nta-b2" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b2"></span>
+                <button class="btn-save-note" onclick="saveNote('b2')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b3">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b3">Aberta</span>
+              <span class="task-text">Definição do perfil de cliente Club Med da Orange (Brasil x Neve)</span>
+            </div>
+            <button class="btn-concluir" id="btn-b3" onclick="openModal('b3',`Definição do perfil de cliente Club Med da Orange (Brasil x Neve)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b3"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b3')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b3">
+              <div class="note-prev" id="np-b3"></div>
+              <textarea id="nta-b3" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b3"></span>
+                <button class="btn-save-note" onclick="saveNote('b3')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b4">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b4">Aberta</span>
+              <span class="task-text">Criar dashboard de acompanhamento com KPIs definidos</span>
+            </div>
+            <button class="btn-concluir" id="btn-b4" onclick="openModal('b4',`Criar dashboard de acompanhamento com KPIs definidos`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b4"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b4')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b4">
+              <div class="note-prev" id="np-b4"></div>
+              <textarea id="nta-b4" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b4"></span>
+                <button class="btn-save-note" onclick="saveNote('b4')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b5">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b5">Aberta</span>
+              <span class="task-text">Primeiro alinhamento com todas as áreas envolvidas</span>
+            </div>
+            <button class="btn-concluir" id="btn-b5" onclick="openModal('b5',`Primeiro alinhamento com todas as áreas envolvidas`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b5"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b5')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b5">
+              <div class="note-prev" id="np-b5"></div>
+              <textarea id="nta-b5" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b5"></span>
+                <button class="btn-save-note" onclick="saveNote('b5')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b6">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b6">Aberta</span>
+              <span class="task-text">Definição do calendário editorial Club Med para o trimestre</span>
+            </div>
+            <button class="btn-concluir" id="btn-b6" onclick="openModal('b6',`Definição do calendário editorial Club Med para o trimestre`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b6"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b6')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b6">
+              <div class="note-prev" id="np-b6"></div>
+              <textarea id="nta-b6" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b6"></span>
+                <button class="btn-save-note" onclick="saveNote('b6')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b7">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b7">Aberta</span>
+              <span class="task-text">Alinhamento com marketing para lançamento de vitrine</span>
+            </div>
+            <button class="btn-concluir" id="btn-b7" onclick="openModal('b7',`Alinhamento com marketing para lançamento de vitrine`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b7"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b7')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b7">
+              <div class="note-prev" id="np-b7"></div>
+              <textarea id="nta-b7" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b7"></span>
+                <button class="btn-save-note" onclick="saveNote('b7')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b8">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b8">Aberta</span>
+              <span class="task-text">Revisão e atualização dos scripts de venda por resort</span>
+            </div>
+            <button class="btn-concluir" id="btn-b8" onclick="openModal('b8',`Revisão e atualização dos scripts de venda por resort`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b8"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b8')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b8">
+              <div class="note-prev" id="np-b8"></div>
+              <textarea id="nta-b8" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b8"></span>
+                <button class="btn-save-note" onclick="saveNote('b8')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b9">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b9">Aberta</span>
+              <span class="task-text">Entrar em contato com representante Club Med para atualização de parceria</span>
+            </div>
+            <button class="btn-concluir" id="btn-b9" onclick="openModal('b9',`Entrar em contato com representante Club Med para atualização de parceria`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b9"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b9')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b9">
+              <div class="note-prev" id="np-b9"></div>
+              <textarea id="nta-b9" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b9"></span>
+                <button class="btn-save-note" onclick="saveNote('b9')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div></div>
+    <div class="marco-hdr">
+      <span class="marco-pill">M2 — Ativação & Vitrine</span>
+      <span class="marco-dates" id="md-m2b"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m2b"></div></div>
+      <span class="marco-cnt" id="mc-m2b">0/8</span>
+    </div>
+    <div class="marco-sub">M2 — Ativação & Vitrine · Ago–Set 2026</div>
+    <div class="tasks-block">
+        <div class="task-block" id="tb-b10">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b10">Aberta</span>
+              <span class="task-text">Lançar conteúdo Club Med nas redes sociais com calendário estruturado</span>
+            </div>
+            <button class="btn-concluir" id="btn-b10" onclick="openModal('b10',`Lançar conteúdo Club Med nas redes sociais com calendário estruturado`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b10"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b10')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b10">
+              <div class="note-prev" id="np-b10"></div>
+              <textarea id="nta-b10" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b10"></span>
+                <button class="btn-save-note" onclick="saveNote('b10')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b11">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b11">Aberta</span>
+              <span class="task-text">Primeira campanha segmentada para base de clientes Orange (famílias)</span>
+            </div>
+            <button class="btn-concluir" id="btn-b11" onclick="openModal('b11',`Primeira campanha segmentada para base de clientes Orange (famílias)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b11"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b11')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b11">
+              <div class="note-prev" id="np-b11"></div>
+              <textarea id="nta-b11" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b11"></span>
+                <button class="btn-save-note" onclick="saveNote('b11')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b12">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b12">Aberta</span>
+              <span class="task-text">Ativação do produto com o time comercial com metas claras</span>
+            </div>
+            <button class="btn-concluir" id="btn-b12" onclick="openModal('b12',`Ativação do produto com o time comercial com metas claras`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b12"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b12')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b12">
+              <div class="note-prev" id="np-b12"></div>
+              <textarea id="nta-b12" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b12"></span>
+                <button class="btn-save-note" onclick="saveNote('b12')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b13">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b13">Aberta</span>
+              <span class="task-text">Produção de materiais de venda: apresentações, comparativos, argumentários</span>
+            </div>
+            <button class="btn-concluir" id="btn-b13" onclick="openModal('b13',`Produção de materiais de venda: apresentações, comparativos, argumentários`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b13"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b13')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b13">
+              <div class="note-prev" id="np-b13"></div>
+              <textarea id="nta-b13" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b13"></span>
+                <button class="btn-save-note" onclick="saveNote('b13')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b14">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b14">Aberta</span>
+              <span class="task-text">Primeiras reuniões com clientes prospect identificados</span>
+            </div>
+            <button class="btn-concluir" id="btn-b14" onclick="openModal('b14',`Primeiras reuniões com clientes prospect identificados`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b14"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b14')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b14">
+              <div class="note-prev" id="np-b14"></div>
+              <textarea id="nta-b14" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b14"></span>
+                <button class="btn-save-note" onclick="saveNote('b14')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b15">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b15">Aberta</span>
+              <span class="task-text">Coleta e publicação de depoimentos de clientes que já viajaram</span>
+            </div>
+            <button class="btn-concluir" id="btn-b15" onclick="openModal('b15',`Coleta e publicação de depoimentos de clientes que já viajaram`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b15"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b15')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b15">
+              <div class="note-prev" id="np-b15"></div>
+              <textarea id="nta-b15" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b15"></span>
+                <button class="btn-save-note" onclick="saveNote('b15')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b16">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b16">Aberta</span>
+              <span class="task-text">Definição de pacotes curados por perfil (iniciante, família, neve)</span>
+            </div>
+            <button class="btn-concluir" id="btn-b16" onclick="openModal('b16',`Definição de pacotes curados por perfil (iniciante, família, neve)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b16"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b16')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b16">
+              <div class="note-prev" id="np-b16"></div>
+              <textarea id="nta-b16" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b16"></span>
+                <button class="btn-save-note" onclick="saveNote('b16')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b17">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b17">Aberta</span>
+              <span class="task-text">Atingir meta de R$ 300k/mês</span>
+            </div>
+            <button class="btn-concluir" id="btn-b17" onclick="openModal('b17',`Atingir meta de R$ 300k/mês`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b17"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b17')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b17">
+              <div class="note-prev" id="np-b17"></div>
+              <textarea id="nta-b17" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b17"></span>
+                <button class="btn-save-note" onclick="saveNote('b17')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div></div>
+    <div class="marco-hdr">
+      <span class="marco-pill">M3 — Escala & Referência</span>
+      <span class="marco-dates" id="md-m3b"></span>
+      <div class="marco-bar-wrap"><div class="marco-bar" id="mb-m3b"></div></div>
+      <span class="marco-cnt" id="mc-m3b">0/7</span>
+    </div>
+    <div class="marco-sub">M3 — Escala & Referência · Out 2026+</div>
+    <div class="tasks-block">
+        <div class="task-block" id="tb-b18">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b18">Aberta</span>
+              <span class="task-text">Meta de R$ 1MM/mês ativo e sendo monitorado</span>
+            </div>
+            <button class="btn-concluir" id="btn-b18" onclick="openModal('b18',`Meta de R$ 1MM/mês ativo e sendo monitorado`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b18"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b18')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b18">
+              <div class="note-prev" id="np-b18"></div>
+              <textarea id="nta-b18" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b18"></span>
+                <button class="btn-save-note" onclick="saveNote('b18')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b19">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b19">Aberta</span>
+              <span class="task-text">Programa de indicações ativo para clientes Club Med</span>
+            </div>
+            <button class="btn-concluir" id="btn-b19" onclick="openModal('b19',`Programa de indicações ativo para clientes Club Med`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b19"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b19')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b19">
+              <div class="note-prev" id="np-b19"></div>
+              <textarea id="nta-b19" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b19"></span>
+                <button class="btn-save-note" onclick="saveNote('b19')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b20">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b20">Aberta</span>
+              <span class="task-text">Presença em eventos e ações Club Med (fam trips, lançamentos)</span>
+            </div>
+            <button class="btn-concluir" id="btn-b20" onclick="openModal('b20',`Presença em eventos e ações Club Med (fam trips, lançamentos)`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b20"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b20')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b20">
+              <div class="note-prev" id="np-b20"></div>
+              <textarea id="nta-b20" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b20"></span>
+                <button class="btn-save-note" onclick="saveNote('b20')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b21">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b21">Aberta</span>
+              <span class="task-text">Parcerias com influenciadores ou criadores de conteúdo de viagem</span>
+            </div>
+            <button class="btn-concluir" id="btn-b21" onclick="openModal('b21',`Parcerias com influenciadores ou criadores de conteúdo de viagem`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b21"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b21')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b21">
+              <div class="note-prev" id="np-b21"></div>
+              <textarea id="nta-b21" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b21"></span>
+                <button class="btn-save-note" onclick="saveNote('b21')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b22">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b22">Aberta</span>
+              <span class="task-text">Construção de base própria de prospects qualificados</span>
+            </div>
+            <button class="btn-concluir" id="btn-b22" onclick="openModal('b22',`Construção de base própria de prospects qualificados`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b22"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b22')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b22">
+              <div class="note-prev" id="np-b22"></div>
+              <textarea id="nta-b22" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b22"></span>
+                <button class="btn-save-note" onclick="saveNote('b22')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b23">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b23">Aberta</span>
+              <span class="task-text">Revisão trimestral de estratégia com diretoria</span>
+            </div>
+            <button class="btn-concluir" id="btn-b23" onclick="openModal('b23',`Revisão trimestral de estratégia com diretoria`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b23"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b23')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b23">
+              <div class="note-prev" id="np-b23"></div>
+              <textarea id="nta-b23" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b23"></span>
+                <button class="btn-save-note" onclick="saveNote('b23')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="task-block" id="tb-b24">
+          <div class="task-row">
+            <div class="task-left">
+              <span class="chip" id="chip-b24">Aberta</span>
+              <span class="task-text">Orange reconhecida como top of mind Club Med</span>
+            </div>
+            <button class="btn-concluir" id="btn-b24" onclick="openModal('b24',`Orange reconhecida como top of mind Club Med`)">Concluir</button>
+          </div>
+          <div class="mgr-obs" id="mobs-b24"></div>
+          <div class="note-wrap">
+            <div class="note-toggle" onclick="toggleNote('b24')">▶ Adicionar anotação</div>
+            <div class="note-editor" id="ne-b24">
+              <div class="note-prev" id="np-b24"></div>
+              <textarea id="nta-b24" placeholder="Escreva uma observação..."></textarea>
+              <div class="note-foot">
+                <span class="note-ts" id="nts-b24"></span>
+                <button class="btn-save-note" onclick="saveNote('b24')">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div></div>
+</main>
+<footer>Orange Viagens · Dashboard confidencial · Março 2026 &nbsp;·&nbsp; <a href="dashboard.html">← Visão geral</a></footer>
+<div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h2>Concluir tarefa</h2>
+    <div class="modal-task" id="mtxt"></div>
+    <input type="hidden" id="mid">
+    <label>Como foi feito?</label>
+    <textarea id="mta" placeholder="Descreva como a tarefa foi executada..."></textarea>
+    <div class="modal-acts">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-submit" id="msub" onclick="submitTask()">Enviar para aprovação</button>
+    </div>
+  </div>
+</div>
+<script>
+const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
+const TEAM_KEY='beatriz';
+const MARCOS=[{"id": "m1b", "label": "M1", "fase": "Estruturação & Diagnóstico", "range": "Jun–Jul 2026", "todos": [{"id": "b1", "text": "Mapeamento completo do histórico de vendas Club Med na Orange"}, {"id": "b2", "text": "Levantamento do material existente (treinamentos, conteúdos, scripts)"}, {"id": "b3", "text": "Definição do perfil de cliente Club Med da Orange (Brasil x Neve)"}, {"id": "b4", "text": "Criar dashboard de acompanhamento com KPIs definidos"}, {"id": "b5", "text": "Primeiro alinhamento com todas as áreas envolvidas"}, {"id": "b6", "text": "Definição do calendário editorial Club Med para o trimestre"}, {"id": "b7", "text": "Alinhamento com marketing para lançamento de vitrine"}, {"id": "b8", "text": "Revisão e atualização dos scripts de venda por resort"}, {"id": "b9", "text": "Entrar em contato com representante Club Med para atualização de parceria"}]}, {"id": "m2b", "label": "M2", "fase": "Ativação & Vitrine", "range": "Ago–Set 2026", "todos": [{"id": "b10", "text": "Lançar conteúdo Club Med nas redes sociais com calendário estruturado"}, {"id": "b11", "text": "Primeira campanha segmentada para base de clientes Orange (famílias)"}, {"id": "b12", "text": "Ativação do produto com o time comercial com metas claras"}, {"id": "b13", "text": "Produção de materiais de venda: apresentações, comparativos, argumentários"}, {"id": "b14", "text": "Primeiras reuniões com clientes prospect identificados"}, {"id": "b15", "text": "Coleta e publicação de depoimentos de clientes que já viajaram"}, {"id": "b16", "text": "Definição de pacotes curados por perfil (iniciante, família, neve)"}, {"id": "b17", "text": "Atingir meta de R$ 300k/mês"}]}, {"id": "m3b", "label": "M3", "fase": "Escala & Referência", "range": "Out 2026+", "todos": [{"id": "b18", "text": "Meta de R$ 1MM/mês ativo e sendo monitorado"}, {"id": "b19", "text": "Programa de indicações ativo para clientes Club Med"}, {"id": "b20", "text": "Presença em eventos e ações Club Med (fam trips, lançamentos)"}, {"id": "b21", "text": "Parcerias com influenciadores ou criadores de conteúdo de viagem"}, {"id": "b22", "text": "Construção de base própria de prospects qualificados"}, {"id": "b23", "text": "Revisão trimestral de estratégia com diretoria"}, {"id": "b24", "text": "Orange reconhecida como top of mind Club Med"}]}];
+let states={},notes={},mgr_obs={},dates={};
+
+async function api(path){
+  const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+  if(!r.ok){console.error('API',r.status,path);return null;}
+  return r.json();
+}
+async function upsert(table,data,conflict){
+  const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+(conflict||'task_id'),{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},
+    body:JSON.stringify(data)
+  });
+  return r.ok;
+}
+
+async function load(){
+  const[st,dt,nt,mc]=await Promise.all([
+    api('/rest/v1/task_states?select=*'),
+    api('/rest/v1/plan_dates?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/task_notes?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/task_manager_comments?team_key=eq.'+TEAM_KEY+'&select=*'),
+  ]);
+  states={};(st||[]).forEach(r=>states[r.task_id]=r);
+  dates={};(dt||[]).forEach(r=>dates[r.marco_id]=r);
+  notes={};(nt||[]).forEach(r=>{if(document.activeElement?.id!=='nta-'+r.task_id)notes[r.task_id]=r;});
+  mgr_obs={};(mc||[]).forEach(r=>mgr_obs[r.task_id]=r);
+  render();
+}
+
+function render(){
+  let done=0,pend=0,part=0,tot=0;
+  for(const m of MARCOS){
+    let md=0;
+    for(const t of m.todos){
+      tot++;
+      const s=states[t.id];
+      const chip=document.getElementById('chip-'+t.id);
+      const btn=document.getElementById('btn-'+t.id);
+      if(s){
+        if(s.status==='aprovada'){md++;done++;if(chip){chip.textContent='Aprovada';chip.className='chip aprovada';}if(btn){btn.disabled=true;btn.textContent='Aprovada';}}
+        else if(s.status==='aguardando'){pend++;if(chip){chip.textContent='Aguardando';chip.className='chip aguardando';}if(btn){btn.disabled=true;btn.textContent='Enviado';}}
+      }
+      const n=notes[t.id];
+      if(n){
+        const prev=document.getElementById('np-'+t.id);
+        const ts=document.getElementById('nts-'+t.id);
+        const ta=document.getElementById('nta-'+t.id);
+        const tog=document.querySelector('[onclick="toggleNote(\''+t.id+'\')"]');
+        if(prev)prev.textContent=n.note||'';
+        if(ts)ts.textContent='Salvo em '+new Date(n.updated_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+        if(ta&&document.activeElement!==ta)ta.value=n.note||'';
+        if(tog&&n.note)tog.textContent='▼ Anotação';
+      }
+      const mo=mgr_obs[t.id];
+      const obsEl=document.getElementById('mobs-'+t.id);
+      if(obsEl){
+        if(mo?.comment){obsEl.className='mgr-obs on';obsEl.innerHTML='<div class="mgr-obs-hdr"><div class="mgr-av">DA</div><div class="mgr-lbl">Observação da Dhayane</div></div><div class="mgr-txt">'+mo.comment+'</div>';}
+        else{obsEl.className='mgr-obs';}
+      }
+    }
+    const bar=document.getElementById('mb-'+m.id);
+    const cnt=document.getElementById('mc-'+m.id);
+    if(bar)bar.style.width=(m.todos.length?md/m.todos.length*100:0)+'%';
+    if(cnt)cnt.textContent=md+'/'+m.todos.length;
+    const d=dates[m.id];
+    const dEl=document.getElementById('md-'+m.id);
+    if(dEl&&d){const f=x=>new Date(x).toLocaleDateString('pt-BR');dEl.textContent='Início: '+f(d.start_date)+' · Conclusão: '+f(d.end_date);}
+  }
+  document.getElementById('sd').textContent=done;
+  document.getElementById('sp').textContent=pend;
+  document.getElementById('sx').textContent=part;
+  document.getElementById('st').textContent=tot;
+  document.getElementById('ring').style.strokeDashoffset=175.9*(1-(tot?done/tot:0));
+}
+
+function toggleNote(id){
+  const ed=document.getElementById('ne-'+id);
+  const tog=document.querySelector('[onclick="toggleNote(\''+id+'\')"]');
+  if(ed.classList.toggle('open'))tog.textContent='▼ Anotação';
+  else tog.textContent=(notes[id]?.note?'▼ ':'▶ ')+'Anotação'+(notes[id]?.note?'':' — Adicionar');
+}
+
+async function saveNote(id){
+  const ta=document.getElementById('nta-'+id);
+  const btn=ta.closest('.note-editor').querySelector('.btn-save-note');
+  btn.textContent='Salvando...';btn.disabled=true;
+  const ok=await upsert('task_notes',{task_id:id,team_key:TEAM_KEY,note:ta.value,note_text:ta.value,updated_at:new Date().toISOString()});
+  btn.disabled=false;
+  if(ok){btn.textContent='Salvo ✓';setTimeout(()=>btn.textContent='Salvar',2000);}
+  else{btn.textContent='Erro — tente novamente';setTimeout(()=>btn.textContent='Salvar',3000);}
+  await load();
+}
+
+function openModal(id,txt){
+  document.getElementById('mid').value=id;
+  document.getElementById('mtxt').textContent=txt;
+  document.getElementById('mta').value='';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+async function submitTask(){
+  const id=document.getElementById('mid').value;
+  const how=document.getElementById('mta').value.trim();
+  if(!how){alert('Por favor descreva como a tarefa foi feita.');return;}
+  const btn=document.getElementById('msub');
+  btn.disabled=true;btn.textContent='Enviando...';
+  const ok=await upsert('task_states',{task_id:id,team_key:TEAM_KEY,status:'aguardando',how_done:how,execution:how,submitted_at:new Date().toISOString()});
+  btn.disabled=false;btn.textContent='Enviar para aprovação';
+  if(ok){closeModal();await load();}
+  else alert('Erro ao enviar. Tente novamente.');
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+load();
+setInterval(()=>{if(document.activeElement?.tagName!=='TEXTAREA')load();},20000);
+</script>
+</body>
+</html>

@@ -11,7 +11,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 .ph{background:var(--sur);border-bottom:1px solid var(--bdr);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;font-size:13px;}
 .ph-org{font-family:'DM Serif Display',serif;font-size:1.1rem;}
 .hero{background:linear-gradient(135deg,#0d2818,#0d1117);border-bottom:1px solid var(--bdr);padding:2.5rem 2rem;}
-.hero-in{max-width:1000px;margin:0 auto;}
+.hero-in{max-width:1100px;margin:0 auto;}
 .hero h1{font-family:'DM Serif Display',serif;font-size:2rem;margin-bottom:.25rem;}
 .hero-sub{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem;}
 .hstats{display:flex;gap:2rem;flex-wrap:wrap;}
@@ -22,9 +22,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 .tab{padding:12px 20px;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
 .tab.active{color:var(--txt);border-bottom-color:var(--green);font-weight:600;}
 .tab .bdg{background:var(--amber);color:#000;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px;}
-.panel{display:none;max-width:1000px;margin:0 auto;padding:2rem;}
+.panel{display:none;max-width:1100px;margin:0 auto;padding:2rem;}
 .panel.active{display:block;}
-.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
 .tc{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem;text-decoration:none;color:var(--txt);display:block;transition:border-color .15s;}
 .tc:hover{border-color:var(--green);}
 .tc-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
@@ -47,7 +47,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 .save-ok{font-size:12px;color:var(--green);margin-left:10px;opacity:0;transition:opacity .3s;}
 .save-ok.show{opacity:1;}
 .obs-card{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
-.obs-head{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;margin-bottom:0;}
+.obs-head{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;}
 .obs-body{display:none;margin-top:1rem;}
 .obs-body.open{display:block;}
 .obs-marco-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:.5rem 0 .25rem;}
@@ -92,7 +92,7 @@ footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-t
 <header class="ph"><div class="ph-org">Orange Viagens</div><span style="color:var(--muted)">Dashboard · Dhayane Albiero</span></header>
 <div class="hero"><div class="hero-in">
   <h1>Dashboard de acompanhamento</h1>
-  <div class="hero-sub">Plano 18 meses · 4 times · Orange Viagens · Março 2026</div>
+  <div class="hero-sub">Plano 18 meses · 6 times · Orange Viagens · Março 2026</div>
   <div class="hstats">
     <div><div class="hv amber" id="gs-pend">—</div><div class="hl">Aguardando</div></div>
     <div><div class="hv" style="color:var(--red)" id="gs-part">—</div><div class="hl">Parciais</div></div>
@@ -130,6 +130,8 @@ footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-t
     <button class="fbtn" onclick="setFilter('roberta',this)">Roberta</button>
     <button class="fbtn" onclick="setFilter('rafaella',this)">Rafaella</button>
     <button class="fbtn" onclick="setFilter('laura',this)">Laura</button>
+    <button class="fbtn" onclick="setFilter('beatriz',this)">Beatriz</button>
+    <button class="fbtn" onclick="setFilter('michelle',this)">Michelle</button>
   </div>
   <div id="hist-list"></div>
 </div>
@@ -137,51 +139,31 @@ footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-t
 <script>
 const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
-const TEAMS=[{"key": "katharine", "name": "Katharine Casteluci", "role": "Coordenadora de Operações", "initials": "KC", "color": "#00B894"}, {"key": "roberta", "name": "Roberta", "role": "Coordenadora de Treinamento & Qualidade", "initials": "RO", "color": "#6C5CE7"}, {"key": "rafaella", "name": "Rafaella Reis", "role": "Coordenadora de Produtos Hoteleiros & Vacation Home", "initials": "RR", "color": "#D63031"}, {"key": "laura", "name": "Laura", "role": "Coordenadora de Produtos — Cruzeiros", "initials": "LA", "color": "#0984e3"}];
-const ALL_TASKS={"katharine": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12", "k13", "k14", "k15", "k16", "k17", "k18", "k19", "k20", "k21", "k22", "k23", "k24", "k25"], "roberta": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "r16", "r17", "r18", "r19", "r20", "r21", "r22", "r23", "r24", "r25", "r26", "r27"], "rafaella": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28"], "laura": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9", "l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18", "l19", "l20", "l21", "l22", "l23", "l24"]};
-const TASK_LABELS={"k1": "Mapear todos os processos operacionais (AS-IS)", "k2": "Criar dashboard v1 de SLA, erros e ciclo", "k3": "Estabelecer baseline de KPIs", "k4": "Identificar top 5 gargalos operacionais", "k5": "Documentar top 3 processos em playbook", "k6": "Instalar tracking semanal de erros", "k7": "Assumir liderança da rotina diária de Ops", "k8": "Atingir SLA ≥90% e taxa de erro ≤4%", "k9": "Participar do WBR semanal", "k10": "Implantar pós-mortem", "k11": "Quality gate ativo", "k12": "Liderar automações IA em Ops", "k13": "Ops rodou 1 semana completa sem Dhayane", "k14": "SLA ≥92%, erro ≤3%", "k15": "80% de autonomia operacional", "k16": "SLA ≥94%, erro ≤2,5%", "k17": "Custo/booking reduzido em −15%", "k18": "Autonomia total", "k19": "Time opera 2 semanas sem Dhayane", "k20": "IA em uso ativo na operação", "k21": "SLA ≥95%, erro ≤2%", "k22": "Custo/booking −20% vs baseline", "k23": "Ops 100% autônoma", "k24": "Playbook completo documentado", "k25": "IA integrada como infraestrutura de Ops", "r1": "Mapear jornada de aprendizagem atual", "r2": "Definir perfil de competências por função", "r3": "Criar plano de treinamento v1", "r4": "Implementar NPS interno", "r5": "Estabelecer baseline de qualidade", "r6": "Criar checklist de qualidade por processo", "r7": "Conduzir 1ª sessão de treinamento", "r8": "Definir SLA de resposta para CS", "r9": "Alinhar trilha de onboarding com RH", "r10": "NPS de treinamento ≥8", "r11": "Trilha de onboarding completa", "r12": "Quality score médio ≥80", "r13": "Programa de mentoria lançado", "r14": "SLA de qualidade medido semanalmente", "r15": "IA assistindo treinamentos", "r16": "Criar academia interna v1", "r17": "NPS treinamento ≥9", "r18": "Quality score ≥85", "r19": "Certificação interna lançada", "r20": "Líderes treinando times com autonomia", "r21": "IA gerando trilhas personalizadas", "r22": "Programa de reconhecimento por performance", "r23": "Quality score ≥90", "r24": "Academia interna consolidada", "r25": "Programa de desenvolvimento de lideranças", "r26": "ROI de treinamento IA: 3x", "r27": "Academia como ativo da empresa", "p1": "Listar portfólio completo hoteleiro", "p2": "Calcular margem e volume por produto", "p3": "Identificar top 3 e bottom 3 por margem", "p4": "Levantar attach rate atual", "p5": "Criar funil de produto v1", "p6": "Definir critérios de priorização", "p7": "Mapear oportunidades de bundle", "p8": "Realizar gate review com Dhayane", "p9": "Avaliar onde IA pode potencializar produtos", "p10": "Lançar bundle hoteleiro gerando receita", "p11": "Attach rate +3pp", "p12": "Margem top 3 produtos +5%", "p13": "Pipeline ≥3 itens", "p14": "Gate review mensal consistente", "p15": "Produto com IA embarcada", "p16": "Lançar produto hoteleiro novo", "p17": "Attach rate +7pp", "p18": "Margem top 3 +10%", "p19": "Pipeline ≥5 itens", "p20": "Matar produto com baixo desempenho", "p21": "Recomendação IA de upsell ativa", "p22": "Personalização via IA em produto", "p23": "Attach rate ≥25%", "p24": "Margem top 3 +15%", "p25": "≥2 produtos novos lançados", "p26": "Precificação dinâmica com IA", "p27": "Roadmap de produtos — ano 2", "p28": "Portfólio gerenciado com autonomia", "l1": "Mapear portfólio inicial ≥20 produtos de cruzeiros", "l2": "Mapear ≥5 parceiros estratégicos", "l3": "Iniciar negociações com fornecedores", "l4": "Documentar fluxos operacionais", "l5": "Desenvolver 1º guia de treinamento", "l6": "Conduzir primeira sessão de capacitação", "l7": "Realizar 1ª análise de inteligência de mercado", "l8": "Definir critérios para grupos exclusivos", "l9": "Alinhar baseline de KPIs com Dhayane", "l10": "Portfólio consolidado com fichas técnicas", "l11": "Fechar ≥2 acordos com fornecedores", "l12": "Negociar exclusividade em grupos", "l13": "Lançar ≥1 oferta de grupo exclusivo", "l14": "Entregar ≥2 relatórios mensais", "l15": "Desenvolver materiais de treinamento com IA", "l16": "Conduzir ≥2 sessões de capacitação", "l17": "Mapear oportunidades de pacotes integrados", "l18": "Avaliar condições operacionais: rebookings", "l19": "Portfólio gerenciado de forma autônoma", "l20": "Fechar ≥1 contrato de longo prazo", "l21": "Pipeline ativo de grupos exclusivos", "l22": "Comissão recorrente via add-ons", "l23": "IA integrada ao fluxo de vendas", "l24": "Análise estratégica e roadmap para ano seguinte"};
-const MARCOS_META={"katharine": [{"id": "m1k", "label": "M1 — Fundação", "tasks": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9"]}, {"id": "m2k", "label": "M2 — Estruturação", "tasks": ["k10", "k11", "k12", "k13", "k14", "k15"]}, {"id": "m3k", "label": "M3 — Aceleração", "tasks": ["k16", "k17", "k18", "k19", "k20"]}, {"id": "m4k", "label": "M4 — Escala", "tasks": ["k21", "k22", "k23", "k24", "k25"]}], "roberta": [{"id": "m1r", "label": "M1 — Fundação", "tasks": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"]}, {"id": "m2r", "label": "M2 — Estruturação", "tasks": ["r10", "r11", "r12", "r13", "r14", "r15", "r16"]}, {"id": "m3r", "label": "M3 — Aceleração", "tasks": ["r17", "r18", "r19", "r20", "r21", "r22"]}, {"id": "m4r", "label": "M4 — Escala", "tasks": ["r23", "r24", "r25", "r26", "r27"]}], "rafaella": [{"id": "m1p", "label": "M1 — Fundação", "tasks": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9"]}, {"id": "m2p", "label": "M2 — Estruturação", "tasks": ["p10", "p11", "p12", "p13", "p14", "p15"]}, {"id": "m3p", "label": "M3 — Aceleração", "tasks": ["p16", "p17", "p18", "p19", "p20", "p21", "p22"]}, {"id": "m4p", "label": "M4 — Escala", "tasks": ["p23", "p24", "p25", "p26", "p27", "p28"]}], "laura": [{"id": "m1l", "label": "M1 — Estruturação", "tasks": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9"]}, {"id": "m2l", "label": "M2 — Consolidação", "tasks": ["l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18"]}, {"id": "m3l", "label": "M3 — Maturidade", "tasks": ["l19", "l20", "l21", "l22", "l23", "l24"]}]};
+const TEAMS=[{"key": "katharine", "name": "Katharine Casteluci", "role": "Coordenadora de Operações", "initials": "KC", "color": "#00B894"}, {"key": "roberta", "name": "Roberta", "role": "Coordenadora de Treinamento & Qualidade", "initials": "RO", "color": "#6C5CE7"}, {"key": "rafaella", "name": "Rafaella Reis", "role": "Coordenadora de Produtos Hoteleiros & Vacation Home", "initials": "RR", "color": "#D63031"}, {"key": "laura", "name": "Laura", "role": "Coordenadora de Produtos — Cruzeiros", "initials": "LA", "color": "#0984e3"}, {"key": "beatriz", "name": "Beatriz", "role": "Coordenadora de Produto — Club Med", "initials": "BE", "color": "#e84393"}, {"key": "michelle", "name": "Michelle", "role": "Coordenadora de Produto — Ingressos & Atrações", "initials": "MI", "color": "#f39c12"}];
+const ALL_TASKS={"katharine": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12", "k13", "k14", "k15", "k16", "k17", "k18", "k19", "k20", "k21", "k22", "k23", "k24", "k25"], "roberta": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "r16", "r17", "r18", "r19", "r20", "r21", "r22", "r23", "r24", "r25", "r26", "r27"], "rafaella": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28"], "laura": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9", "l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18", "l19", "l20", "l21", "l22", "l23", "l24"], "beatriz": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "b10", "b11", "b12", "b13", "b14", "b15", "b16", "b17", "b18", "b19", "b20", "b21", "b22", "b23", "b24"], "michelle": ["mi1", "mi2", "mi3", "mi4", "mi5", "mi6", "mi7", "mi8", "mi9", "mi10", "mi11", "mi12", "mi13", "mi14", "mi15", "mi16", "mi17", "mi18", "mi19", "mi20", "mi21", "mi22", "mi23", "mi24", "mi25", "mi26"]};
+const TASK_LABELS={"k1": "Mapear todos os processos operacionais (AS-IS)", "k2": "Criar dashboard v1 de SLA, erros e ciclo", "k3": "Estabelecer baseline de KPIs", "k4": "Identificar top 5 gargalos operacionais", "k5": "Documentar top 3 processos em playbook", "k6": "Instalar tracking semanal de erros", "k7": "Assumir liderança da rotina diária de Ops", "k8": "Atingir SLA ≥90% e taxa de erro ≤4%", "k9": "Participar do WBR semanal", "k10": "Implantar pós-mortem", "k11": "Quality gate ativo", "k12": "Liderar automações IA em Ops", "k13": "Ops rodou 1 semana completa sem Dhayane", "k14": "SLA ≥92%, erro ≤3%", "k15": "80% de autonomia operacional", "k16": "SLA ≥94%, erro ≤2,5%", "k17": "Custo/booking reduzido em −15%", "k18": "Autonomia total", "k19": "Time opera 2 semanas sem Dhayane", "k20": "IA em uso ativo na operação", "k21": "SLA ≥95%, erro ≤2%", "k22": "Custo/booking −20% vs baseline", "k23": "Ops 100% autônoma", "k24": "Playbook completo documentado", "k25": "IA integrada como infraestrutura de Ops", "r1": "Mapear jornada de aprendizagem atual", "r2": "Definir perfil de competências por função", "r3": "Criar plano de treinamento v1", "r4": "Implementar NPS interno", "r5": "Estabelecer baseline de qualidade", "r6": "Criar checklist de qualidade por processo", "r7": "Conduzir 1ª sessão de treinamento", "r8": "Definir SLA de resposta para CS", "r9": "Alinhar trilha de onboarding com RH", "r10": "NPS de treinamento ≥8", "r11": "Trilha de onboarding completa", "r12": "Quality score médio ≥80", "r13": "Programa de mentoria lançado", "r14": "SLA de qualidade medido semanalmente", "r15": "IA assistindo treinamentos", "r16": "Criar academia interna v1", "r17": "NPS treinamento ≥9", "r18": "Quality score ≥85", "r19": "Certificação interna lançada", "r20": "Líderes treinando times com autonomia", "r21": "IA gerando trilhas personalizadas", "r22": "Programa de reconhecimento por performance", "r23": "Quality score ≥90", "r24": "Academia interna consolidada", "r25": "Programa de desenvolvimento de lideranças", "r26": "ROI de treinamento IA: 3x", "r27": "Academia como ativo da empresa", "p1": "Listar portfólio completo hoteleiro", "p2": "Calcular margem e volume por produto", "p3": "Identificar top 3 e bottom 3 por margem", "p4": "Levantar attach rate atual", "p5": "Criar funil de produto v1", "p6": "Definir critérios de priorização", "p7": "Mapear oportunidades de bundle", "p8": "Realizar gate review com Dhayane", "p9": "Avaliar onde IA pode potencializar produtos", "p10": "Lançar bundle hoteleiro gerando receita", "p11": "Attach rate +3pp", "p12": "Margem top 3 produtos +5%", "p13": "Pipeline ≥3 itens", "p14": "Gate review mensal consistente", "p15": "Produto com IA embarcada", "p16": "Lançar produto hoteleiro novo", "p17": "Attach rate +7pp", "p18": "Margem top 3 +10%", "p19": "Pipeline ≥5 itens", "p20": "Matar produto com baixo desempenho", "p21": "Recomendação IA de upsell ativa", "p22": "Personalização via IA em produto", "p23": "Attach rate ≥25%", "p24": "Margem top 3 +15%", "p25": "≥2 produtos novos lançados", "p26": "Precificação dinâmica com IA", "p27": "Roadmap de produtos — ano 2", "p28": "Portfólio gerenciado com autonomia", "l1": "Mapear portfólio inicial ≥20 produtos de cruzeiros", "l2": "Mapear ≥5 parceiros estratégicos", "l3": "Iniciar negociações com fornecedores", "l4": "Documentar fluxos operacionais", "l5": "Desenvolver 1º guia de treinamento", "l6": "Conduzir primeira sessão de capacitação", "l7": "Realizar 1ª análise de inteligência de mercado", "l8": "Definir critérios para grupos exclusivos", "l9": "Alinhar baseline de KPIs com Dhayane", "l10": "Portfólio consolidado com fichas técnicas", "l11": "Fechar ≥2 acordos com fornecedores", "l12": "Negociar exclusividade em grupos", "l13": "Lançar ≥1 oferta de grupo exclusivo", "l14": "Entregar ≥2 relatórios mensais", "l15": "Desenvolver materiais de treinamento com IA", "l16": "Conduzir ≥2 sessões de capacitação", "l17": "Mapear oportunidades de pacotes integrados", "l18": "Avaliar condições operacionais: rebookings", "l19": "Portfólio gerenciado de forma autônoma", "l20": "Fechar ≥1 contrato de longo prazo", "l21": "Pipeline ativo de grupos exclusivos", "l22": "Comissão recorrente via add-ons", "l23": "IA integrada ao fluxo de vendas", "l24": "Análise estratégica e roadmap para ano seguinte", "b1": "Mapeamento completo do histórico de vendas Club Med", "b2": "Levantamento do material existente", "b3": "Definição do perfil de cliente Club Med", "b4": "Criar dashboard de acompanhamento com KPIs", "b5": "Primeiro alinhamento com todas as áreas", "b6": "Calendário editorial Club Med para o trimestre", "b7": "Alinhamento com marketing para vitrine", "b8": "Revisão dos scripts de venda por resort", "b9": "Contato com representante Club Med", "b10": "Lançar conteúdo Club Med nas redes sociais", "b11": "Primeira campanha segmentada para base Orange", "b12": "Ativação do produto com o time comercial", "b13": "Materiais de venda: apresentações e argumentários", "b14": "Primeiras reuniões com prospects", "b15": "Coleta e publicação de depoimentos de clientes", "b16": "Pacotes curados por perfil (iniciante, família, neve)", "b17": "Atingir meta de R$ 300k/mês", "b18": "Meta de R$ 1MM/mês ativo e monitorado", "b19": "Programa de indicações ativo", "b20": "Presença em eventos e fam trips Club Med", "b21": "Parcerias com influenciadores de viagem", "b22": "Base própria de prospects qualificados", "b23": "Revisão trimestral com diretoria", "b24": "Orange reconhecida como top of mind Club Med", "mi1": "Portfólio com 30+ atrações por destino e fichas técnicas", "mi2": "Mapear 8+ parceiros estratégicos", "mi3": "Negociações com fornecedores (desconto 12–18%)", "mi4": "1º relatório de inteligência de mercado", "mi5": "Catálogo disponível ao time comercial", "mi6": "Baseline de receita estabelecido", "mi7": "1ª sessão de capacitação com time comercial", "mi8": "Base IA com primeiros artigos de ingressos", "mi9": "Baseline de KPIs alinhado com Dhayane", "mi10": "≥3 acordos formais com fornecedores", "mi11": "Treinamentos mensais (nota pós-treino ≥4/5)", "mi12": "Base IA com 40+ artigos", "mi13": "Redução de 30% em dúvidas escaladas IA→humano", "mi14": "Primeiros produtos exclusivos lançados", "mi15": "Atualização trimestral do portfólio ≥90%", "mi16": "+15% de receita trimestre a trimestre", "mi17": "≥70% do portfólio com venda nos últimos 90 dias", "mi18": "≥1 contrato de longo prazo com fornecedor", "mi19": "≥2 experiências exclusivas em operação", "mi20": "Portfólio em ≥3 destinos internacionais", "mi21": "Ticket médio em crescimento consistente", "mi22": "Desconto médio negociado: 12–18%", "mi23": "Escopo completo e autônomo", "mi24": "≥2 experiências exclusivas por ano", "mi25": "Crescimento sustentado de receita", "mi26": "Referência interna em ingressos & atrações"};
+const MARCOS_META={"katharine": [{"id": "m1k", "label": "M1 — Fundação", "tasks": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9"]}, {"id": "m2k", "label": "M2 — Estruturação", "tasks": ["k10", "k11", "k12", "k13", "k14", "k15"]}, {"id": "m3k", "label": "M3 — Aceleração", "tasks": ["k16", "k17", "k18", "k19", "k20"]}, {"id": "m4k", "label": "M4 — Escala", "tasks": ["k21", "k22", "k23", "k24", "k25"]}], "roberta": [{"id": "m1r", "label": "M1 — Fundação", "tasks": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"]}, {"id": "m2r", "label": "M2 — Estruturação", "tasks": ["r10", "r11", "r12", "r13", "r14", "r15", "r16"]}, {"id": "m3r", "label": "M3 — Aceleração", "tasks": ["r17", "r18", "r19", "r20", "r21", "r22"]}, {"id": "m4r", "label": "M4 — Escala", "tasks": ["r23", "r24", "r25", "r26", "r27"]}], "rafaella": [{"id": "m1p", "label": "M1 — Fundação", "tasks": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9"]}, {"id": "m2p", "label": "M2 — Estruturação", "tasks": ["p10", "p11", "p12", "p13", "p14", "p15"]}, {"id": "m3p", "label": "M3 — Aceleração", "tasks": ["p16", "p17", "p18", "p19", "p20", "p21", "p22"]}, {"id": "m4p", "label": "M4 — Escala", "tasks": ["p23", "p24", "p25", "p26", "p27", "p28"]}], "laura": [{"id": "m1l", "label": "M1 — Estruturação", "tasks": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9"]}, {"id": "m2l", "label": "M2 — Consolidação", "tasks": ["l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18"]}, {"id": "m3l", "label": "M3 — Maturidade", "tasks": ["l19", "l20", "l21", "l22", "l23", "l24"]}], "beatriz": [{"id": "m1b", "label": "M1 — Estruturação & Diagnóstico", "tasks": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"]}, {"id": "m2b", "label": "M2 — Ativação & Vitrine", "tasks": ["b10", "b11", "b12", "b13", "b14", "b15", "b16", "b17"]}, {"id": "m3b", "label": "M3 — Escala & Referência", "tasks": ["b18", "b19", "b20", "b21", "b22", "b23", "b24"]}], "michelle": [{"id": "m1mi", "label": "M1 — Estruturação", "tasks": ["mi1", "mi2", "mi3", "mi4", "mi5", "mi6", "mi7", "mi8", "mi9"]}, {"id": "m2mi", "label": "M2 — Consolidação", "tasks": ["mi10", "mi11", "mi12", "mi13", "mi14", "mi15", "mi16", "mi17"]}, {"id": "m3mi", "label": "M3 — Maturidade", "tasks": ["mi18", "mi19", "mi20", "mi21", "mi22"]}, {"id": "m4mi", "label": "M4 — Operação Plena", "tasks": ["mi23", "mi24", "mi25", "mi26"]}]};
 let allStates=[],allDates=[],allObs=[],histFilter='all';
 
 async function api(path){
-  try{
-    const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
-    if(!r.ok){console.error('API',r.status,path);return[];}
-    const d=await r.json();return Array.isArray(d)?d:[];
-  }catch(e){console.error('API err',e);return[];}
+  try{const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});if(!r.ok)return[];const d=await r.json();return Array.isArray(d)?d:[];}catch(e){return[];}
 }
 async function upsert(table,data,conflict){
-  try{
-    const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+(conflict||'task_id'),{
-      method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},
-      body:JSON.stringify(data)
-    });
-    return r.ok;
-  }catch(e){return false;}
+  try{const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+(conflict||'task_id'),{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify(data)});return r.ok;}catch(e){return false;}
 }
 
 async function load(){
-  const[st,dt,ob]=await Promise.all([
-    api('/rest/v1/task_states?select=*'),
-    api('/rest/v1/plan_dates?select=*'),
-    api('/rest/v1/task_manager_comments?select=*'),
-  ]);
+  const[st,dt,ob]=await Promise.all([api('/rest/v1/task_states?select=*'),api('/rest/v1/plan_dates?select=*'),api('/rest/v1/task_manager_comments?select=*')]);
   allStates=st;allDates=dt;allObs=ob;
   renderAll();
 }
 
-function renderAll(){
-  renderOverview();renderDates();renderObs();renderApprovals();renderHistory();updateStats();
-}
+function renderAll(){renderOverview();renderDates();renderObs();renderApprovals();renderHistory();updateStats();}
 
 function updateStats(){
   let done=0,pend=0,part=0,tot=0;
   for(const t of TEAMS)tot+=ALL_TASKS[t.key].length;
-  for(const s of allStates){
-    if(s.status==='aprovada')done++;
-    else if(s.status==='aguardando')pend++;
-    else if(s.status==='parcial')part++;
-  }
+  for(const s of allStates){if(s.status==='aprovada')done++;else if(s.status==='aguardando')pend++;else if(s.status==='parcial')part++;}
   document.getElementById('gs-done').textContent=done;
   document.getElementById('gs-pend').textContent=pend;
   document.getElementById('gs-part').textContent=part;
@@ -222,8 +204,8 @@ function renderDates(){
       const sv=obsMap[t.key+'_'+m.id]||{};
       mh+=`<div class="date-row"><div class="date-tag" style="color:${t.color}">${m.label}</div>
         <div class="date-inputs">
-          <input type="date" id="ds-${t.key}-${m.id}" value="${sv.start_date||''}" placeholder="Início">
-          <input type="date" id="de-${t.key}-${m.id}" value="${sv.end_date||''}" placeholder="Conclusão">
+          <input type="date" id="ds-${t.key}-${m.id}" value="${sv.start_date||''}">
+          <input type="date" id="de-${t.key}-${m.id}" value="${sv.end_date||''}">
         </div></div>`;
     }
     html+=`<div class="dates-card"><div class="dc-head"><div class="dc-av" style="background:${t.color}">${t.initials}</div>
@@ -336,7 +318,7 @@ function renderHistory(){
   let fil=rev;
   if(histFilter==='aprovada')fil=rev.filter(s=>s.status==='aprovada');
   else if(histFilter==='devolvida')fil=rev.filter(s=>s.status==='devolvida');
-  else if(['katharine','roberta','rafaella','laura'].includes(histFilter))fil=rev.filter(s=>s.team_key===histFilter);
+  else if(['katharine','roberta','rafaella','laura','beatriz','michelle'].includes(histFilter))fil=rev.filter(s=>s.team_key===histFilter);
   if(!fil.length){document.getElementById('hist-list').innerHTML='<div class="empty" style="padding:2rem;color:var(--muted);text-align:center">Nenhum item encontrado.</div>';return;}
   let html='';
   for(const s of fil){
@@ -354,21 +336,10 @@ function renderHistory(){
   document.getElementById('hist-list').innerHTML=html;
 }
 
-function setFilter(f,btn){
-  histFilter=f;
-  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderHistory();
-}
-function showTab(id,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('panel-'+id).classList.add('active');
-}
+function setFilter(f,btn){histFilter=f;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderHistory();}
+function showTab(id,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));el.classList.add('active');document.getElementById('panel-'+id).classList.add('active');}
 
-load();
-setInterval(()=>load(),20000);
+load();setInterval(()=>load(),20000);
 </script>
 </body>
 </html>
