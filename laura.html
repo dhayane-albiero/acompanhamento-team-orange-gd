@@ -43,22 +43,33 @@ main{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
 .ia-badge{background:#ede9ff;color:#5B21B6;font-size:10px;font-weight:600;padding:1px 6px;border-radius:8px;margin-right:4px;}
 .btn-concluir{background:var(--c);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .btn-concluir:disabled{background:#ccc;cursor:default;}
+/* Manager obs */
 .mgr-obs{display:none;margin:0 16px 8px;padding:10px 14px;background:linear-gradient(135deg,#fff9f0,#fffdf7);border:1px solid #f0d8a0;border-left:3px solid #e6a817;border-radius:8px;}
 .mgr-obs.on{display:block;}
 .mgr-obs-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
 .mgr-av{width:22px;height:22px;border-radius:50%;background:#6C5CE7;color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
 .mgr-lbl{font-size:11px;font-weight:600;color:#7a5c00;}
 .mgr-txt{font-size:13px;color:#4a3a00;line-height:1.55;white-space:pre-wrap;}
-.note-wrap{}
-.note-toggle{padding:8px 16px;font-size:12px;color:var(--c);cursor:pointer;user-select:none;}
-.note-editor{display:none;padding:0 16px 12px;}
-.note-editor.open{display:block;}
-.note-prev{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:6px;}
-.note-editor textarea{width:100%;min-height:80px;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
-.note-editor textarea:focus{border-color:var(--c);}
-.note-foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
-.note-ts{font-size:11px;color:var(--muted);}
-.btn-save-note{background:transparent;border:1px solid var(--c);color:var(--c);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;}
+/* Entries */
+.entries-section{border-top:1px solid var(--border);}
+.entries-toggle{display:flex;align-items:center;gap:8px;padding:8px 16px;cursor:pointer;user-select:none;}
+.entries-toggle span:first-child{font-size:12px;color:var(--c);}
+.entries-count{font-size:11px;background:var(--cl);color:var(--c);padding:1px 7px;border-radius:10px;font-weight:600;}
+.entries-body{display:none;padding:0 16px 12px;}
+.entries-body.open{display:block;}
+.entries-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
+.entry-item{background:#f8f8f8;border:1px solid var(--border);border-radius:8px;padding:10px 12px;position:relative;}
+.entry-item-text{font-size:13px;color:var(--txt);line-height:1.5;white-space:pre-wrap;margin-bottom:4px;}
+.entry-item-meta{display:flex;align-items:center;justify-content:space-between;}
+.entry-item-date{font-size:11px;color:var(--muted);}
+.btn-del-entry{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:0;}
+.btn-del-entry:hover{color:var(--red);}
+.entry-add{display:flex;gap:8px;align-items:flex-end;}
+.entry-add textarea{flex:1;min-height:60px;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
+.entry-add textarea:focus{border-color:var(--c);}
+.btn-add-entry{background:var(--c);color:#fff;border:none;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;height:36px;}
+.btn-add-entry:hover{filter:brightness(.9);}
+/* Modal */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;}
 .modal-ov.open{display:flex;}
 .modal{background:var(--w);border-radius:14px;padding:2rem;width:90%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
@@ -73,7 +84,7 @@ main{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
 .btn-submit:disabled{background:#ccc;cursor:default;}
 footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);}
 footer a{color:var(--c);text-decoration:none;}
-@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:6px;}}
+@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:6px;} .entry-add{flex-direction:column;}}
 </style>
 </head>
 <body>
@@ -103,7 +114,7 @@ footer a{color:var(--c);text-decoration:none;}
 <main>
   <div class="banner">
     <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#0984e3" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#0984e3" stroke-width="2" stroke-linecap="round"/></svg>
-    Use <strong>&nbsp;Adicionar anotação&nbsp;</strong> para registrar observações a qualquer momento. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
+    Use <strong>&nbsp;Anotações&nbsp;</strong> para registrar múltiplos registros ao longo do tempo. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
   </div>
   
     <div class="marco-hdr">
@@ -123,14 +134,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l1" onclick="openModal('l1',`Mapear e estruturar portfólio inicial com 12 produtos — fichas técnicas 100%`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l1"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l1')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l1">
-              <div class="note-prev" id="np-l1"></div>
-              <textarea id="nta-l1" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l1"></span>
-                <button class="btn-save-note" onclick="saveNote('l1')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l1">
+            <div class="entries-toggle" onclick="toggleEntries('l1')">
+              <span id="entries-label-l1">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l1"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l1">
+              <div class="entries-list" id="entries-list-l1"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l1" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l1')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -144,14 +158,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l2" onclick="openModal('l2',`Identificar e mapear ≥3 parceiros/fornecedores estratégicos`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l2"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l2')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l2">
-              <div class="note-prev" id="np-l2"></div>
-              <textarea id="nta-l2" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l2"></span>
-                <button class="btn-save-note" onclick="saveNote('l2')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l2">
+            <div class="entries-toggle" onclick="toggleEntries('l2')">
+              <span id="entries-label-l2">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l2"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l2">
+              <div class="entries-list" id="entries-list-l2"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l2" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l2')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -165,14 +182,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l3" onclick="openModal('l3',`Iniciar negociações com fornecedores (desconto médio 10–15%)`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l3"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l3')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l3">
-              <div class="note-prev" id="np-l3"></div>
-              <textarea id="nta-l3" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l3"></span>
-                <button class="btn-save-note" onclick="saveNote('l3')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l3">
+            <div class="entries-toggle" onclick="toggleEntries('l3')">
+              <span id="entries-label-l3">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l3"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l3">
+              <div class="entries-list" id="entries-list-l3"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l3" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l3')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -186,14 +206,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l4" onclick="openModal('l4',`Elaborar 1º relatório mensal de inteligência de mercado (até 5º dia útil)`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l4"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l4')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l4">
-              <div class="note-prev" id="np-l4"></div>
-              <textarea id="nta-l4" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l4"></span>
-                <button class="btn-save-note" onclick="saveNote('l4')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l4">
+            <div class="entries-toggle" onclick="toggleEntries('l4')">
+              <span id="entries-label-l4">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l4"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l4">
+              <div class="entries-list" id="entries-list-l4"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l4" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l4')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -207,14 +230,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l5" onclick="openModal('l5',`Documentar fluxos e rotinas operacionais da área de cruzeiros`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l5"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l5')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l5">
-              <div class="note-prev" id="np-l5"></div>
-              <textarea id="nta-l5" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l5"></span>
-                <button class="btn-save-note" onclick="saveNote('l5')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l5">
+            <div class="entries-toggle" onclick="toggleEntries('l5')">
+              <span id="entries-label-l5">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l5"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l5">
+              <div class="entries-list" id="entries-list-l5"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l5" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l5')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -228,14 +254,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l6" onclick="openModal('l6',`Conduzir primeira sessão de capacitação com a equipe comercial`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l6"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l6')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l6">
-              <div class="note-prev" id="np-l6"></div>
-              <textarea id="nta-l6" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l6"></span>
-                <button class="btn-save-note" onclick="saveNote('l6')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l6">
+            <div class="entries-toggle" onclick="toggleEntries('l6')">
+              <span id="entries-label-l6">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l6"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l6">
+              <div class="entries-list" id="entries-list-l6"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l6" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l6')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -249,14 +278,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l7" onclick="openModal('l7',`Estabelecer baseline de receita de cruzeiros`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l7"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l7')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l7">
-              <div class="note-prev" id="np-l7"></div>
-              <textarea id="nta-l7" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l7"></span>
-                <button class="btn-save-note" onclick="saveNote('l7')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l7">
+            <div class="entries-toggle" onclick="toggleEntries('l7')">
+              <span id="entries-label-l7">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l7"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l7">
+              <div class="entries-list" id="entries-list-l7"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l7" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l7')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -270,14 +302,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l8" onclick="openModal('l8',`Definir critérios e estrutura para gestão de grupos exclusivos`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l8"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l8')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l8">
-              <div class="note-prev" id="np-l8"></div>
-              <textarea id="nta-l8" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l8"></span>
-                <button class="btn-save-note" onclick="saveNote('l8')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l8">
+            <div class="entries-toggle" onclick="toggleEntries('l8')">
+              <span id="entries-label-l8">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l8"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l8">
+              <div class="entries-list" id="entries-list-l8"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l8" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l8')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -291,14 +326,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l9" onclick="openModal('l9',`Alinhar com Dhayane baseline de KPIs e metas`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l9"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l9')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l9">
-              <div class="note-prev" id="np-l9"></div>
-              <textarea id="nta-l9" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l9"></span>
-                <button class="btn-save-note" onclick="saveNote('l9')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l9">
+            <div class="entries-toggle" onclick="toggleEntries('l9')">
+              <span id="entries-label-l9">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l9"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l9">
+              <div class="entries-list" id="entries-list-l9"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l9" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l9')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -320,14 +358,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l10" onclick="openModal('l10',`Portfólio com 20 produtos — fichas técnicas 100% preenchidas`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l10"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l10')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l10">
-              <div class="note-prev" id="np-l10"></div>
-              <textarea id="nta-l10" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l10"></span>
-                <button class="btn-save-note" onclick="saveNote('l10')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l10">
+            <div class="entries-toggle" onclick="toggleEntries('l10')">
+              <span id="entries-label-l10">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l10"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l10">
+              <div class="entries-list" id="entries-list-l10"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l10" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l10')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -341,14 +382,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l11" onclick="openModal('l11',`Fechar ≥2 acordos formais com fornecedores estratégicos`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l11"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l11')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l11">
-              <div class="note-prev" id="np-l11"></div>
-              <textarea id="nta-l11" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l11"></span>
-                <button class="btn-save-note" onclick="saveNote('l11')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l11">
+            <div class="entries-toggle" onclick="toggleEntries('l11')">
+              <span id="entries-label-l11">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l11"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l11">
+              <div class="entries-list" id="entries-list-l11"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l11" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l11')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -362,14 +406,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l12" onclick="openModal('l12',`Mapear ≥5 parceiros estratégicos no total`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l12"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l12')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l12">
-              <div class="note-prev" id="np-l12"></div>
-              <textarea id="nta-l12" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l12"></span>
-                <button class="btn-save-note" onclick="saveNote('l12')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l12">
+            <div class="entries-toggle" onclick="toggleEntries('l12')">
+              <span id="entries-label-l12">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l12"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l12">
+              <div class="entries-list" id="entries-list-l12"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l12" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l12')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -383,14 +430,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l13" onclick="openModal('l13',`Treinamentos mensais ao time comercial (nota pós-treino ≥4/5)`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l13"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l13')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l13">
-              <div class="note-prev" id="np-l13"></div>
-              <textarea id="nta-l13" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l13"></span>
-                <button class="btn-save-note" onclick="saveNote('l13')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l13">
+            <div class="entries-toggle" onclick="toggleEntries('l13')">
+              <span id="entries-label-l13">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l13"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l13">
+              <div class="entries-list" id="entries-list-l13"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l13" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l13')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -404,14 +454,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l14" onclick="openModal('l14',`Base de conhecimento IA com ≥25 artigos de cruzeiros`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l14"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l14')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l14">
-              <div class="note-prev" id="np-l14"></div>
-              <textarea id="nta-l14" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l14"></span>
-                <button class="btn-save-note" onclick="saveNote('l14')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l14">
+            <div class="entries-toggle" onclick="toggleEntries('l14')">
+              <span id="entries-label-l14">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l14"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l14">
+              <div class="entries-list" id="entries-list-l14"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l14" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l14')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -420,19 +473,22 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-l15">Aberta</span>
-              <span class="task-text">Entregar relatórios mensais com ≥3 insights acionáveis por edição</span>
+              <span class="task-text">Relatórios mensais com ≥3 insights acionáveis por edição</span>
             </div>
-            <button class="btn-concluir" id="btn-l15" onclick="openModal('l15',`Entregar relatórios mensais com ≥3 insights acionáveis por edição`)">Concluir</button>
+            <button class="btn-concluir" id="btn-l15" onclick="openModal('l15',`Relatórios mensais com ≥3 insights acionáveis por edição`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l15"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l15')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l15">
-              <div class="note-prev" id="np-l15"></div>
-              <textarea id="nta-l15" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l15"></span>
-                <button class="btn-save-note" onclick="saveNote('l15')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l15">
+            <div class="entries-toggle" onclick="toggleEntries('l15')">
+              <span id="entries-label-l15">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l15"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l15">
+              <div class="entries-list" id="entries-list-l15"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l15" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l15')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -446,14 +502,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l16" onclick="openModal('l16',`Meta: +15% de receita trimestre a trimestre`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l16"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l16')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l16">
-              <div class="note-prev" id="np-l16"></div>
-              <textarea id="nta-l16" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l16"></span>
-                <button class="btn-save-note" onclick="saveNote('l16')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l16">
+            <div class="entries-toggle" onclick="toggleEntries('l16')">
+              <span id="entries-label-l16">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l16"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l16">
+              <div class="entries-list" id="entries-list-l16"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l16" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l16')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -467,14 +526,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l17" onclick="openModal('l17',`≥70% do portfólio com venda nos últimos 90 dias`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l17"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l17')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l17">
-              <div class="note-prev" id="np-l17"></div>
-              <textarea id="nta-l17" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l17"></span>
-                <button class="btn-save-note" onclick="saveNote('l17')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l17">
+            <div class="entries-toggle" onclick="toggleEntries('l17')">
+              <span id="entries-label-l17">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l17"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l17">
+              <div class="entries-list" id="entries-list-l17"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l17" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l17')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -488,14 +550,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l18" onclick="openModal('l18',`≥1 decisão comercial/trimestre originada no relatório de inteligência`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l18"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l18')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l18">
-              <div class="note-prev" id="np-l18"></div>
-              <textarea id="nta-l18" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l18"></span>
-                <button class="btn-save-note" onclick="saveNote('l18')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l18">
+            <div class="entries-toggle" onclick="toggleEntries('l18')">
+              <span id="entries-label-l18">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l18"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l18">
+              <div class="entries-list" id="entries-list-l18"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l18" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l18')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -517,14 +582,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l19" onclick="openModal('l19',`Fechar ≥1 contrato de longo prazo com fornecedor`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l19"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l19')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l19">
-              <div class="note-prev" id="np-l19"></div>
-              <textarea id="nta-l19" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l19"></span>
-                <button class="btn-save-note" onclick="saveNote('l19')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l19">
+            <div class="entries-toggle" onclick="toggleEntries('l19')">
+              <span id="entries-label-l19">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l19"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l19">
+              <div class="entries-list" id="entries-list-l19"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l19" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l19')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -538,14 +606,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l20" onclick="openModal('l20',`≥1 grupo exclusivo operado`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l20"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l20')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l20">
-              <div class="note-prev" id="np-l20"></div>
-              <textarea id="nta-l20" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l20"></span>
-                <button class="btn-save-note" onclick="saveNote('l20')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l20">
+            <div class="entries-toggle" onclick="toggleEntries('l20')">
+              <span id="entries-label-l20">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l20"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l20">
+              <div class="entries-list" id="entries-list-l20"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l20" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l20')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -559,14 +630,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l21" onclick="openModal('l21',`Base IA completa com ≥40 artigos de cruzeiros`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l21"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l21')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l21">
-              <div class="note-prev" id="np-l21"></div>
-              <textarea id="nta-l21" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l21"></span>
-                <button class="btn-save-note" onclick="saveNote('l21')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l21">
+            <div class="entries-toggle" onclick="toggleEntries('l21')">
+              <span id="entries-label-l21">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l21"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l21">
+              <div class="entries-list" id="entries-list-l21"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l21" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l21')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -580,14 +654,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l22" onclick="openModal('l22',`Redução de 30% em dúvidas escaladas IA → humano`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l22"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l22')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l22">
-              <div class="note-prev" id="np-l22"></div>
-              <textarea id="nta-l22" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l22"></span>
-                <button class="btn-save-note" onclick="saveNote('l22')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l22">
+            <div class="entries-toggle" onclick="toggleEntries('l22')">
+              <span id="entries-label-l22">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l22"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l22">
+              <div class="entries-list" id="entries-list-l22"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l22" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l22')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -601,14 +678,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l23" onclick="openModal('l23',`Processos completamente documentados para escalabilidade`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l23"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l23')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l23">
-              <div class="note-prev" id="np-l23"></div>
-              <textarea id="nta-l23" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l23"></span>
-                <button class="btn-save-note" onclick="saveNote('l23')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l23">
+            <div class="entries-toggle" onclick="toggleEntries('l23')">
+              <span id="entries-label-l23">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l23"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l23">
+              <div class="entries-list" id="entries-list-l23"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l23" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l23')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -622,14 +702,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l24" onclick="openModal('l24',`Atualização trimestral do portfólio ≥90%`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l24"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l24')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l24">
-              <div class="note-prev" id="np-l24"></div>
-              <textarea id="nta-l24" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l24"></span>
-                <button class="btn-save-note" onclick="saveNote('l24')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l24">
+            <div class="entries-toggle" onclick="toggleEntries('l24')">
+              <span id="entries-label-l24">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l24"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l24">
+              <div class="entries-list" id="entries-list-l24"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l24" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l24')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -651,14 +734,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l25" onclick="openModal('l25',`Escopo completo e autônomo`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l25"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l25')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l25">
-              <div class="note-prev" id="np-l25"></div>
-              <textarea id="nta-l25" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l25"></span>
-                <button class="btn-save-note" onclick="saveNote('l25')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l25">
+            <div class="entries-toggle" onclick="toggleEntries('l25')">
+              <span id="entries-label-l25">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l25"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l25">
+              <div class="entries-list" id="entries-list-l25"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l25" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l25')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -672,14 +758,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l26" onclick="openModal('l26',`≥2 grupos exclusivos operados por ano`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l26"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l26')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l26">
-              <div class="note-prev" id="np-l26"></div>
-              <textarea id="nta-l26" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l26"></span>
-                <button class="btn-save-note" onclick="saveNote('l26')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l26">
+            <div class="entries-toggle" onclick="toggleEntries('l26')">
+              <span id="entries-label-l26">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l26"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l26">
+              <div class="entries-list" id="entries-list-l26"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l26" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l26')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -693,14 +782,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l27" onclick="openModal('l27',`Ticket médio crescente e acompanhado mensalmente`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l27"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l27')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l27">
-              <div class="note-prev" id="np-l27"></div>
-              <textarea id="nta-l27" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l27"></span>
-                <button class="btn-save-note" onclick="saveNote('l27')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l27">
+            <div class="entries-toggle" onclick="toggleEntries('l27')">
+              <span id="entries-label-l27">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l27"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l27">
+              <div class="entries-list" id="entries-list-l27"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l27" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l27')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -714,14 +806,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-l28" onclick="openModal('l28',`Crescimento sustentado de receita de cruzeiros`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-l28"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('l28')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-l28">
-              <div class="note-prev" id="np-l28"></div>
-              <textarea id="nta-l28" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-l28"></span>
-                <button class="btn-save-note" onclick="saveNote('l28')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-l28">
+            <div class="entries-toggle" onclick="toggleEntries('l28')">
+              <span id="entries-label-l28">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-l28"></span>
+            </div>
+            <div class="entries-body" id="entries-body-l28">
+              <div class="entries-list" id="entries-list-l28"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-l28" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('l28')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -742,11 +837,9 @@ footer a{color:var(--c);text-decoration:none;}
   </div>
 </div>
 <script>
+
 const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
-const TEAM_KEY='laura';
-const MARCOS=[{"id": "m1l", "label": "M1", "fase": "Estruturação", "range": "Jun–Jul 2026", "todos": [{"id": "l1", "text": "Mapear e estruturar portfólio inicial com 12 produtos — fichas técnicas 100%"}, {"id": "l2", "text": "Identificar e mapear ≥3 parceiros/fornecedores estratégicos"}, {"id": "l3", "text": "Iniciar negociações com fornecedores (desconto médio 10–15%)"}, {"id": "l4", "text": "Elaborar 1º relatório mensal de inteligência de mercado (até 5º dia útil)"}, {"id": "l5", "text": "Documentar fluxos e rotinas operacionais da área de cruzeiros"}, {"id": "l6", "text": "Conduzir primeira sessão de capacitação com a equipe comercial"}, {"id": "l7", "text": "Estabelecer baseline de receita de cruzeiros"}, {"id": "l8", "text": "Definir critérios e estrutura para gestão de grupos exclusivos"}, {"id": "l9", "text": "Alinhar com Dhayane baseline de KPIs e metas"}]}, {"id": "m2l", "label": "M2", "fase": "Consolidação", "range": "Ago–Out 2026", "todos": [{"id": "l10", "text": "Portfólio com 20 produtos — fichas técnicas 100% preenchidas"}, {"id": "l11", "text": "Fechar ≥2 acordos formais com fornecedores estratégicos"}, {"id": "l12", "text": "Mapear ≥5 parceiros estratégicos no total"}, {"id": "l13", "text": "Treinamentos mensais ao time comercial (nota pós-treino ≥4/5)"}, {"id": "l14", "text": "Base de conhecimento IA com ≥25 artigos de cruzeiros", "ia": true}, {"id": "l15", "text": "Entregar relatórios mensais com ≥3 insights acionáveis por edição"}, {"id": "l16", "text": "Meta: +15% de receita trimestre a trimestre"}, {"id": "l17", "text": "≥70% do portfólio com venda nos últimos 90 dias"}, {"id": "l18", "text": "≥1 decisão comercial/trimestre originada no relatório de inteligência"}]}, {"id": "m3l", "label": "M3", "fase": "Maturidade", "range": "Nov 2026–Abr 2027", "todos": [{"id": "l19", "text": "Fechar ≥1 contrato de longo prazo com fornecedor"}, {"id": "l20", "text": "≥1 grupo exclusivo operado"}, {"id": "l21", "text": "Base IA completa com ≥40 artigos de cruzeiros", "ia": true}, {"id": "l22", "text": "Redução de 30% em dúvidas escaladas IA → humano", "ia": true}, {"id": "l23", "text": "Processos completamente documentados para escalabilidade"}, {"id": "l24", "text": "Atualização trimestral do portfólio ≥90%"}]}, {"id": "m4l", "label": "M4", "fase": "Operação Plena", "range": "Mai 2027+", "todos": [{"id": "l25", "text": "Escopo completo e autônomo"}, {"id": "l26", "text": "≥2 grupos exclusivos operados por ano"}, {"id": "l27", "text": "Ticket médio crescente e acompanhado mensalmente"}, {"id": "l28", "text": "Crescimento sustentado de receita de cruzeiros"}]}];
-let states={},notes={},mgr_obs={},dates={};
 
 async function api(path){
   const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
@@ -760,17 +853,36 @@ async function upsert(table,data,conflict){
   });
   return r.ok;
 }
+async function insert(table,data){
+  const r=await fetch(SB_URL+'/rest/v1/'+table,{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+    body:JSON.stringify(data)
+  });
+  return r.ok;
+}
+async function del(table,id){
+  const r=await fetch(SB_URL+'/rest/v1/'+table+'?id=eq.'+id,{
+    method:'DELETE',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+  });
+  return r.ok;
+}
+
+const TEAM_KEY='laura';
+const MARCOS=[{"id": "m1l", "label": "M1", "fase": "Estruturação", "range": "Jun–Jul 2026", "todos": [{"id": "l1", "text": "Mapear e estruturar portfólio inicial com 12 produtos — fichas técnicas 100%"}, {"id": "l2", "text": "Identificar e mapear ≥3 parceiros/fornecedores estratégicos"}, {"id": "l3", "text": "Iniciar negociações com fornecedores (desconto médio 10–15%)"}, {"id": "l4", "text": "Elaborar 1º relatório mensal de inteligência de mercado (até 5º dia útil)"}, {"id": "l5", "text": "Documentar fluxos e rotinas operacionais da área de cruzeiros"}, {"id": "l6", "text": "Conduzir primeira sessão de capacitação com a equipe comercial"}, {"id": "l7", "text": "Estabelecer baseline de receita de cruzeiros"}, {"id": "l8", "text": "Definir critérios e estrutura para gestão de grupos exclusivos"}, {"id": "l9", "text": "Alinhar com Dhayane baseline de KPIs e metas"}]}, {"id": "m2l", "label": "M2", "fase": "Consolidação", "range": "Ago–Out 2026", "todos": [{"id": "l10", "text": "Portfólio com 20 produtos — fichas técnicas 100% preenchidas"}, {"id": "l11", "text": "Fechar ≥2 acordos formais com fornecedores estratégicos"}, {"id": "l12", "text": "Mapear ≥5 parceiros estratégicos no total"}, {"id": "l13", "text": "Treinamentos mensais ao time comercial (nota pós-treino ≥4/5)"}, {"id": "l14", "text": "Base de conhecimento IA com ≥25 artigos de cruzeiros", "ia": true}, {"id": "l15", "text": "Relatórios mensais com ≥3 insights acionáveis por edição"}, {"id": "l16", "text": "Meta: +15% de receita trimestre a trimestre"}, {"id": "l17", "text": "≥70% do portfólio com venda nos últimos 90 dias"}, {"id": "l18", "text": "≥1 decisão comercial/trimestre originada no relatório de inteligência"}]}, {"id": "m3l", "label": "M3", "fase": "Maturidade", "range": "Nov 2026–Abr 2027", "todos": [{"id": "l19", "text": "Fechar ≥1 contrato de longo prazo com fornecedor"}, {"id": "l20", "text": "≥1 grupo exclusivo operado"}, {"id": "l21", "text": "Base IA completa com ≥40 artigos de cruzeiros", "ia": true}, {"id": "l22", "text": "Redução de 30% em dúvidas escaladas IA → humano", "ia": true}, {"id": "l23", "text": "Processos completamente documentados para escalabilidade"}, {"id": "l24", "text": "Atualização trimestral do portfólio ≥90%"}]}, {"id": "m4l", "label": "M4", "fase": "Operação Plena", "range": "Mai 2027+", "todos": [{"id": "l25", "text": "Escopo completo e autônomo"}, {"id": "l26", "text": "≥2 grupos exclusivos operados por ano"}, {"id": "l27", "text": "Ticket médio crescente e acompanhado mensalmente"}, {"id": "l28", "text": "Crescimento sustentado de receita de cruzeiros"}]}];
+let states={},entries={},mgr_obs={},dates={};
 
 async function load(){
-  const[st,dt,nt,mc]=await Promise.all([
+  const[st,dt,en,mc]=await Promise.all([
     api('/rest/v1/task_states?select=*'),
     api('/rest/v1/plan_dates?team_key=eq.'+TEAM_KEY+'&select=*'),
-    api('/rest/v1/task_notes?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/task_entries?team_key=eq.'+TEAM_KEY+'&select=*&order=created_at.asc'),
     api('/rest/v1/task_manager_comments?team_key=eq.'+TEAM_KEY+'&select=*'),
   ]);
   states={};(st||[]).forEach(r=>states[r.task_id]=r);
   dates={};(dt||[]).forEach(r=>dates[r.marco_id]=r);
-  notes={};(nt||[]).forEach(r=>{if(document.activeElement?.id!=='nta-'+r.task_id)notes[r.task_id]=r;});
+  entries={};(en||[]).forEach(r=>{if(!entries[r.task_id])entries[r.task_id]=[];entries[r.task_id].push(r);});
   mgr_obs={};(mc||[]).forEach(r=>mgr_obs[r.task_id]=r);
   render();
 }
@@ -788,17 +900,24 @@ function render(){
         if(s.status==='aprovada'){md++;done++;if(chip){chip.textContent='Aprovada';chip.className='chip aprovada';}if(btn){btn.disabled=true;btn.textContent='Aprovada';}}
         else if(s.status==='aguardando'){pend++;if(chip){chip.textContent='Aguardando';chip.className='chip aguardando';}if(btn){btn.disabled=true;btn.textContent='Enviado';}}
       }
-      const n=notes[t.id];
-      if(n){
-        const prev=document.getElementById('np-'+t.id);
-        const ts=document.getElementById('nts-'+t.id);
-        const ta=document.getElementById('nta-'+t.id);
-        const tog=document.querySelector('[onclick="toggleNote(\''+t.id+'\')"]');
-        if(prev)prev.textContent=n.note||'';
-        if(ts)ts.textContent='Salvo em '+new Date(n.updated_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
-        if(ta&&document.activeElement!==ta)ta.value=n.note||'';
-        if(tog&&n.note)tog.textContent='▼ Anotação';
+      // Entries
+      const ents=entries[t.id]||[];
+      const lbl=document.getElementById('entries-label-'+t.id);
+      const cnt=document.getElementById('entries-count-'+t.id);
+      const list=document.getElementById('entries-list-'+t.id);
+      if(lbl)lbl.textContent=(document.getElementById('entries-body-'+t.id)?.classList.contains('open')?'▼':'▶')+' Anotações';
+      if(cnt)cnt.textContent=ents.length>0?ents.length+'':'';
+      if(list){
+        list.innerHTML=ents.map(e=>`
+          <div class="entry-item" id="entry-${e.id}">
+            <div class="entry-item-text">${e.entry_text}</div>
+            <div class="entry-item-meta">
+              <span class="entry-item-date">${new Date(e.created_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</span>
+              <button class="btn-del-entry" onclick="delEntry('${e.id}','${t.id}')" title="Remover">✕</button>
+            </div>
+          </div>`).join('');
       }
+      // Manager obs
       const mo=mgr_obs[t.id];
       const obsEl=document.getElementById('mobs-'+t.id);
       if(obsEl){
@@ -821,21 +940,28 @@ function render(){
   document.getElementById('ring').style.strokeDashoffset=175.9*(1-(tot?done/tot:0));
 }
 
-function toggleNote(id){
-  const ed=document.getElementById('ne-'+id);
-  const tog=document.querySelector('[onclick="toggleNote(\''+id+'\')"]');
-  if(ed.classList.toggle('open'))tog.textContent='▼ Anotação';
-  else tog.textContent=(notes[id]?.note?'▼ ':'▶ ')+'Anotação'+(notes[id]?.note?'':' — Adicionar');
+function toggleEntries(id){
+  const body=document.getElementById('entries-body-'+id);
+  const lbl=document.getElementById('entries-label-'+id);
+  const open=body.classList.toggle('open');
+  if(lbl)lbl.textContent=(open?'▼':'▶')+' Anotações';
 }
 
-async function saveNote(id){
-  const ta=document.getElementById('nta-'+id);
-  const btn=ta.closest('.note-editor').querySelector('.btn-save-note');
+async function addEntry(taskId){
+  const ta=document.getElementById('entry-ta-'+taskId);
+  const text=ta.value.trim();
+  if(!text)return;
+  const btn=ta.closest('.entry-add').querySelector('.btn-add-entry');
   btn.textContent='Salvando...';btn.disabled=true;
-  const ok=await upsert('task_notes',{task_id:id,team_key:TEAM_KEY,note:ta.value,note_text:ta.value,updated_at:new Date().toISOString()});
-  btn.disabled=false;
-  if(ok){btn.textContent='Salvo ✓';setTimeout(()=>btn.textContent='Salvar',2000);}
-  else{btn.textContent='Erro — tente novamente';setTimeout(()=>btn.textContent='Salvar',3000);}
+  const ok=await insert('task_entries',{task_id:taskId,team_key:TEAM_KEY,entry_text:text,created_at:new Date().toISOString()});
+  btn.disabled=false;btn.textContent='+ Adicionar';
+  if(ok){ta.value='';await load();}
+  else alert('Erro ao salvar. Tente novamente.');
+}
+
+async function delEntry(entryId,taskId){
+  if(!confirm('Remover esta anotação?'))return;
+  await del('task_entries',entryId);
   await load();
 }
 
@@ -843,6 +969,11 @@ function openModal(id,txt){
   document.getElementById('mid').value=id;
   document.getElementById('mtxt').textContent=txt;
   document.getElementById('mta').value='';
+  // Pre-fill with entries summary if exists
+  const ents=entries[id]||[];
+  if(ents.length>0){
+    document.getElementById('mta').value=ents.map((e,i)=>`${i+1}. ${e.entry_text}`).join('\n\n');
+  }
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}

@@ -43,22 +43,33 @@ main{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
 .ia-badge{background:#ede9ff;color:#5B21B6;font-size:10px;font-weight:600;padding:1px 6px;border-radius:8px;margin-right:4px;}
 .btn-concluir{background:var(--c);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .btn-concluir:disabled{background:#ccc;cursor:default;}
+/* Manager obs */
 .mgr-obs{display:none;margin:0 16px 8px;padding:10px 14px;background:linear-gradient(135deg,#fff9f0,#fffdf7);border:1px solid #f0d8a0;border-left:3px solid #e6a817;border-radius:8px;}
 .mgr-obs.on{display:block;}
 .mgr-obs-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
 .mgr-av{width:22px;height:22px;border-radius:50%;background:#6C5CE7;color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
 .mgr-lbl{font-size:11px;font-weight:600;color:#7a5c00;}
 .mgr-txt{font-size:13px;color:#4a3a00;line-height:1.55;white-space:pre-wrap;}
-.note-wrap{}
-.note-toggle{padding:8px 16px;font-size:12px;color:var(--c);cursor:pointer;user-select:none;}
-.note-editor{display:none;padding:0 16px 12px;}
-.note-editor.open{display:block;}
-.note-prev{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:6px;}
-.note-editor textarea{width:100%;min-height:80px;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
-.note-editor textarea:focus{border-color:var(--c);}
-.note-foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
-.note-ts{font-size:11px;color:var(--muted);}
-.btn-save-note{background:transparent;border:1px solid var(--c);color:var(--c);padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;}
+/* Entries */
+.entries-section{border-top:1px solid var(--border);}
+.entries-toggle{display:flex;align-items:center;gap:8px;padding:8px 16px;cursor:pointer;user-select:none;}
+.entries-toggle span:first-child{font-size:12px;color:var(--c);}
+.entries-count{font-size:11px;background:var(--cl);color:var(--c);padding:1px 7px;border-radius:10px;font-weight:600;}
+.entries-body{display:none;padding:0 16px 12px;}
+.entries-body.open{display:block;}
+.entries-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
+.entry-item{background:#f8f8f8;border:1px solid var(--border);border-radius:8px;padding:10px 12px;position:relative;}
+.entry-item-text{font-size:13px;color:var(--txt);line-height:1.5;white-space:pre-wrap;margin-bottom:4px;}
+.entry-item-meta{display:flex;align-items:center;justify-content:space-between;}
+.entry-item-date{font-size:11px;color:var(--muted);}
+.btn-del-entry{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:0;}
+.btn-del-entry:hover{color:var(--red);}
+.entry-add{display:flex;gap:8px;align-items:flex-end;}
+.entry-add textarea{flex:1;min-height:60px;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
+.entry-add textarea:focus{border-color:var(--c);}
+.btn-add-entry{background:var(--c);color:#fff;border:none;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;height:36px;}
+.btn-add-entry:hover{filter:brightness(.9);}
+/* Modal */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;}
 .modal-ov.open{display:flex;}
 .modal{background:var(--w);border-radius:14px;padding:2rem;width:90%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
@@ -73,7 +84,7 @@ main{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
 .btn-submit:disabled{background:#ccc;cursor:default;}
 footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);}
 footer a{color:var(--c);text-decoration:none;}
-@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:6px;}}
+@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:6px;} .entry-add{flex-direction:column;}}
 </style>
 </head>
 <body>
@@ -103,7 +114,7 @@ footer a{color:var(--c);text-decoration:none;}
 <main>
   <div class="banner">
     <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#6C5CE7" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#6C5CE7" stroke-width="2" stroke-linecap="round"/></svg>
-    Use <strong>&nbsp;Adicionar anotação&nbsp;</strong> para registrar observações a qualquer momento. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
+    Use <strong>&nbsp;Anotações&nbsp;</strong> para registrar múltiplos registros ao longo do tempo. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
   </div>
   
     <div class="marco-hdr">
@@ -123,14 +134,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r1" onclick="openModal('r1',`Mapear jornada de aprendizagem atual do time`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r1"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r1')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r1">
-              <div class="note-prev" id="np-r1"></div>
-              <textarea id="nta-r1" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r1"></span>
-                <button class="btn-save-note" onclick="saveNote('r1')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r1">
+            <div class="entries-toggle" onclick="toggleEntries('r1')">
+              <span id="entries-label-r1">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r1"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r1">
+              <div class="entries-list" id="entries-list-r1"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r1" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r1')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -144,14 +158,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r2" onclick="openModal('r2',`Definir perfil de competências por função`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r2"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r2')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r2">
-              <div class="note-prev" id="np-r2"></div>
-              <textarea id="nta-r2" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r2"></span>
-                <button class="btn-save-note" onclick="saveNote('r2')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r2">
+            <div class="entries-toggle" onclick="toggleEntries('r2')">
+              <span id="entries-label-r2">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r2"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r2">
+              <div class="entries-list" id="entries-list-r2"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r2" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r2')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -165,14 +182,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r3" onclick="openModal('r3',`Criar plano de treinamento v1 por área`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r3"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r3')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r3">
-              <div class="note-prev" id="np-r3"></div>
-              <textarea id="nta-r3" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r3"></span>
-                <button class="btn-save-note" onclick="saveNote('r3')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r3">
+            <div class="entries-toggle" onclick="toggleEntries('r3')">
+              <span id="entries-label-r3">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r3"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r3">
+              <div class="entries-list" id="entries-list-r3"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r3" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r3')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -186,14 +206,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r4" onclick="openModal('r4',`Implementar NPS interno de treinamento`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r4"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r4')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r4">
-              <div class="note-prev" id="np-r4"></div>
-              <textarea id="nta-r4" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r4"></span>
-                <button class="btn-save-note" onclick="saveNote('r4')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r4">
+            <div class="entries-toggle" onclick="toggleEntries('r4')">
+              <span id="entries-label-r4">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r4"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r4">
+              <div class="entries-list" id="entries-list-r4"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r4" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r4')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -207,14 +230,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r5" onclick="openModal('r5',`Estabelecer baseline de qualidade de atendimento`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r5"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r5')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r5">
-              <div class="note-prev" id="np-r5"></div>
-              <textarea id="nta-r5" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r5"></span>
-                <button class="btn-save-note" onclick="saveNote('r5')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r5">
+            <div class="entries-toggle" onclick="toggleEntries('r5')">
+              <span id="entries-label-r5">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r5"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r5">
+              <div class="entries-list" id="entries-list-r5"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r5" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r5')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -228,14 +254,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r6" onclick="openModal('r6',`Criar checklist de qualidade por processo`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r6"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r6')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r6">
-              <div class="note-prev" id="np-r6"></div>
-              <textarea id="nta-r6" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r6"></span>
-                <button class="btn-save-note" onclick="saveNote('r6')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r6">
+            <div class="entries-toggle" onclick="toggleEntries('r6')">
+              <span id="entries-label-r6">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r6"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r6">
+              <div class="entries-list" id="entries-list-r6"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r6" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r6')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -249,14 +278,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r7" onclick="openModal('r7',`Conduzir 1ª sessão de treinamento com time completo`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r7"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r7')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r7">
-              <div class="note-prev" id="np-r7"></div>
-              <textarea id="nta-r7" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r7"></span>
-                <button class="btn-save-note" onclick="saveNote('r7')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r7">
+            <div class="entries-toggle" onclick="toggleEntries('r7')">
+              <span id="entries-label-r7">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r7"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r7">
+              <div class="entries-list" id="entries-list-r7"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r7" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r7')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -270,14 +302,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r8" onclick="openModal('r8',`Definir SLA de resposta e resolução para CS`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r8"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r8')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r8">
-              <div class="note-prev" id="np-r8"></div>
-              <textarea id="nta-r8" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r8"></span>
-                <button class="btn-save-note" onclick="saveNote('r8')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r8">
+            <div class="entries-toggle" onclick="toggleEntries('r8')">
+              <span id="entries-label-r8">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r8"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r8">
+              <div class="entries-list" id="entries-list-r8"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r8" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r8')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -291,14 +326,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r9" onclick="openModal('r9',`Alinhar trilha de onboarding com RH`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r9"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r9')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r9">
-              <div class="note-prev" id="np-r9"></div>
-              <textarea id="nta-r9" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r9"></span>
-                <button class="btn-save-note" onclick="saveNote('r9')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r9">
+            <div class="entries-toggle" onclick="toggleEntries('r9')">
+              <span id="entries-label-r9">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r9"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r9">
+              <div class="entries-list" id="entries-list-r9"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r9" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r9')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -320,14 +358,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r10" onclick="openModal('r10',`NPS de treinamento ≥8`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r10"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r10')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r10">
-              <div class="note-prev" id="np-r10"></div>
-              <textarea id="nta-r10" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r10"></span>
-                <button class="btn-save-note" onclick="saveNote('r10')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r10">
+            <div class="entries-toggle" onclick="toggleEntries('r10')">
+              <span id="entries-label-r10">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r10"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r10">
+              <div class="entries-list" id="entries-list-r10"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r10" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r10')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -341,14 +382,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r11" onclick="openModal('r11',`Trilha de onboarding completa e validada`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r11"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r11')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r11">
-              <div class="note-prev" id="np-r11"></div>
-              <textarea id="nta-r11" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r11"></span>
-                <button class="btn-save-note" onclick="saveNote('r11')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r11">
+            <div class="entries-toggle" onclick="toggleEntries('r11')">
+              <span id="entries-label-r11">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r11"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r11">
+              <div class="entries-list" id="entries-list-r11"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r11" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r11')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -362,14 +406,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r12" onclick="openModal('r12',`Quality score médio ≥80 no time`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r12"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r12')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r12">
-              <div class="note-prev" id="np-r12"></div>
-              <textarea id="nta-r12" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r12"></span>
-                <button class="btn-save-note" onclick="saveNote('r12')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r12">
+            <div class="entries-toggle" onclick="toggleEntries('r12')">
+              <span id="entries-label-r12">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r12"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r12">
+              <div class="entries-list" id="entries-list-r12"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r12" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r12')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -383,14 +430,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r13" onclick="openModal('r13',`Programa de mentoria interno lançado`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r13"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r13')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r13">
-              <div class="note-prev" id="np-r13"></div>
-              <textarea id="nta-r13" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r13"></span>
-                <button class="btn-save-note" onclick="saveNote('r13')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r13">
+            <div class="entries-toggle" onclick="toggleEntries('r13')">
+              <span id="entries-label-r13">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r13"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r13">
+              <div class="entries-list" id="entries-list-r13"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r13" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r13')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -404,14 +454,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r14" onclick="openModal('r14',`SLA de qualidade medido semanalmente`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r14"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r14')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r14">
-              <div class="note-prev" id="np-r14"></div>
-              <textarea id="nta-r14" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r14"></span>
-                <button class="btn-save-note" onclick="saveNote('r14')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r14">
+            <div class="entries-toggle" onclick="toggleEntries('r14')">
+              <span id="entries-label-r14">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r14"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r14">
+              <div class="entries-list" id="entries-list-r14"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r14" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r14')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -425,14 +478,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r15" onclick="openModal('r15',`IA assistindo treinamentos (simulações, Q&A)`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r15"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r15')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r15">
-              <div class="note-prev" id="np-r15"></div>
-              <textarea id="nta-r15" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r15"></span>
-                <button class="btn-save-note" onclick="saveNote('r15')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r15">
+            <div class="entries-toggle" onclick="toggleEntries('r15')">
+              <span id="entries-label-r15">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r15"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r15">
+              <div class="entries-list" id="entries-list-r15"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r15" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r15')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -446,14 +502,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r16" onclick="openModal('r16',`Criar academia interna v1`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r16"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r16')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r16">
-              <div class="note-prev" id="np-r16"></div>
-              <textarea id="nta-r16" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r16"></span>
-                <button class="btn-save-note" onclick="saveNote('r16')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r16">
+            <div class="entries-toggle" onclick="toggleEntries('r16')">
+              <span id="entries-label-r16">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r16"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r16">
+              <div class="entries-list" id="entries-list-r16"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r16" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r16')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -475,14 +534,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r17" onclick="openModal('r17',`NPS treinamento ≥9`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r17"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r17')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r17">
-              <div class="note-prev" id="np-r17"></div>
-              <textarea id="nta-r17" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r17"></span>
-                <button class="btn-save-note" onclick="saveNote('r17')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r17">
+            <div class="entries-toggle" onclick="toggleEntries('r17')">
+              <span id="entries-label-r17">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r17"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r17">
+              <div class="entries-list" id="entries-list-r17"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r17" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r17')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -496,14 +558,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r18" onclick="openModal('r18',`Quality score ≥85`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r18"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r18')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r18">
-              <div class="note-prev" id="np-r18"></div>
-              <textarea id="nta-r18" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r18"></span>
-                <button class="btn-save-note" onclick="saveNote('r18')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r18">
+            <div class="entries-toggle" onclick="toggleEntries('r18')">
+              <span id="entries-label-r18">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r18"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r18">
+              <div class="entries-list" id="entries-list-r18"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r18" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r18')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -517,14 +582,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r19" onclick="openModal('r19',`Certificação interna lançada`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r19"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r19')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r19">
-              <div class="note-prev" id="np-r19"></div>
-              <textarea id="nta-r19" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r19"></span>
-                <button class="btn-save-note" onclick="saveNote('r19')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r19">
+            <div class="entries-toggle" onclick="toggleEntries('r19')">
+              <span id="entries-label-r19">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r19"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r19">
+              <div class="entries-list" id="entries-list-r19"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r19" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r19')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -538,14 +606,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r20" onclick="openModal('r20',`Líderes treinando seus times com autonomia`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r20"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r20')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r20">
-              <div class="note-prev" id="np-r20"></div>
-              <textarea id="nta-r20" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r20"></span>
-                <button class="btn-save-note" onclick="saveNote('r20')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r20">
+            <div class="entries-toggle" onclick="toggleEntries('r20')">
+              <span id="entries-label-r20">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r20"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r20">
+              <div class="entries-list" id="entries-list-r20"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r20" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r20')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -559,14 +630,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r21" onclick="openModal('r21',`IA gerando trilhas personalizadas por colaborador`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r21"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r21')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r21">
-              <div class="note-prev" id="np-r21"></div>
-              <textarea id="nta-r21" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r21"></span>
-                <button class="btn-save-note" onclick="saveNote('r21')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r21">
+            <div class="entries-toggle" onclick="toggleEntries('r21')">
+              <span id="entries-label-r21">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r21"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r21">
+              <div class="entries-list" id="entries-list-r21"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r21" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r21')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -580,14 +654,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r22" onclick="openModal('r22',`Programa de reconhecimento baseado em performance`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r22"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r22')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r22">
-              <div class="note-prev" id="np-r22"></div>
-              <textarea id="nta-r22" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r22"></span>
-                <button class="btn-save-note" onclick="saveNote('r22')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r22">
+            <div class="entries-toggle" onclick="toggleEntries('r22')">
+              <span id="entries-label-r22">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r22"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r22">
+              <div class="entries-list" id="entries-list-r22"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r22" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r22')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -609,14 +686,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r23" onclick="openModal('r23',`Quality score ≥90`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r23"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r23')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r23">
-              <div class="note-prev" id="np-r23"></div>
-              <textarea id="nta-r23" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r23"></span>
-                <button class="btn-save-note" onclick="saveNote('r23')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r23">
+            <div class="entries-toggle" onclick="toggleEntries('r23')">
+              <span id="entries-label-r23">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r23"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r23">
+              <div class="entries-list" id="entries-list-r23"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r23" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r23')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -630,14 +710,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r24" onclick="openModal('r24',`Academia interna consolidada como ativo`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r24"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r24')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r24">
-              <div class="note-prev" id="np-r24"></div>
-              <textarea id="nta-r24" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r24"></span>
-                <button class="btn-save-note" onclick="saveNote('r24')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r24">
+            <div class="entries-toggle" onclick="toggleEntries('r24')">
+              <span id="entries-label-r24">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r24"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r24">
+              <div class="entries-list" id="entries-list-r24"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r24" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r24')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -651,14 +734,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r25" onclick="openModal('r25',`Programa de desenvolvimento de lideranças ativo`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r25"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r25')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r25">
-              <div class="note-prev" id="np-r25"></div>
-              <textarea id="nta-r25" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r25"></span>
-                <button class="btn-save-note" onclick="saveNote('r25')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r25">
+            <div class="entries-toggle" onclick="toggleEntries('r25')">
+              <span id="entries-label-r25">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r25"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r25">
+              <div class="entries-list" id="entries-list-r25"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r25" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r25')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -672,14 +758,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r26" onclick="openModal('r26',`ROI de treinamento IA: 3x investimento`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r26"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r26')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r26">
-              <div class="note-prev" id="np-r26"></div>
-              <textarea id="nta-r26" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r26"></span>
-                <button class="btn-save-note" onclick="saveNote('r26')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r26">
+            <div class="entries-toggle" onclick="toggleEntries('r26')">
+              <span id="entries-label-r26">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r26"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r26">
+              <div class="entries-list" id="entries-list-r26"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r26" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r26')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -693,14 +782,17 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-r27" onclick="openModal('r27',`Academia como ativo da empresa`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-r27"></div>
-          <div class="note-wrap">
-            <div class="note-toggle" onclick="toggleNote('r27')">▶ Adicionar anotação</div>
-            <div class="note-editor" id="ne-r27">
-              <div class="note-prev" id="np-r27"></div>
-              <textarea id="nta-r27" placeholder="Escreva uma observação..."></textarea>
-              <div class="note-foot">
-                <span class="note-ts" id="nts-r27"></span>
-                <button class="btn-save-note" onclick="saveNote('r27')">Salvar</button>
+          <!-- ENTRIES: multiple notes -->
+          <div class="entries-section" id="entries-r27">
+            <div class="entries-toggle" onclick="toggleEntries('r27')">
+              <span id="entries-label-r27">▶ Anotações</span>
+              <span class="entries-count" id="entries-count-r27"></span>
+            </div>
+            <div class="entries-body" id="entries-body-r27">
+              <div class="entries-list" id="entries-list-r27"></div>
+              <div class="entry-add">
+                <textarea id="entry-ta-r27" placeholder="Adicione uma anotação..."></textarea>
+                <button class="btn-add-entry" onclick="addEntry('r27')">+ Adicionar</button>
               </div>
             </div>
           </div>
@@ -721,39 +813,52 @@ footer a{color:var(--c);text-decoration:none;}
   </div>
 </div>
 <script>
+
 const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
-const TEAM_KEY='roberta';
-const MARCOS=[{"id": "m1r", "label": "M1", "fase": "Fundação", "range": "Meses 1–5", "todos": [{"id": "r1", "text": "Mapear jornada de aprendizagem atual do time"}, {"id": "r2", "text": "Definir perfil de competências por função"}, {"id": "r3", "text": "Criar plano de treinamento v1 por área"}, {"id": "r4", "text": "Implementar NPS interno de treinamento"}, {"id": "r5", "text": "Estabelecer baseline de qualidade de atendimento"}, {"id": "r6", "text": "Criar checklist de qualidade por processo"}, {"id": "r7", "text": "Conduzir 1ª sessão de treinamento com time completo"}, {"id": "r8", "text": "Definir SLA de resposta e resolução para CS"}, {"id": "r9", "text": "Alinhar trilha de onboarding com RH"}]}, {"id": "m2r", "label": "M2", "fase": "Estruturação", "range": "Meses 6–10", "todos": [{"id": "r10", "text": "NPS de treinamento ≥8"}, {"id": "r11", "text": "Trilha de onboarding completa e validada"}, {"id": "r12", "text": "Quality score médio ≥80 no time"}, {"id": "r13", "text": "Programa de mentoria interno lançado"}, {"id": "r14", "text": "SLA de qualidade medido semanalmente"}, {"id": "r15", "text": "IA assistindo treinamentos (simulações, Q&A)", "ia": true}, {"id": "r16", "text": "Criar academia interna v1"}]}, {"id": "m3r", "label": "M3", "fase": "Aceleração", "range": "Meses 11–15", "todos": [{"id": "r17", "text": "NPS treinamento ≥9"}, {"id": "r18", "text": "Quality score ≥85"}, {"id": "r19", "text": "Certificação interna lançada"}, {"id": "r20", "text": "Líderes treinando seus times com autonomia"}, {"id": "r21", "text": "IA gerando trilhas personalizadas por colaborador", "ia": true}, {"id": "r22", "text": "Programa de reconhecimento baseado em performance"}]}, {"id": "m4r", "label": "M4", "fase": "Escala", "range": "Meses 16–18", "todos": [{"id": "r23", "text": "Quality score ≥90"}, {"id": "r24", "text": "Academia interna consolidada como ativo"}, {"id": "r25", "text": "Programa de desenvolvimento de lideranças ativo"}, {"id": "r26", "text": "ROI de treinamento IA: 3x investimento", "ia": true}, {"id": "r27", "text": "Academia como ativo da empresa"}]}];
-let states={},notes={},mgr_obs={},dates={};
 
-async function api(path,opts={}){
-  const r=await fetch(SB_URL+path,{...opts,headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json',...(opts.headers||{})}});
-  if(!r.ok){const e=await r.text();console.error('API',r.status,path,e);return null;}
-  return r.json();
+async function api(path){
+  const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+  if(!r.ok)return null;return r.json();
 }
-
-async function upsert(table,data,conflict='task_id'){
-  const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+conflict,{
+async function upsert(table,data,conflict){
+  const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+(conflict||'task_id'),{
     method:'POST',
     headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},
     body:JSON.stringify(data)
   });
-  const txt=await r.text();
-  if(!r.ok){console.error('Upsert failed',table,r.status,txt);return false;}
-  return true;
+  return r.ok;
+}
+async function insert(table,data){
+  const r=await fetch(SB_URL+'/rest/v1/'+table,{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+    body:JSON.stringify(data)
+  });
+  return r.ok;
+}
+async function del(table,id){
+  const r=await fetch(SB_URL+'/rest/v1/'+table+'?id=eq.'+id,{
+    method:'DELETE',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+  });
+  return r.ok;
 }
 
+const TEAM_KEY='roberta';
+const MARCOS=[{"id": "m1r", "label": "M1", "fase": "Fundação", "range": "Meses 1–5", "todos": [{"id": "r1", "text": "Mapear jornada de aprendizagem atual do time"}, {"id": "r2", "text": "Definir perfil de competências por função"}, {"id": "r3", "text": "Criar plano de treinamento v1 por área"}, {"id": "r4", "text": "Implementar NPS interno de treinamento"}, {"id": "r5", "text": "Estabelecer baseline de qualidade de atendimento"}, {"id": "r6", "text": "Criar checklist de qualidade por processo"}, {"id": "r7", "text": "Conduzir 1ª sessão de treinamento com time completo"}, {"id": "r8", "text": "Definir SLA de resposta e resolução para CS"}, {"id": "r9", "text": "Alinhar trilha de onboarding com RH"}]}, {"id": "m2r", "label": "M2", "fase": "Estruturação", "range": "Meses 6–10", "todos": [{"id": "r10", "text": "NPS de treinamento ≥8"}, {"id": "r11", "text": "Trilha de onboarding completa e validada"}, {"id": "r12", "text": "Quality score médio ≥80 no time"}, {"id": "r13", "text": "Programa de mentoria interno lançado"}, {"id": "r14", "text": "SLA de qualidade medido semanalmente"}, {"id": "r15", "text": "IA assistindo treinamentos (simulações, Q&A)", "ia": true}, {"id": "r16", "text": "Criar academia interna v1"}]}, {"id": "m3r", "label": "M3", "fase": "Aceleração", "range": "Meses 11–15", "todos": [{"id": "r17", "text": "NPS treinamento ≥9"}, {"id": "r18", "text": "Quality score ≥85"}, {"id": "r19", "text": "Certificação interna lançada"}, {"id": "r20", "text": "Líderes treinando seus times com autonomia"}, {"id": "r21", "text": "IA gerando trilhas personalizadas por colaborador", "ia": true}, {"id": "r22", "text": "Programa de reconhecimento baseado em performance"}]}, {"id": "m4r", "label": "M4", "fase": "Escala", "range": "Meses 16–18", "todos": [{"id": "r23", "text": "Quality score ≥90"}, {"id": "r24", "text": "Academia interna consolidada como ativo"}, {"id": "r25", "text": "Programa de desenvolvimento de lideranças ativo"}, {"id": "r26", "text": "ROI de treinamento IA: 3x investimento", "ia": true}, {"id": "r27", "text": "Academia como ativo da empresa"}]}];
+let states={},entries={},mgr_obs={},dates={};
+
 async function load(){
-  const[st,dt,nt,mc]=await Promise.all([
+  const[st,dt,en,mc]=await Promise.all([
     api('/rest/v1/task_states?select=*'),
     api('/rest/v1/plan_dates?team_key=eq.'+TEAM_KEY+'&select=*'),
-    api('/rest/v1/task_notes?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/task_entries?team_key=eq.'+TEAM_KEY+'&select=*&order=created_at.asc'),
     api('/rest/v1/task_manager_comments?team_key=eq.'+TEAM_KEY+'&select=*'),
   ]);
   states={};(st||[]).forEach(r=>states[r.task_id]=r);
   dates={};(dt||[]).forEach(r=>dates[r.marco_id]=r);
-  notes={};(nt||[]).forEach(r=>{if(document.activeElement?.id!=='nta-'+r.task_id)notes[r.task_id]=r;});
+  entries={};(en||[]).forEach(r=>{if(!entries[r.task_id])entries[r.task_id]=[];entries[r.task_id].push(r);});
   mgr_obs={};(mc||[]).forEach(r=>mgr_obs[r.task_id]=r);
   render();
 }
@@ -771,22 +876,29 @@ function render(){
         if(s.status==='aprovada'){md++;done++;if(chip){chip.textContent='Aprovada';chip.className='chip aprovada';}if(btn){btn.disabled=true;btn.textContent='Aprovada';}}
         else if(s.status==='aguardando'){pend++;if(chip){chip.textContent='Aguardando';chip.className='chip aguardando';}if(btn){btn.disabled=true;btn.textContent='Enviado';}}
       }
-      const n=notes[t.id];
-      if(n){
-        const prev=document.getElementById('np-'+t.id);
-        const ts=document.getElementById('nts-'+t.id);
-        const ta=document.getElementById('nta-'+t.id);
-        const tog=document.querySelector('[onclick="toggleNote(\''+t.id+'\')"]');
-        if(prev)prev.textContent=n.note||'';
-        if(ts)ts.textContent='Salvo em '+new Date(n.updated_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
-        if(ta&&document.activeElement!==ta)ta.value=n.note||'';
-        if(tog&&n.note)tog.textContent='▼ Anotação';
+      // Entries
+      const ents=entries[t.id]||[];
+      const lbl=document.getElementById('entries-label-'+t.id);
+      const cnt=document.getElementById('entries-count-'+t.id);
+      const list=document.getElementById('entries-list-'+t.id);
+      if(lbl)lbl.textContent=(document.getElementById('entries-body-'+t.id)?.classList.contains('open')?'▼':'▶')+' Anotações';
+      if(cnt)cnt.textContent=ents.length>0?ents.length+'':'';
+      if(list){
+        list.innerHTML=ents.map(e=>`
+          <div class="entry-item" id="entry-${e.id}">
+            <div class="entry-item-text">${e.entry_text}</div>
+            <div class="entry-item-meta">
+              <span class="entry-item-date">${new Date(e.created_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</span>
+              <button class="btn-del-entry" onclick="delEntry('${e.id}','${t.id}')" title="Remover">✕</button>
+            </div>
+          </div>`).join('');
       }
+      // Manager obs
       const mo=mgr_obs[t.id];
       const obsEl=document.getElementById('mobs-'+t.id);
       if(obsEl){
         if(mo?.comment){obsEl.className='mgr-obs on';obsEl.innerHTML='<div class="mgr-obs-hdr"><div class="mgr-av">DA</div><div class="mgr-lbl">Observação da Dhayane</div></div><div class="mgr-txt">'+mo.comment+'</div>';}
-        else{obsEl.className='mgr-obs';obsEl.innerHTML='';}
+        else{obsEl.className='mgr-obs';}
       }
     }
     const bar=document.getElementById('mb-'+m.id);
@@ -804,21 +916,28 @@ function render(){
   document.getElementById('ring').style.strokeDashoffset=175.9*(1-(tot?done/tot:0));
 }
 
-function toggleNote(id){
-  const ed=document.getElementById('ne-'+id);
-  const tog=document.querySelector('[onclick="toggleNote(\''+id+'\')"]');
-  if(ed.classList.toggle('open'))tog.textContent='▼ Anotação';
-  else tog.textContent=(notes[id]?.note?'▼ ':'▶ ')+'Anotação'+(notes[id]?.note?'':' — Adicionar');
+function toggleEntries(id){
+  const body=document.getElementById('entries-body-'+id);
+  const lbl=document.getElementById('entries-label-'+id);
+  const open=body.classList.toggle('open');
+  if(lbl)lbl.textContent=(open?'▼':'▶')+' Anotações';
 }
 
-async function saveNote(id){
-  const ta=document.getElementById('nta-'+id);
-  const btn=ta.closest('.note-editor').querySelector('.btn-save-note');
+async function addEntry(taskId){
+  const ta=document.getElementById('entry-ta-'+taskId);
+  const text=ta.value.trim();
+  if(!text)return;
+  const btn=ta.closest('.entry-add').querySelector('.btn-add-entry');
   btn.textContent='Salvando...';btn.disabled=true;
-  const ok=await upsert('task_notes',{task_id:id,team_key:TEAM_KEY,note:ta.value,note_text:ta.value,updated_at:new Date().toISOString()});
-  btn.disabled=false;
-  if(ok){btn.textContent='Salvo ✓';setTimeout(()=>btn.textContent='Salvar',2000);}
-  else{btn.textContent='Erro — tente novamente';setTimeout(()=>btn.textContent='Salvar',3000);}
+  const ok=await insert('task_entries',{task_id:taskId,team_key:TEAM_KEY,entry_text:text,created_at:new Date().toISOString()});
+  btn.disabled=false;btn.textContent='+ Adicionar';
+  if(ok){ta.value='';await load();}
+  else alert('Erro ao salvar. Tente novamente.');
+}
+
+async function delEntry(entryId,taskId){
+  if(!confirm('Remover esta anotação?'))return;
+  await del('task_entries',entryId);
   await load();
 }
 
@@ -826,6 +945,11 @@ function openModal(id,txt){
   document.getElementById('mid').value=id;
   document.getElementById('mtxt').textContent=txt;
   document.getElementById('mta').value='';
+  // Pre-fill with entries summary if exists
+  const ents=entries[id]||[];
+  if(ents.length>0){
+    document.getElementById('mta').value=ents.map((e,i)=>`${i+1}. ${e.entry_text}`).join('\n\n');
+  }
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
