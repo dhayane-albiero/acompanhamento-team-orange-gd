@@ -3,119 +3,209 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Beatriz — Orange Viagens</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--c:#e84393;--cl:#ffeef6;--amber:#e6a817;--red:#e17055;--bg:#f5f4f1;--w:#fff;--txt:#1a1a1a;--muted:#888;--border:#e8e5e0;}
+:root{--c:#e84393;--cl:#ffeef6;--amber:#d97706;--red:#dc2626;--bg:#f7f6f3;--w:#fff;--txt:#1c1917;--txt2:#57534e;--muted:#a8a29e;--border:#e5e2dc;--border2:#ede9e4;--green:#059669;--green-light:#ecfdf5;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);}
-.ph{background:var(--w);border-bottom:1px solid var(--border);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;}
-.ph-org{font-family:'DM Serif Display',serif;font-size:1.1rem;}
-.ph-meta{font-size:12px;color:var(--muted);}
-.hero{background:var(--w);border-bottom:1px solid var(--border);padding:2rem;}
-.hero-in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
-.av{width:64px;height:64px;border-radius:50%;background:var(--c);color:#fff;font-size:1.3rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.hero-txt h1{font-family:'DM Serif Display',serif;font-size:1.8rem;}
-.hero-txt .role{color:var(--muted);font-size:.9rem;margin-top:2px;}
-.hstats{display:flex;gap:1.5rem;margin-top:.75rem;flex-wrap:wrap;}
-.hv{font-size:1.3rem;font-weight:600;color:var(--c);}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--txt);font-size:14px;line-height:1.5;}
+.ph{background:var(--w);border-bottom:1px solid var(--border);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.ph-brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem;}
+.ph-dot{width:7px;height:7px;border-radius:50%;background:#ea580c;}
+.ph-meta{font-size:.75rem;color:var(--muted);}
+.hero{background:var(--w);border-bottom:1px solid var(--border);padding:1.75rem 2rem;}
+.hero-in{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap;}
+.av{width:56px;height:56px;border-radius:12px;background:var(--c);color:#fff;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hero-txt h1{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;}
+.hero-txt .role{color:var(--muted);font-size:.8rem;margin-top:3px;}
+.hstats{display:flex;gap:1.25rem;margin-top:.75rem;flex-wrap:wrap;}
+.hv{font-size:1.25rem;font-weight:700;color:var(--c);letter-spacing:-.02em;}
 .hv.am{color:var(--amber);} .hv.rd{color:var(--red);}
-.hl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
-.ring-w{margin-left:auto;position:relative;flex-shrink:0;}
-.ring-lbl{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
-main{max-width:860px;margin:0 auto;padding:2rem 1.5rem;}
-.banner{background:var(--cl);border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:#333;display:flex;gap:8px;align-items:flex-start;}
-.marco-hdr{background:var(--w);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-top:1.5rem;flex-wrap:wrap;}
-.marco-pill{background:var(--c);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
-.marco-dates{font-size:12px;color:var(--muted);}
-.marco-bar-wrap{flex:1;background:#eee;border-radius:4px;height:6px;min-width:60px;}
-.marco-bar{height:6px;background:var(--c);border-radius:4px;width:0%;transition:width .4s;}
-.marco-cnt{font-size:12px;color:var(--muted);white-space:nowrap;}
-.marco-sub{font-size:11px;color:var(--muted);background:#fafafa;border-left:1px solid var(--border);border-right:1px solid var(--border);padding:4px 16px;}
+.hl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:1px;}
+.ring-w{position:relative;flex-shrink:0;margin-left:auto;}
+.ring-lbl{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
+main{max-width:860px;margin:0 auto;padding:1.75rem 1.5rem;}
+
+/* MOTIVACIONAL */
+.motivacional-card{
+  background:linear-gradient(135deg,var(--cl),#fff);
+  border:1px solid var(--border2);border-radius:12px;
+  padding:1.1rem 1.25rem;margin-bottom:1.25rem;
+  display:flex;gap:.875rem;align-items:flex-start;
+  position:relative;overflow:hidden;
+}
+.motivacional-card::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
+  background:var(--c);border-radius:12px 0 0 12px;
+}
+.motivacional-icon{font-size:1.25rem;flex-shrink:0;margin-top:1px;}
+.motivacional-txt{flex:1;}
+.motivacional-label{font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--c);margin-bottom:.25rem;}
+.motivacional-msg{font-size:.82rem;color:var(--txt2);line-height:1.6;font-style:italic;}
+.motivacional-assinatura{font-size:.7rem;color:var(--muted);margin-top:.4rem;}
+
+/* WEEKLY VIEWER */
+.weekly-viewer{
+  background:var(--w);border:1px solid var(--border);border-radius:12px;
+  margin-bottom:1.25rem;overflow:hidden;
+}
+.weekly-viewer-hdr{
+  padding:.875rem 1.1rem;background:#fafaf9;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:.75rem;cursor:pointer;user-select:none;
+}
+.weekly-viewer-icon{
+  width:28px;height:28px;border-radius:7px;background:var(--c);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;
+}
+.weekly-viewer-ttl{font-size:.82rem;font-weight:600;color:var(--txt);}
+.weekly-viewer-sub{font-size:.68rem;color:var(--muted);margin-top:1px;}
+.weekly-viewer-body{display:none;padding:.875rem 1.1rem;}
+.weekly-viewer-body.open{display:block;}
+.wv-week{border-bottom:1px solid var(--border);padding-bottom:.875rem;margin-bottom:.875rem;}
+.wv-week:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+.wv-week-date{font-size:.7rem;font-weight:700;color:var(--c);letter-spacing:.04em;margin-bottom:.625rem;}
+.wv-block{margin-bottom:.5rem;}
+.wv-block:last-child{margin-bottom:0;}
+.wv-block-lbl{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem;}
+.wv-block-txt{font-size:.8rem;color:var(--txt2);white-space:pre-wrap;line-height:1.5;}
+.wv-empty{font-size:.78rem;color:var(--muted);font-style:italic;text-align:center;padding:.875rem 0;}
+
+/* DESEMPENHO */
+.perf-panel{background:var(--cl);border:1px solid var(--border2);border-radius:10px;padding:.875rem 1.1rem;margin-bottom:1.25rem;}
+.perf-title{font-size:.65rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.625rem;}
+.perf-bars{display:flex;flex-direction:column;gap:.35rem;}
+.perf-bar-row{display:flex;align-items:center;gap:.5rem;font-size:.7rem;}
+.perf-bar-lbl{width:50px;color:var(--txt2);font-size:.66rem;flex-shrink:0;}
+.perf-bar-wrap{flex:1;background:rgba(0,0,0,.07);border-radius:2px;height:5px;overflow:hidden;}
+.perf-bar-fill{height:5px;border-radius:2px;background:var(--c);transition:width .5s;}
+.perf-bar-val{width:30px;text-align:right;font-weight:600;color:var(--txt);font-size:.66rem;}
+
+/* BANNER */
+.banner{background:var(--cl);border:1px solid var(--border2);border-radius:10px;padding:.75rem 1rem;margin-bottom:1.1rem;font-size:.78rem;color:var(--txt2);display:flex;gap:7px;align-items:flex-start;line-height:1.5;}
+.marco-hdr{background:var(--w);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:.75rem 1rem;display:flex;align-items:center;gap:8px;margin-top:1.1rem;flex-wrap:wrap;}
+.marco-pill{background:var(--c);color:#fff;font-size:.66rem;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap;}
+.marco-dates{font-size:.66rem;color:var(--muted);}
+.marco-bar-wrap{flex:1;background:#e8e5e0;border-radius:2px;height:4px;min-width:60px;}
+.marco-bar{height:4px;background:var(--c);border-radius:2px;width:0%;transition:width .4s;}
+.marco-cnt{font-size:.66rem;color:var(--muted);white-space:nowrap;}
+.marco-sub{font-size:.62rem;color:var(--muted);background:#fafaf9;border-left:1px solid var(--border);border-right:1px solid var(--border);padding:3px 1rem;}
 .tasks-block{background:var(--w);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;}
 .task-block{border-bottom:1px solid var(--border);}
 .task-block:last-child{border-bottom:none;}
-.task-row{display:flex;align-items:center;padding:12px 16px;gap:10px;}
-.task-left{flex:1;display:flex;align-items:center;gap:10px;min-width:0;}
-.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;background:#f0f0f0;color:var(--muted);flex-shrink:0;white-space:nowrap;}
-.chip.aprovada{background:#dcfff6;color:#00795e;}
-.chip.aguardando{background:#fff7e0;color:#8a6000;}
-.task-text{font-size:14px;overflow:hidden;text-overflow:ellipsis;}
-.ia-badge{background:#ede9ff;color:#5B21B6;font-size:10px;font-weight:600;padding:1px 6px;border-radius:8px;margin-right:4px;}
-.btn-concluir{background:var(--c);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.btn-concluir:disabled{background:#ccc;cursor:default;}
-/* Manager obs */
-.mgr-obs{display:none;margin:0 16px 8px;padding:10px 14px;background:linear-gradient(135deg,#fff9f0,#fffdf7);border:1px solid #f0d8a0;border-left:3px solid #e6a817;border-radius:8px;}
+.task-row{display:flex;align-items:center;padding:.75rem 1rem;gap:8px;}
+.task-left{flex:1;display:flex;align-items:center;gap:8px;min-width:0;}
+.chip{font-size:.63rem;font-weight:600;padding:2px 7px;border-radius:10px;background:#f0f0ee;color:var(--muted);flex-shrink:0;white-space:nowrap;}
+.chip.aprovada{background:var(--green-light);color:var(--green);}
+.chip.aguardando{background:#fffbeb;color:var(--amber);}
+.chip.devolvida{background:#fef2f2;color:var(--red);}
+.task-text{font-size:.8rem;overflow:hidden;text-overflow:ellipsis;}
+.ia-badge{background:#ede9ff;color:#5B21B6;font-size:.58rem;font-weight:700;padding:1px 5px;border-radius:7px;margin-right:3px;}
+.btn-concluir{background:var(--c);color:#fff;border:none;padding:5px 12px;border-radius:6px;font-size:.7rem;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:inherit;}
+.btn-concluir:disabled{background:#d6d3d1;color:#a8a29e;cursor:default;}
+.mgr-obs{display:none;margin:0 1rem .6rem;padding:.7rem .875rem;background:linear-gradient(135deg,#fffbeb,#fffdf7);border:1px solid #f0d8a0;border-left:3px solid #d97706;border-radius:8px;}
 .mgr-obs.on{display:block;}
-.mgr-obs-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.mgr-av{width:22px;height:22px;border-radius:50%;background:#6C5CE7;color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
-.mgr-lbl{font-size:11px;font-weight:600;color:#7a5c00;}
-.mgr-txt{font-size:13px;color:#4a3a00;line-height:1.55;white-space:pre-wrap;}
-/* Entries */
+.mgr-obs-hdr{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.mgr-av{width:18px;height:18px;border-radius:50%;background:#ea580c;color:#fff;font-size:.5rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.mgr-lbl{font-size:.63rem;font-weight:600;color:#7a5c00;}
+.mgr-txt{font-size:.76rem;color:#4a3a00;line-height:1.55;white-space:pre-wrap;}
 .entries-section{border-top:1px solid var(--border);}
-.entries-toggle{display:flex;align-items:center;gap:8px;padding:8px 16px;cursor:pointer;user-select:none;}
-.entries-toggle span:first-child{font-size:12px;color:var(--c);}
-.entries-count{font-size:11px;background:var(--cl);color:var(--c);padding:1px 7px;border-radius:10px;font-weight:600;}
-.entries-body{display:none;padding:0 16px 12px;}
+.entries-toggle{display:flex;align-items:center;gap:6px;padding:.45rem 1rem;cursor:pointer;user-select:none;}
+.entries-toggle span:first-child{font-size:.7rem;color:var(--c);}
+.entries-count{font-size:.63rem;background:var(--cl);color:var(--c);padding:1px 6px;border-radius:8px;font-weight:600;}
+.entries-body{display:none;padding:0 1rem .75rem;}
 .entries-body.open{display:block;}
-.entries-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
-.entry-item{background:#f8f8f8;border:1px solid var(--border);border-radius:8px;padding:10px 12px;position:relative;}
-.entry-item-text{font-size:13px;color:var(--txt);line-height:1.5;white-space:pre-wrap;margin-bottom:4px;}
-.entry-item-meta{display:flex;align-items:center;justify-content:space-between;}
-.entry-item-date{font-size:11px;color:var(--muted);}
-.btn-del-entry{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:0;}
+.entries-list{display:flex;flex-direction:column;gap:5px;margin-bottom:7px;}
+.entry-item{background:#f7f6f3;border:1px solid var(--border);border-radius:7px;padding:7px 9px;}
+.entry-item-text{font-size:.76rem;color:var(--txt);line-height:1.45;white-space:pre-wrap;margin-bottom:3px;}
+.entry-meta{display:flex;align-items:center;justify-content:space-between;}
+.entry-date{font-size:.6rem;color:var(--muted);}
+.btn-del-entry{background:none;border:none;color:var(--muted);font-size:.68rem;cursor:pointer;padding:0;}
 .btn-del-entry:hover{color:var(--red);}
-.entry-add{display:flex;gap:8px;align-items:flex-end;}
-.entry-add textarea{flex:1;min-height:60px;border:1px solid var(--border);border-radius:6px;padding:8px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
+.entry-add{display:flex;gap:6px;align-items:flex-end;}
+.entry-add textarea{flex:1;min-height:54px;border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-family:inherit;font-size:.76rem;resize:vertical;outline:none;}
 .entry-add textarea:focus{border-color:var(--c);}
-.btn-add-entry{background:var(--c);color:#fff;border:none;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;height:36px;}
-.btn-add-entry:hover{filter:brightness(.9);}
-/* Modal */
-.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;}
+.btn-add-entry{background:var(--c);color:#fff;border:none;padding:6px 11px;border-radius:6px;font-size:.7rem;font-weight:600;cursor:pointer;white-space:nowrap;height:34px;font-family:inherit;}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:100;align-items:center;justify-content:center;}
 .modal-ov.open{display:flex;}
-.modal{background:var(--w);border-radius:14px;padding:2rem;width:90%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
-.modal h2{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:.5rem;}
-.modal-task{font-size:13px;color:var(--muted);margin-bottom:1rem;padding:10px;background:var(--bg);border-radius:6px;}
-.modal label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;}
-.modal textarea{width:100%;min-height:100px;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:inherit;font-size:13px;resize:vertical;outline:none;}
+.modal{background:var(--w);border-radius:12px;padding:1.75rem;width:90%;max-width:500px;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+.modal h2{font-size:1.05rem;font-weight:700;margin-bottom:.3rem;}
+.modal-task{font-size:.76rem;color:var(--muted);margin-bottom:.875rem;padding:.65rem;background:var(--bg);border-radius:6px;}
+.modal label{font-size:.76rem;font-weight:600;display:block;margin-bottom:.3rem;}
+.modal textarea{width:100%;min-height:90px;border:1px solid var(--border);border-radius:7px;padding:.7rem;font-family:inherit;font-size:.78rem;resize:vertical;outline:none;}
 .modal textarea:focus{border-color:var(--c);}
-.modal-acts{display:flex;gap:10px;justify-content:flex-end;margin-top:1rem;}
-.btn-cancel{background:transparent;border:1px solid var(--border);padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;}
-.btn-submit{background:var(--c);color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;}
-.btn-submit:disabled{background:#ccc;cursor:default;}
-footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);}
+.modal-acts{display:flex;gap:7px;justify-content:flex-end;margin-top:.75rem;}
+.btn-cancel{background:transparent;border:1px solid var(--border);padding:6px 14px;border-radius:7px;cursor:pointer;font-size:.76rem;font-family:inherit;}
+.btn-submit{background:var(--c);color:#fff;border:none;padding:6px 14px;border-radius:7px;cursor:pointer;font-size:.76rem;font-weight:600;font-family:inherit;}
+footer{text-align:center;padding:1.75rem;font-size:.66rem;color:var(--muted);border-top:1px solid var(--border);margin-top:1rem;}
 footer a{color:var(--c);text-decoration:none;}
-@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:6px;} .entry-add{flex-direction:column;}}
+@media(max-width:600px){main{padding:1rem;} .task-row{flex-wrap:wrap;} .btn-concluir{width:100%;margin-top:5px;} .entry-add{flex-direction:column;}}
 </style>
 </head>
 <body>
-<header class="ph"><div class="ph-org">Orange Viagens</div><div class="ph-meta">Plano 18 meses · Março 2026</div></header>
-<div class="hero"><div class="hero-in">
-  <div class="av">BE</div>
-  <div class="hero-txt">
-    <h1>Beatriz</h1>
-    <div class="role">Coordenadora de Produto — Club Med</div>
-    <div class="hstats">
-      <div><div class="hv" id="sd">—</div><div class="hl">Aprovadas</div></div>
-      <div><div class="hv am" id="sp">—</div><div class="hl">Aguardando</div></div>
-      <div><div class="hv rd" id="sx">—</div><div class="hl">Parciais</div></div>
-      <div><div class="hv" id="st">—</div><div class="hl">Total</div></div>
+<header class="ph">
+  <div class="ph-brand"><div class="ph-dot"></div>Orange Viagens</div>
+  <div class="ph-meta">Plano 18 meses · Março 2026</div>
+</header>
+<div class="hero">
+  <div class="hero-in">
+    <div class="av">BE</div>
+    <div class="hero-txt">
+      <h1>Beatriz</h1>
+      <div class="role">Coordenadora de Produto — Club Med</div>
+      <div class="hstats">
+        <div><div class="hv" id="sd">—</div><div class="hl">Aprovadas</div></div>
+        <div><div class="hv am" id="sp">—</div><div class="hl">Aguardando</div></div>
+        <div><div class="hv rd" id="sx">—</div><div class="hl">Devolvidas</div></div>
+        <div><div class="hv" id="st">—</div><div class="hl">Total</div></div>
+      </div>
+    </div>
+    <div class="ring-w">
+      <svg width="62" height="62" viewBox="0 0 72 72">
+        <circle cx="36" cy="36" r="28" fill="none" stroke="#ffeef6" stroke-width="6"/>
+        <circle id="ring" cx="36" cy="36" r="28" fill="none" stroke="#e84393" stroke-width="6"
+          stroke-linecap="round" stroke-dasharray="175.9" stroke-dashoffset="175.9"
+          transform="rotate(-90 36 36)" style="transition:stroke-dashoffset .5s"/>
+      </svg>
+      <div class="ring-lbl">GERAL</div>
     </div>
   </div>
-  <div class="ring-w">
-    <svg width="70" height="70" viewBox="0 0 72 72">
-      <circle cx="36" cy="36" r="28" fill="none" stroke="#ffeef6" stroke-width="6"/>
-      <circle id="ring" cx="36" cy="36" r="28" fill="none" stroke="#e84393" stroke-width="6"
-        stroke-linecap="round" stroke-dasharray="175.9" stroke-dashoffset="175.9"
-        transform="rotate(-90 36 36)" style="transition:stroke-dashoffset .5s"/>
-    </svg>
-    <div class="ring-lbl">GERAL</div>
-  </div>
-</div></div>
+</div>
 <main>
-  <div class="banner">
-    <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#e84393" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#e84393" stroke-width="2" stroke-linecap="round"/></svg>
-    Use <strong>&nbsp;Anotações&nbsp;</strong> para registrar múltiplos registros ao longo do tempo. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
+  <!-- MENSAGEM MOTIVACIONAL DA SEMANA -->
+  <div class="motivacional-card" id="motivacional-card">
+    <div class="motivacional-icon">🧡</div>
+    <div class="motivacional-txt">
+      <div class="motivacional-label">Mensagem da semana · Dhayane</div>
+      <div class="motivacional-msg" id="motivacional-msg">Carregando...</div>
+      <div class="motivacional-assinatura">com carinho, Dhayane 🧡</div>
+    </div>
   </div>
+
+  <!-- WEEKLY REVIEW — O QUE A DHAYANE COMPARTILHOU -->
+  <div class="weekly-viewer" id="weekly-viewer">
+    <div class="weekly-viewer-hdr" onclick="document.getElementById('wv-body').classList.toggle('open')">
+      <div class="weekly-viewer-icon">📋</div>
+      <div>
+        <div class="weekly-viewer-ttl">Weekly Review — Atualizações da Dhayane</div>
+        <div class="weekly-viewer-sub" id="wv-sub">Carregando...</div>
+      </div>
+      <span style="margin-left:auto;font-size:.68rem;color:var(--muted)">▼</span>
+    </div>
+    <div class="weekly-viewer-body" id="wv-body">
+      <div id="wv-content"></div>
+    </div>
+  </div>
+
+  <!-- DESEMPENHO POR MARCO -->
+  <div class="perf-panel">
+    <div class="perf-title">Meu progresso por marco</div>
+    <div class="perf-bars" id="perf-bars"></div>
+  </div>
+
+  <div class="banner">
+    <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#e84393" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="#e84393" stroke-width="2" stroke-linecap="round"/></svg>
+    Use <strong>&nbsp;Anotações&nbsp;</strong> para registrar observações ao longo do tempo. Clique em <strong>&nbsp;Concluir&nbsp;</strong> apenas quando quiser enviar para aprovação da Dhayane.
+  </div>
+
   
     <div class="marco-hdr">
       <span class="marco-pill">M1 — Estruturação & Diagnóstico</span>
@@ -129,12 +219,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b1">Aberta</span>
-              <span class="task-text">Mapeamento completo do histórico de vendas Club Med na Orange</span>
+              <span class="task-text">Histórico completo de vendas Club Med</span>
             </div>
-            <button class="btn-concluir" id="btn-b1" onclick="openModal('b1',`Mapeamento completo do histórico de vendas Club Med na Orange`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b1" onclick="openModal('b1',`Histórico completo de vendas Club Med`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b1"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b1">
             <div class="entries-toggle" onclick="toggleEntries('b1')">
               <span id="entries-label-b1">▶ Anotações</span>
@@ -143,7 +232,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b1">
               <div class="entries-list" id="entries-list-b1"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b1" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b1" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b1')">+ Adicionar</button>
               </div>
             </div>
@@ -153,12 +242,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b2">Aberta</span>
-              <span class="task-text">Levantamento do material existente (treinamentos, conteúdos, scripts)</span>
+              <span class="task-text">Levantamento do material existente</span>
             </div>
-            <button class="btn-concluir" id="btn-b2" onclick="openModal('b2',`Levantamento do material existente (treinamentos, conteúdos, scripts)`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b2" onclick="openModal('b2',`Levantamento do material existente`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b2"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b2">
             <div class="entries-toggle" onclick="toggleEntries('b2')">
               <span id="entries-label-b2">▶ Anotações</span>
@@ -167,7 +255,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b2">
               <div class="entries-list" id="entries-list-b2"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b2" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b2" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b2')">+ Adicionar</button>
               </div>
             </div>
@@ -177,12 +265,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b3">Aberta</span>
-              <span class="task-text">Definição do perfil de cliente Club Med da Orange (Brasil x Neve)</span>
+              <span class="task-text">Perfil de cliente Club Med (Brasil x Neve)</span>
             </div>
-            <button class="btn-concluir" id="btn-b3" onclick="openModal('b3',`Definição do perfil de cliente Club Med da Orange (Brasil x Neve)`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b3" onclick="openModal('b3',`Perfil de cliente Club Med (Brasil x Neve)`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b3"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b3">
             <div class="entries-toggle" onclick="toggleEntries('b3')">
               <span id="entries-label-b3">▶ Anotações</span>
@@ -191,7 +278,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b3">
               <div class="entries-list" id="entries-list-b3"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b3" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b3" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b3')">+ Adicionar</button>
               </div>
             </div>
@@ -201,12 +288,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b4">Aberta</span>
-              <span class="task-text">Criar dashboard de acompanhamento com KPIs definidos</span>
+              <span class="task-text">Dashboard com KPIs definidos</span>
             </div>
-            <button class="btn-concluir" id="btn-b4" onclick="openModal('b4',`Criar dashboard de acompanhamento com KPIs definidos`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b4" onclick="openModal('b4',`Dashboard com KPIs definidos`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b4"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b4">
             <div class="entries-toggle" onclick="toggleEntries('b4')">
               <span id="entries-label-b4">▶ Anotações</span>
@@ -215,7 +301,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b4">
               <div class="entries-list" id="entries-list-b4"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b4" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b4" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b4')">+ Adicionar</button>
               </div>
             </div>
@@ -225,12 +311,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b5">Aberta</span>
-              <span class="task-text">Primeiro alinhamento com todas as áreas envolvidas</span>
+              <span class="task-text">Alinhamento com todas as áreas</span>
             </div>
-            <button class="btn-concluir" id="btn-b5" onclick="openModal('b5',`Primeiro alinhamento com todas as áreas envolvidas`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b5" onclick="openModal('b5',`Alinhamento com todas as áreas`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b5"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b5">
             <div class="entries-toggle" onclick="toggleEntries('b5')">
               <span id="entries-label-b5">▶ Anotações</span>
@@ -239,7 +324,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b5">
               <div class="entries-list" id="entries-list-b5"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b5" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b5" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b5')">+ Adicionar</button>
               </div>
             </div>
@@ -249,12 +334,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b6">Aberta</span>
-              <span class="task-text">Definição do calendário editorial Club Med para o trimestre</span>
+              <span class="task-text">Calendário editorial para o trimestre</span>
             </div>
-            <button class="btn-concluir" id="btn-b6" onclick="openModal('b6',`Definição do calendário editorial Club Med para o trimestre`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b6" onclick="openModal('b6',`Calendário editorial para o trimestre`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b6"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b6">
             <div class="entries-toggle" onclick="toggleEntries('b6')">
               <span id="entries-label-b6">▶ Anotações</span>
@@ -263,7 +347,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b6">
               <div class="entries-list" id="entries-list-b6"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b6" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b6" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b6')">+ Adicionar</button>
               </div>
             </div>
@@ -273,12 +357,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b7">Aberta</span>
-              <span class="task-text">Alinhamento com marketing para lançamento de vitrine</span>
+              <span class="task-text">Alinhamento com marketing para vitrine</span>
             </div>
-            <button class="btn-concluir" id="btn-b7" onclick="openModal('b7',`Alinhamento com marketing para lançamento de vitrine`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b7" onclick="openModal('b7',`Alinhamento com marketing para vitrine`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b7"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b7">
             <div class="entries-toggle" onclick="toggleEntries('b7')">
               <span id="entries-label-b7">▶ Anotações</span>
@@ -287,7 +370,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b7">
               <div class="entries-list" id="entries-list-b7"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b7" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b7" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b7')">+ Adicionar</button>
               </div>
             </div>
@@ -297,12 +380,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b8">Aberta</span>
-              <span class="task-text">Revisão e atualização dos scripts de venda por resort</span>
+              <span class="task-text">Scripts de venda por resort atualizados</span>
             </div>
-            <button class="btn-concluir" id="btn-b8" onclick="openModal('b8',`Revisão e atualização dos scripts de venda por resort`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b8" onclick="openModal('b8',`Scripts de venda por resort atualizados`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b8"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b8">
             <div class="entries-toggle" onclick="toggleEntries('b8')">
               <span id="entries-label-b8">▶ Anotações</span>
@@ -311,7 +393,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b8">
               <div class="entries-list" id="entries-list-b8"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b8" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b8" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b8')">+ Adicionar</button>
               </div>
             </div>
@@ -321,12 +403,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b9">Aberta</span>
-              <span class="task-text">Entrar em contato com representante Club Med para atualização de parceria</span>
+              <span class="task-text">Contato com representante Club Med</span>
             </div>
-            <button class="btn-concluir" id="btn-b9" onclick="openModal('b9',`Entrar em contato com representante Club Med para atualização de parceria`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b9" onclick="openModal('b9',`Contato com representante Club Med`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b9"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b9">
             <div class="entries-toggle" onclick="toggleEntries('b9')">
               <span id="entries-label-b9">▶ Anotações</span>
@@ -335,7 +416,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b9">
               <div class="entries-list" id="entries-list-b9"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b9" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b9" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b9')">+ Adicionar</button>
               </div>
             </div>
@@ -353,12 +434,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b10">Aberta</span>
-              <span class="task-text">Lançar conteúdo Club Med nas redes sociais com calendário estruturado</span>
+              <span class="task-text">Conteúdo Club Med nas redes com calendário</span>
             </div>
-            <button class="btn-concluir" id="btn-b10" onclick="openModal('b10',`Lançar conteúdo Club Med nas redes sociais com calendário estruturado`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b10" onclick="openModal('b10',`Conteúdo Club Med nas redes com calendário`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b10"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b10">
             <div class="entries-toggle" onclick="toggleEntries('b10')">
               <span id="entries-label-b10">▶ Anotações</span>
@@ -367,7 +447,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b10">
               <div class="entries-list" id="entries-list-b10"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b10" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b10" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b10')">+ Adicionar</button>
               </div>
             </div>
@@ -377,12 +457,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b11">Aberta</span>
-              <span class="task-text">Primeira campanha segmentada para base de clientes Orange (famílias)</span>
+              <span class="task-text">Campanha segmentada para famílias Orange</span>
             </div>
-            <button class="btn-concluir" id="btn-b11" onclick="openModal('b11',`Primeira campanha segmentada para base de clientes Orange (famílias)`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b11" onclick="openModal('b11',`Campanha segmentada para famílias Orange`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b11"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b11">
             <div class="entries-toggle" onclick="toggleEntries('b11')">
               <span id="entries-label-b11">▶ Anotações</span>
@@ -391,7 +470,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b11">
               <div class="entries-list" id="entries-list-b11"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b11" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b11" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b11')">+ Adicionar</button>
               </div>
             </div>
@@ -401,12 +480,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b12">Aberta</span>
-              <span class="task-text">Ativação do produto com o time comercial com metas claras</span>
+              <span class="task-text">Ativação do produto com time comercial</span>
             </div>
-            <button class="btn-concluir" id="btn-b12" onclick="openModal('b12',`Ativação do produto com o time comercial com metas claras`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b12" onclick="openModal('b12',`Ativação do produto com time comercial`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b12"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b12">
             <div class="entries-toggle" onclick="toggleEntries('b12')">
               <span id="entries-label-b12">▶ Anotações</span>
@@ -415,7 +493,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b12">
               <div class="entries-list" id="entries-list-b12"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b12" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b12" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b12')">+ Adicionar</button>
               </div>
             </div>
@@ -425,12 +503,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b13">Aberta</span>
-              <span class="task-text">Produção de materiais de venda: apresentações, comparativos, argumentários</span>
+              <span class="task-text">Materiais de venda: apresentações e argumentários</span>
             </div>
-            <button class="btn-concluir" id="btn-b13" onclick="openModal('b13',`Produção de materiais de venda: apresentações, comparativos, argumentários`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b13" onclick="openModal('b13',`Materiais de venda: apresentações e argumentários`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b13"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b13">
             <div class="entries-toggle" onclick="toggleEntries('b13')">
               <span id="entries-label-b13">▶ Anotações</span>
@@ -439,7 +516,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b13">
               <div class="entries-list" id="entries-list-b13"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b13" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b13" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b13')">+ Adicionar</button>
               </div>
             </div>
@@ -449,12 +526,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b14">Aberta</span>
-              <span class="task-text">Primeiras reuniões com clientes prospect identificados</span>
+              <span class="task-text">Reuniões com clientes prospect identificados</span>
             </div>
-            <button class="btn-concluir" id="btn-b14" onclick="openModal('b14',`Primeiras reuniões com clientes prospect identificados`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b14" onclick="openModal('b14',`Reuniões com clientes prospect identificados`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b14"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b14">
             <div class="entries-toggle" onclick="toggleEntries('b14')">
               <span id="entries-label-b14">▶ Anotações</span>
@@ -463,7 +539,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b14">
               <div class="entries-list" id="entries-list-b14"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b14" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b14" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b14')">+ Adicionar</button>
               </div>
             </div>
@@ -473,12 +549,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b15">Aberta</span>
-              <span class="task-text">Coleta e publicação de depoimentos de clientes que já viajaram</span>
+              <span class="task-text">Depoimentos de clientes coletados e publicados</span>
             </div>
-            <button class="btn-concluir" id="btn-b15" onclick="openModal('b15',`Coleta e publicação de depoimentos de clientes que já viajaram`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b15" onclick="openModal('b15',`Depoimentos de clientes coletados e publicados`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b15"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b15">
             <div class="entries-toggle" onclick="toggleEntries('b15')">
               <span id="entries-label-b15">▶ Anotações</span>
@@ -487,7 +562,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b15">
               <div class="entries-list" id="entries-list-b15"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b15" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b15" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b15')">+ Adicionar</button>
               </div>
             </div>
@@ -497,12 +572,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b16">Aberta</span>
-              <span class="task-text">Definição de pacotes curados por perfil (iniciante, família, neve)</span>
+              <span class="task-text">Pacotes curados por perfil (iniciante, família, neve)</span>
             </div>
-            <button class="btn-concluir" id="btn-b16" onclick="openModal('b16',`Definição de pacotes curados por perfil (iniciante, família, neve)`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b16" onclick="openModal('b16',`Pacotes curados por perfil (iniciante, família, neve)`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b16"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b16">
             <div class="entries-toggle" onclick="toggleEntries('b16')">
               <span id="entries-label-b16">▶ Anotações</span>
@@ -511,7 +585,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b16">
               <div class="entries-list" id="entries-list-b16"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b16" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b16" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b16')">+ Adicionar</button>
               </div>
             </div>
@@ -526,7 +600,6 @@ footer a{color:var(--c);text-decoration:none;}
             <button class="btn-concluir" id="btn-b17" onclick="openModal('b17',`Atingir meta de R$ 300k/mês`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b17"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b17">
             <div class="entries-toggle" onclick="toggleEntries('b17')">
               <span id="entries-label-b17">▶ Anotações</span>
@@ -535,7 +608,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b17">
               <div class="entries-list" id="entries-list-b17"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b17" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b17" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b17')">+ Adicionar</button>
               </div>
             </div>
@@ -553,12 +626,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b18">Aberta</span>
-              <span class="task-text">Meta de R$ 1MM/mês ativo e sendo monitorado</span>
+              <span class="task-text">Meta R$ 1MM/mês ativo e monitorado</span>
             </div>
-            <button class="btn-concluir" id="btn-b18" onclick="openModal('b18',`Meta de R$ 1MM/mês ativo e sendo monitorado`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b18" onclick="openModal('b18',`Meta R$ 1MM/mês ativo e monitorado`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b18"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b18">
             <div class="entries-toggle" onclick="toggleEntries('b18')">
               <span id="entries-label-b18">▶ Anotações</span>
@@ -567,7 +639,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b18">
               <div class="entries-list" id="entries-list-b18"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b18" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b18" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b18')">+ Adicionar</button>
               </div>
             </div>
@@ -577,12 +649,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b19">Aberta</span>
-              <span class="task-text">Programa de indicações ativo para clientes Club Med</span>
+              <span class="task-text">Programa de indicações ativo</span>
             </div>
-            <button class="btn-concluir" id="btn-b19" onclick="openModal('b19',`Programa de indicações ativo para clientes Club Med`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b19" onclick="openModal('b19',`Programa de indicações ativo`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b19"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b19">
             <div class="entries-toggle" onclick="toggleEntries('b19')">
               <span id="entries-label-b19">▶ Anotações</span>
@@ -591,7 +662,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b19">
               <div class="entries-list" id="entries-list-b19"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b19" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b19" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b19')">+ Adicionar</button>
               </div>
             </div>
@@ -601,12 +672,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b20">Aberta</span>
-              <span class="task-text">Presença em eventos e ações Club Med (fam trips, lançamentos)</span>
+              <span class="task-text">Presença em eventos e fam trips Club Med</span>
             </div>
-            <button class="btn-concluir" id="btn-b20" onclick="openModal('b20',`Presença em eventos e ações Club Med (fam trips, lançamentos)`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b20" onclick="openModal('b20',`Presença em eventos e fam trips Club Med`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b20"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b20">
             <div class="entries-toggle" onclick="toggleEntries('b20')">
               <span id="entries-label-b20">▶ Anotações</span>
@@ -615,7 +685,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b20">
               <div class="entries-list" id="entries-list-b20"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b20" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b20" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b20')">+ Adicionar</button>
               </div>
             </div>
@@ -625,12 +695,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b21">Aberta</span>
-              <span class="task-text">Parcerias com influenciadores ou criadores de conteúdo de viagem</span>
+              <span class="task-text">Parcerias com influenciadores de viagem</span>
             </div>
-            <button class="btn-concluir" id="btn-b21" onclick="openModal('b21',`Parcerias com influenciadores ou criadores de conteúdo de viagem`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b21" onclick="openModal('b21',`Parcerias com influenciadores de viagem`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b21"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b21">
             <div class="entries-toggle" onclick="toggleEntries('b21')">
               <span id="entries-label-b21">▶ Anotações</span>
@@ -639,7 +708,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b21">
               <div class="entries-list" id="entries-list-b21"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b21" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b21" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b21')">+ Adicionar</button>
               </div>
             </div>
@@ -649,12 +718,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b22">Aberta</span>
-              <span class="task-text">Construção de base própria de prospects qualificados</span>
+              <span class="task-text">Base própria de prospects qualificados</span>
             </div>
-            <button class="btn-concluir" id="btn-b22" onclick="openModal('b22',`Construção de base própria de prospects qualificados`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b22" onclick="openModal('b22',`Base própria de prospects qualificados`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b22"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b22">
             <div class="entries-toggle" onclick="toggleEntries('b22')">
               <span id="entries-label-b22">▶ Anotações</span>
@@ -663,7 +731,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b22">
               <div class="entries-list" id="entries-list-b22"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b22" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b22" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b22')">+ Adicionar</button>
               </div>
             </div>
@@ -673,12 +741,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b23">Aberta</span>
-              <span class="task-text">Revisão trimestral de estratégia com diretoria</span>
+              <span class="task-text">Revisão trimestral com diretoria</span>
             </div>
-            <button class="btn-concluir" id="btn-b23" onclick="openModal('b23',`Revisão trimestral de estratégia com diretoria`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b23" onclick="openModal('b23',`Revisão trimestral com diretoria`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b23"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b23">
             <div class="entries-toggle" onclick="toggleEntries('b23')">
               <span id="entries-label-b23">▶ Anotações</span>
@@ -687,7 +754,7 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b23">
               <div class="entries-list" id="entries-list-b23"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b23" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b23" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b23')">+ Adicionar</button>
               </div>
             </div>
@@ -697,12 +764,11 @@ footer a{color:var(--c);text-decoration:none;}
           <div class="task-row">
             <div class="task-left">
               <span class="chip" id="chip-b24">Aberta</span>
-              <span class="task-text">Orange reconhecida como top of mind Club Med</span>
+              <span class="task-text">Orange top of mind Club Med</span>
             </div>
-            <button class="btn-concluir" id="btn-b24" onclick="openModal('b24',`Orange reconhecida como top of mind Club Med`)">Concluir</button>
+            <button class="btn-concluir" id="btn-b24" onclick="openModal('b24',`Orange top of mind Club Med`)">Concluir</button>
           </div>
           <div class="mgr-obs" id="mobs-b24"></div>
-          <!-- ENTRIES: multiple notes -->
           <div class="entries-section" id="entries-b24">
             <div class="entries-toggle" onclick="toggleEntries('b24')">
               <span id="entries-label-b24">▶ Anotações</span>
@@ -711,14 +777,15 @@ footer a{color:var(--c);text-decoration:none;}
             <div class="entries-body" id="entries-body-b24">
               <div class="entries-list" id="entries-list-b24"></div>
               <div class="entry-add">
-                <textarea id="entry-ta-b24" placeholder="Adicione uma anotação..."></textarea>
+                <textarea id="entry-ta-b24" placeholder="Adicione uma anotação sobre esta tarefa..."></textarea>
                 <button class="btn-add-entry" onclick="addEntry('b24')">+ Adicionar</button>
               </div>
             </div>
           </div>
         </div></div>
 </main>
-<footer>Orange Viagens · Dashboard confidencial · Março 2026 &nbsp;·&nbsp; <a href="dashboard.html">← Visão geral</a></footer>
+<footer>Orange Viagens · Confidencial · Março 2026 &nbsp;·&nbsp; <a href="dashboard.html">← Painel da Dhayane</a></footer>
+
 <div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <h2>Concluir tarefa</h2>
@@ -732,59 +799,74 @@ footer a{color:var(--c);text-decoration:none;}
     </div>
   </div>
 </div>
-<script>
 
+<script>
 const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
-
-async function api(path){
-  const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
-  if(!r.ok)return null;return r.json();
-}
-async function upsert(table,data,conflict){
-  const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+(conflict||'task_id'),{
-    method:'POST',
-    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},
-    body:JSON.stringify(data)
-  });
-  return r.ok;
-}
-async function insert(table,data){
-  const r=await fetch(SB_URL+'/rest/v1/'+table,{
-    method:'POST',
-    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
-    body:JSON.stringify(data)
-  });
-  return r.ok;
-}
-async function del(table,id){
-  const r=await fetch(SB_URL+'/rest/v1/'+table+'?id=eq.'+id,{
-    method:'DELETE',
-    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
-  });
-  return r.ok;
-}
-
 const TEAM_KEY='beatriz';
-const MARCOS=[{"id": "m1b", "label": "M1", "fase": "Estruturação & Diagnóstico", "range": "Jun 2026 — 2 semanas", "todos": [{"id": "b1", "text": "Mapeamento completo do histórico de vendas Club Med na Orange"}, {"id": "b2", "text": "Levantamento do material existente (treinamentos, conteúdos, scripts)"}, {"id": "b3", "text": "Definição do perfil de cliente Club Med da Orange (Brasil x Neve)"}, {"id": "b4", "text": "Criar dashboard de acompanhamento com KPIs definidos"}, {"id": "b5", "text": "Primeiro alinhamento com todas as áreas envolvidas"}, {"id": "b6", "text": "Definição do calendário editorial Club Med para o trimestre"}, {"id": "b7", "text": "Alinhamento com marketing para lançamento de vitrine"}, {"id": "b8", "text": "Revisão e atualização dos scripts de venda por resort"}, {"id": "b9", "text": "Entrar em contato com representante Club Med para atualização de parceria"}]}, {"id": "m2b", "label": "M2", "fase": "Ativação & Vitrine", "range": "Jul–Set 2026", "todos": [{"id": "b10", "text": "Lançar conteúdo Club Med nas redes sociais com calendário estruturado"}, {"id": "b11", "text": "Primeira campanha segmentada para base de clientes Orange (famílias)"}, {"id": "b12", "text": "Ativação do produto com o time comercial com metas claras"}, {"id": "b13", "text": "Produção de materiais de venda: apresentações, comparativos, argumentários"}, {"id": "b14", "text": "Primeiras reuniões com clientes prospect identificados"}, {"id": "b15", "text": "Coleta e publicação de depoimentos de clientes que já viajaram"}, {"id": "b16", "text": "Definição de pacotes curados por perfil (iniciante, família, neve)"}, {"id": "b17", "text": "Atingir meta de R$ 300k/mês"}]}, {"id": "m3b", "label": "M3", "fase": "Escala & Referência", "range": "Out 2026+", "todos": [{"id": "b18", "text": "Meta de R$ 1MM/mês ativo e sendo monitorado"}, {"id": "b19", "text": "Programa de indicações ativo para clientes Club Med"}, {"id": "b20", "text": "Presença em eventos e ações Club Med (fam trips, lançamentos)"}, {"id": "b21", "text": "Parcerias com influenciadores ou criadores de conteúdo de viagem"}, {"id": "b22", "text": "Construção de base própria de prospects qualificados"}, {"id": "b23", "text": "Revisão trimestral de estratégia com diretoria"}, {"id": "b24", "text": "Orange reconhecida como top of mind Club Med"}]}];
+const MARCOS=[{"id": "m1b", "label": "M1", "fase": "Estruturação & Diagnóstico", "range": "Jun 2026 — 2 semanas", "todos": [{"id": "b1", "text": "Histórico completo de vendas Club Med"}, {"id": "b2", "text": "Levantamento do material existente"}, {"id": "b3", "text": "Perfil de cliente Club Med (Brasil x Neve)"}, {"id": "b4", "text": "Dashboard com KPIs definidos"}, {"id": "b5", "text": "Alinhamento com todas as áreas"}, {"id": "b6", "text": "Calendário editorial para o trimestre"}, {"id": "b7", "text": "Alinhamento com marketing para vitrine"}, {"id": "b8", "text": "Scripts de venda por resort atualizados"}, {"id": "b9", "text": "Contato com representante Club Med"}]}, {"id": "m2b", "label": "M2", "fase": "Ativação & Vitrine", "range": "Jul–Set 2026", "todos": [{"id": "b10", "text": "Conteúdo Club Med nas redes com calendário"}, {"id": "b11", "text": "Campanha segmentada para famílias Orange"}, {"id": "b12", "text": "Ativação do produto com time comercial"}, {"id": "b13", "text": "Materiais de venda: apresentações e argumentários"}, {"id": "b14", "text": "Reuniões com clientes prospect identificados"}, {"id": "b15", "text": "Depoimentos de clientes coletados e publicados"}, {"id": "b16", "text": "Pacotes curados por perfil (iniciante, família, neve)"}, {"id": "b17", "text": "Atingir meta de R$ 300k/mês"}]}, {"id": "m3b", "label": "M3", "fase": "Escala & Referência", "range": "Out 2026+", "todos": [{"id": "b18", "text": "Meta R$ 1MM/mês ativo e monitorado"}, {"id": "b19", "text": "Programa de indicações ativo"}, {"id": "b20", "text": "Presença em eventos e fam trips Club Med"}, {"id": "b21", "text": "Parcerias com influenciadores de viagem"}, {"id": "b22", "text": "Base própria de prospects qualificados"}, {"id": "b23", "text": "Revisão trimestral com diretoria"}, {"id": "b24", "text": "Orange top of mind Club Med"}]}];
+const MOTIVACIONAL=["Club Med é uma das marcas mais desejadas do mundo — e você está sendo a ponte entre esse sonho e os clientes da Orange. Que responsabilidade bonita! 🧡", "Cada script revisado, cada resort apresentado com clareza — você está transformando o time comercial em especialistas Club Med.", "Construir uma frente nova do zero exige coragem e muito preparo. Você tem os dois. Estamos juntas nessa. 🌱", "Top of mind não se compra — se conquista com consistência, presença e muito trabalho bem feito. Você está nesse caminho.", "Família que viaja bem, cliente que volta. Você está curandoo portfólio certo para o público certo. 🧡", "Cada depoimento coletado, cada prospect visitado — você está construindo prova social que vai vender por muito tempo.", "Crescer de zero a R$300k/mês é uma jornada extraordinária. E você está liderando isso com muita dedicação."];
 let states={},entries={},mgr_obs={},dates={};
 
+// Mensagem motivacional da semana (rotativa por semana do ano)
+(function(){
+  const week=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,1))/(7*24*3600*1000));
+  const msg=MOTIVACIONAL[week%MOTIVACIONAL.length];
+  document.getElementById('motivacional-msg').textContent=msg;
+})();
+
+async function api(path){const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});if(!r.ok)return null;return r.json();}
+async function upsert(table,data,conflict){const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+(conflict||'task_id'),{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify(data)});return r.ok;}
+async function ins(table,data){const r=await fetch(SB_URL+'/rest/v1/'+table,{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},body:JSON.stringify(data)});return r.ok;}
+async function del(table,id){const r=await fetch(SB_URL+'/rest/v1/'+table+'?id=eq.'+id,{method:'DELETE',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});return r.ok;}
+
 async function load(){
-  const[st,dt,en,mc]=await Promise.all([
+  const[st,dt,en,mc,wk]=await Promise.all([
     api('/rest/v1/task_states?select=*'),
     api('/rest/v1/plan_dates?team_key=eq.'+TEAM_KEY+'&select=*'),
     api('/rest/v1/task_entries?team_key=eq.'+TEAM_KEY+'&select=*&order=created_at.asc'),
     api('/rest/v1/task_manager_comments?team_key=eq.'+TEAM_KEY+'&select=*'),
+    api('/rest/v1/weekly_reviews?select=*&order=week_date.desc&limit=3'),
   ]);
   states={};(st||[]).forEach(r=>states[r.task_id]=r);
   dates={};(dt||[]).forEach(r=>dates[r.marco_id]=r);
   entries={};(en||[]).forEach(r=>{if(!entries[r.task_id])entries[r.task_id]=[];entries[r.task_id].push(r);});
   mgr_obs={};(mc||[]).forEach(r=>mgr_obs[r.task_id]=r);
+  renderWeekly(wk||[]);
   render();
 }
 
+function renderWeekly(weeklys){
+  const sub=document.getElementById('wv-sub');
+  const content=document.getElementById('wv-content');
+  if(!weeklys.length){
+    sub.textContent='Nenhuma weekly registrada ainda';
+    content.innerHTML='<div class="wv-empty">A Dhayane ainda não registrou nenhuma weekly. Acompanhe aqui as atualizações semanais!</div>';
+    return;
+  }
+  sub.textContent='Últimas '+weeklys.length+' semana'+(weeklys.length!==1?'s':'');
+  content.innerHTML=weeklys.map(w=>{
+    const dt=new Date(w.week_date+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
+    const blocks=[
+      {e:'⭐',l:'Destaques',v:w.destaques},
+      {e:'✅',l:'Ações da semana',v:w.acoes},
+      {e:'📊',l:'Resultados',v:w.resultados},
+      {e:'🚧',l:'Bloqueios',v:w.bloqueios},
+    ].filter(b=>b.v);
+    return`<div class="wv-week">
+      <div class="wv-week-date">Semana de ${dt}</div>
+      ${blocks.map(b=>`<div class="wv-block">
+        <div class="wv-block-lbl">${b.e} ${b.l}</div>
+        <div class="wv-block-txt">${b.v}</div>
+      </div>`).join('')}
+      ${!blocks.length?'<div class="wv-empty">Sem conteúdo registrado.</div>':''}
+    </div>`;
+  }).join('');
+}
+
 function render(){
-  let done=0,pend=0,part=0,tot=0;
+  let done=0,pend=0,dev=0,tot=0;
+  const perfRows=[];
   for(const m of MARCOS){
     let md=0;
     for(const t of m.todos){
@@ -793,47 +875,47 @@ function render(){
       const chip=document.getElementById('chip-'+t.id);
       const btn=document.getElementById('btn-'+t.id);
       if(s){
-        if(s.status==='aprovada'){md++;done++;if(chip){chip.textContent='Aprovada';chip.className='chip aprovada';}if(btn){btn.disabled=true;btn.textContent='Aprovada';}}
-        else if(s.status==='aguardando'){pend++;if(chip){chip.textContent='Aguardando';chip.className='chip aguardando';}if(btn){btn.disabled=true;btn.textContent='Enviado';}}
+        if(s.status==='aprovada'){md++;done++;chip&&(chip.textContent='Aprovada',chip.className='chip aprovada');btn&&(btn.disabled=true,btn.textContent='Aprovada');}
+        else if(s.status==='aguardando'){pend++;chip&&(chip.textContent='Aguardando',chip.className='chip aguardando');btn&&(btn.disabled=true,btn.textContent='Enviado');}
+        else if(s.status==='devolvida'){dev++;chip&&(chip.textContent='Devolvida',chip.className='chip devolvida');btn&&(btn.disabled=false,btn.textContent='Reenviar');}
       }
-      // Entries
       const ents=entries[t.id]||[];
       const lbl=document.getElementById('entries-label-'+t.id);
       const cnt=document.getElementById('entries-count-'+t.id);
       const list=document.getElementById('entries-list-'+t.id);
       if(lbl)lbl.textContent=(document.getElementById('entries-body-'+t.id)?.classList.contains('open')?'▼':'▶')+' Anotações';
       if(cnt)cnt.textContent=ents.length>0?ents.length+'':'';
-      if(list){
-        list.innerHTML=ents.map(e=>`
-          <div class="entry-item" id="entry-${e.id}">
-            <div class="entry-item-text">${e.entry_text}</div>
-            <div class="entry-item-meta">
-              <span class="entry-item-date">${new Date(e.created_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</span>
-              <button class="btn-del-entry" onclick="delEntry('${e.id}','${t.id}')" title="Remover">✕</button>
-            </div>
-          </div>`).join('');
-      }
-      // Manager obs
+      if(list)list.innerHTML=ents.map(e=>`<div class="entry-item" id="entry-${e.id}">
+        <div class="entry-item-text">${e.entry_text}</div>
+        <div class="entry-meta"><span class="entry-date">${new Date(e.created_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</span>
+        <button class="btn-del-entry" onclick="delEntry('${e.id}','${t.id}')" title="Remover">✕</button></div>
+      </div>`).join('');
       const mo=mgr_obs[t.id];
       const obsEl=document.getElementById('mobs-'+t.id);
-      if(obsEl){
-        if(mo?.comment){obsEl.className='mgr-obs on';obsEl.innerHTML='<div class="mgr-obs-hdr"><div class="mgr-av">DA</div><div class="mgr-lbl">Observação da Dhayane</div></div><div class="mgr-txt">'+mo.comment+'</div>';}
-        else{obsEl.className='mgr-obs';}
-      }
+      if(obsEl){if(mo?.comment){obsEl.className='mgr-obs on';obsEl.innerHTML='<div class="mgr-obs-hdr"><div class="mgr-av">DA</div><div class="mgr-lbl">Observação da Dhayane</div></div><div class="mgr-txt">'+mo.comment+'</div>';}else{obsEl.className='mgr-obs';}}
     }
     const bar=document.getElementById('mb-'+m.id);
-    const cnt=document.getElementById('mc-'+m.id);
+    const cnt2=document.getElementById('mc-'+m.id);
     if(bar)bar.style.width=(m.todos.length?md/m.todos.length*100:0)+'%';
-    if(cnt)cnt.textContent=md+'/'+m.todos.length;
+    if(cnt2)cnt2.textContent=md+'/'+m.todos.length;
     const d=dates[m.id];
     const dEl=document.getElementById('md-'+m.id);
-    if(dEl&&d){const f=x=>new Date(x).toLocaleDateString('pt-BR');dEl.textContent='Início: '+f(d.start_date)+' · Conclusão: '+f(d.end_date);}
+    if(dEl&&d){const f=x=>new Date(x).toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});dEl.textContent='Início: '+f(d.start_date)+' · Conclusão: '+f(d.end_date);}
+    perfRows.push({label:m.label,done:md,total:m.todos.length});
   }
   document.getElementById('sd').textContent=done;
   document.getElementById('sp').textContent=pend;
-  document.getElementById('sx').textContent=part;
+  document.getElementById('sx').textContent=dev;
   document.getElementById('st').textContent=tot;
   document.getElementById('ring').style.strokeDashoffset=175.9*(1-(tot?done/tot:0));
+  document.getElementById('perf-bars').innerHTML=perfRows.map(r=>{
+    const pct=r.total?Math.round(r.done/r.total*100):0;
+    return`<div class="perf-bar-row">
+      <div class="perf-bar-lbl">${r.label}</div>
+      <div class="perf-bar-wrap"><div class="perf-bar-fill" style="width:${pct}%"></div></div>
+      <div class="perf-bar-val">${r.done}/${r.total}</div>
+    </div>`;
+  }).join('');
 }
 
 function toggleEntries(id){
@@ -845,31 +927,24 @@ function toggleEntries(id){
 
 async function addEntry(taskId){
   const ta=document.getElementById('entry-ta-'+taskId);
-  const text=ta.value.trim();
-  if(!text)return;
+  const text=ta.value.trim();if(!text)return;
   const btn=ta.closest('.entry-add').querySelector('.btn-add-entry');
   btn.textContent='Salvando...';btn.disabled=true;
-  const ok=await insert('task_entries',{task_id:taskId,team_key:TEAM_KEY,entry_text:text,created_at:new Date().toISOString()});
+  const ok=await ins('task_entries',{task_id:taskId,team_key:TEAM_KEY,entry_text:text,created_at:new Date().toISOString()});
   btn.disabled=false;btn.textContent='+ Adicionar';
-  if(ok){ta.value='';await load();}
-  else alert('Erro ao salvar. Tente novamente.');
+  if(ok){ta.value='';await load();}else alert('Erro ao salvar.');
 }
 
 async function delEntry(entryId,taskId){
   if(!confirm('Remover esta anotação?'))return;
-  await del('task_entries',entryId);
-  await load();
+  await del('task_entries',entryId);await load();
 }
 
 function openModal(id,txt){
   document.getElementById('mid').value=id;
   document.getElementById('mtxt').textContent=txt;
-  document.getElementById('mta').value='';
-  // Pre-fill with entries summary if exists
   const ents=entries[id]||[];
-  if(ents.length>0){
-    document.getElementById('mta').value=ents.map((e,i)=>`${i+1}. ${e.entry_text}`).join('\n\n');
-  }
+  document.getElementById('mta').value=ents.length>0?ents.map((e,i)=>`${i+1}. ${e.entry_text}`).join('\n\n'):'';
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
@@ -882,13 +957,11 @@ async function submitTask(){
   btn.disabled=true;btn.textContent='Enviando...';
   const ok=await upsert('task_states',{task_id:id,team_key:TEAM_KEY,status:'aguardando',how_done:how,execution:how,submitted_at:new Date().toISOString()});
   btn.disabled=false;btn.textContent='Enviar para aprovação';
-  if(ok){closeModal();await load();}
-  else alert('Erro ao enviar. Tente novamente.');
+  if(ok){closeModal();await load();}else alert('Erro ao enviar.');
 }
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
-load();
-setInterval(()=>{if(document.activeElement?.tagName!=='TEXTAREA')load();},20000);
+load();setInterval(()=>{if(document.activeElement?.tagName!=='TEXTAREA')load();},20000);
 </script>
 </body>
 </html>

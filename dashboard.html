@@ -2,380 +2,821 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dashboard — Orange Viagens</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Orange Viagens · Acompanhamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d1117;--sur:#161b22;--sur2:#21262d;--bdr:#30363d;--txt:#e6edf3;--muted:#7d8590;--green:#00B894;--amber:#e6a817;--red:#e17055;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
-.ph{background:var(--sur);border-bottom:1px solid var(--bdr);padding:0 2rem;height:52px;display:flex;align-items:center;justify-content:space-between;font-size:13px;}
-.ph-org{font-family:'DM Serif Display',serif;font-size:1.1rem;}
-.hero{background:linear-gradient(135deg,#0d2818,#0d1117);border-bottom:1px solid var(--bdr);padding:2.5rem 2rem;}
-.hero-in{max-width:1100px;margin:0 auto;}
-.hero h1{font-family:'DM Serif Display',serif;font-size:2rem;margin-bottom:.25rem;}
-.hero-sub{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem;}
-.hstats{display:flex;gap:2rem;flex-wrap:wrap;}
-.hv{font-size:1.8rem;font-weight:700;}
-.hv.green{color:var(--green);} .hv.amber{color:var(--amber);} .hv.muted{color:var(--muted);}
-.hl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
-.tabs{background:var(--sur);border-bottom:1px solid var(--bdr);display:flex;overflow-x:auto;padding:0 2rem;}
-.tab{padding:12px 20px;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
-.tab.active{color:var(--txt);border-bottom-color:var(--green);font-weight:600;}
-.tab .bdg{background:var(--amber);color:#000;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px;}
-.panel{display:none;max-width:1100px;margin:0 auto;padding:2rem;}
-.panel.active{display:block;}
-/* Overview */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
-.tc{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem;text-decoration:none;color:var(--txt);display:block;transition:border-color .15s;}
-.tc:hover{border-color:var(--green);}
-.tc-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
-.tc-av{width:38px;height:38px;border-radius:50%;color:#fff;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.tc-prog{background:var(--sur2);border-radius:4px;height:4px;margin-bottom:.75rem;}
-.tc-bar{height:4px;border-radius:4px;transition:width .4s;}
-.tc-stats{display:flex;gap:.75rem;font-size:12px;}
-/* Chart */
-.chart-section{margin-bottom:2rem;}
-.chart-title{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:1rem;}
-.chart-wrap{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:1.5rem;}
-.chart-bars{display:flex;align-items:flex-end;gap:1rem;height:200px;justify-content:space-around;}
-.chart-col{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:120px;}
-.chart-bar-wrap{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:160px;gap:2px;}
-.chart-bar-done{width:100%;border-radius:4px 4px 0 0;transition:height .5s ease;min-height:2px;}
-.chart-bar-pend{width:100%;transition:height .5s ease;min-height:0;opacity:.5;}
-.chart-pct{font-size:13px;font-weight:700;color:var(--txt);}
-.chart-name{font-size:11px;color:var(--muted);text-align:center;line-height:1.3;}
-.chart-legend{display:flex;gap:1.5rem;margin-top:1rem;justify-content:center;flex-wrap:wrap;}
-.chart-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);}
-.chart-legend-dot{width:10px;height:10px;border-radius:2px;}
-/* Dates */
-.stitle{font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:.5rem;}
-.sdesc{font-size:13px;color:var(--muted);margin-bottom:1.5rem;}
-.dates-card{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
-.dc-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
-.dc-av{width:32px;height:32px;border-radius:50%;color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
-.dc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;}
-.date-row{background:var(--sur2);border-radius:8px;padding:.75rem;}
-.date-tag{font-size:12px;font-weight:600;margin-bottom:.5rem;}
-.date-inputs{display:flex;flex-direction:column;gap:.4rem;}
-.date-inputs input{background:var(--sur);border:1px solid var(--bdr);color:var(--txt);padding:6px 10px;border-radius:6px;font-size:13px;width:100%;outline:none;font-family:inherit;}
-.date-inputs input:focus{border-color:var(--green);}
-.btn-save-dates{margin-top:.75rem;background:var(--green);color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
-.save-ok{font-size:12px;color:var(--green);margin-left:10px;opacity:0;transition:opacity .3s;}
-.save-ok.show{opacity:1;}
-/* Obs */
-.obs-card{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
-.obs-head{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;}
-.obs-body{display:none;margin-top:1rem;}
-.obs-body.open{display:block;}
-.obs-marco-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:.5rem 0 .25rem;}
-.obs-task-row{border-bottom:1px solid var(--bdr);padding:.75rem 0;}
-.obs-task-row:last-child{border-bottom:none;}
-.obs-task-lbl{font-size:13px;font-weight:500;color:var(--txt);margin-bottom:.5rem;}
-.obs-task-lbl .tid{font-size:11px;color:var(--muted);margin-right:6px;}
-.obs-ta{width:100%;background:var(--sur2);border:1px solid var(--bdr);color:var(--txt);padding:8px 12px;border-radius:6px;font-size:13px;font-family:inherit;resize:vertical;min-height:60px;outline:none;}
-.obs-ta:focus{border-color:var(--amber);}
-.obs-foot{display:flex;justify-content:flex-end;gap:.5rem;align-items:center;margin-top:.4rem;}
-.obs-saved{font-size:11px;color:var(--muted);}
-.btn-save-obs{background:var(--amber);color:#000;border:none;padding:4px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
-/* Entries viewer */
-.entries-viewer{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
-.ev-head{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;margin-bottom:0;}
-.ev-body{display:none;margin-top:1rem;}
+:root{
+  --bg:#f7f6f3;--surface:#fff;--surface2:#f0eeea;--surface3:#faf9f7;
+  --border:#e5e2dc;--border2:#ede9e4;
+  --txt:#1c1917;--txt2:#57534e;--txt3:#a8a29e;
+  --orange:#ea580c;--orange2:#c2410c;--orange-light:#fff7ed;--orange-soft:#fef3e8;
+  --green:#059669;--green-light:#ecfdf5;
+  --amber:#d97706;--amber-light:#fffbeb;
+  --red:#dc2626;--red-light:#fef2f2;
+  --purple:#7c3aed;
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;font-size:14px;line-height:1.5;}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  height:54px;display:flex;align-items:center;padding:0 2rem;
+  position:sticky;top:0;z-index:50;
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-mark{
+  width:28px;height:28px;border-radius:6px;background:var(--orange);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:700;font-size:.7rem;letter-spacing:.02em;
+}
+.brand-name{font-weight:600;font-size:.88rem;color:var(--txt);}
+.brand-sep{width:1px;height:16px;background:var(--border);margin:0 .75rem;}
+.brand-sub{font-size:.75rem;color:var(--txt3);}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:1.25rem;}
+.live-chip{
+  display:flex;align-items:center;gap:5px;
+  font-size:.68rem;font-weight:600;letter-spacing:.07em;color:var(--green);
+  background:var(--green-light);padding:3px 9px;border-radius:20px;
+}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+.topbar-greeting{font-size:.78rem;color:var(--txt3);}
+
+/* ── TABS ── */
+.tabs{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:0 2rem;display:flex;overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  padding:14px 16px;font-size:.78rem;font-weight:500;color:var(--txt3);
+  cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;
+  transition:all .15s;display:flex;align-items:center;gap:5px;flex-shrink:0;
+}
+.tab:hover{color:var(--txt2);}
+.tab.active{color:var(--orange);border-bottom-color:var(--orange);font-weight:600;}
+.tab-badge{
+  background:var(--amber);color:#fff;
+  font-size:9px;font-weight:700;padding:1px 5px;border-radius:8px;
+}
+
+.panel{display:none;}.panel.active{display:block;}
+.content{max-width:1180px;margin:0 auto;padding:2rem;}
+
+/* ── WELCOME BANNER ── */
+.welcome{
+  background:linear-gradient(135deg,var(--orange-soft) 0%,#fff 60%);
+  border:1px solid var(--border2);border-radius:12px;
+  padding:1.25rem 1.5rem;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.welcome-txt h2{font-size:1rem;font-weight:600;color:var(--txt);margin-bottom:2px;}
+.welcome-txt p{font-size:.78rem;color:var(--txt2);line-height:1.5;}
+
+/* ── STAT CARDS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.75rem;margin-bottom:1.75rem;}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:1.1rem 1.25rem;position:relative;overflow:hidden;
+}
+.stat-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:10px 10px 0 0;
+}
+.stat-card.s-green::after{background:var(--green);}
+.stat-card.s-amber::after{background:var(--amber);}
+.stat-card.s-orange::after{background:var(--orange);}
+.stat-card.s-muted::after{background:var(--border);}
+.stat-label{font-size:.65rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--txt3);margin-bottom:.5rem;}
+.stat-value{font-size:1.9rem;font-weight:700;line-height:1;letter-spacing:-.025em;margin-bottom:.2rem;}
+.stat-sub{font-size:.72rem;color:var(--txt3);}
+
+/* ── SEC TITLE ── */
+.sec-hdr{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;}
+.sec-title{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);}
+.sec-line{flex:1;height:1px;background:var(--border);}
+
+/* ── TEAM CARDS ── */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.875rem;margin-bottom:2rem;}
+.tc{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:1.25rem;text-decoration:none;color:var(--txt);display:block;
+  transition:all .2s;position:relative;
+}
+.tc:hover{box-shadow:0 6px 20px rgba(0,0,0,.07);transform:translateY(-1px);border-color:var(--border2);}
+.tc-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:.875rem;}
+.tc-av{
+  width:38px;height:38px;border-radius:10px;
+  color:#fff;font-size:.7rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  letter-spacing:.02em;
+}
+.tc-name{font-weight:600;font-size:.88rem;line-height:1.2;}
+.tc-role{font-size:.68rem;color:var(--txt3);margin-top:2px;line-height:1.3;}
+.tc-sem-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;}
+.sem-btn{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:.65rem;font-weight:600;padding:3px 8px;border-radius:20px;
+  border:none;cursor:pointer;font-family:inherit;transition:all .15s;
+}
+.sem-btn.verde{background:var(--green-light);color:var(--green);}
+.sem-btn.amarelo{background:var(--amber-light);color:var(--amber);}
+.sem-btn.vermelho{background:var(--red-light);color:var(--red);}
+.sem-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.sem-btn.verde .sem-dot{background:var(--green);}
+.sem-btn.amarelo .sem-dot{background:var(--amber);}
+.sem-btn.vermelho .sem-dot{background:var(--red);}
+.tc-nota-input{
+  font-size:.7rem;color:var(--txt3);font-family:inherit;font-style:italic;
+  border:none;background:transparent;width:100%;outline:none;cursor:text;
+  padding:0;
+}
+.tc-nota-input::placeholder{color:var(--txt3);}
+.tc-prog{background:var(--surface2);border-radius:2px;height:3px;margin-bottom:.75rem;overflow:hidden;}
+.tc-prog-bar{height:3px;border-radius:2px;transition:width .6s;}
+.tc-foot{display:flex;align-items:center;font-size:.72rem;gap:.4rem;flex-wrap:wrap;}
+.tc-done{font-weight:600;}
+.tc-pend{color:var(--amber);font-weight:500;}
+.tc-total{color:var(--txt3);margin-left:auto;}
+
+/* ── CHART ── */
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem;}
+.chart-ttl{font-size:.7rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--txt3);margin-bottom:1.25rem;}
+.bar-wrap{display:flex;align-items:flex-end;gap:8px;height:150px;}
+.bc{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+.bc-pct{font-size:.72rem;font-weight:700;letter-spacing:-.01em;}
+.bc-stack{width:100%;display:flex;flex-direction:column;justify-content:flex-end;height:110px;border-radius:4px;overflow:hidden;gap:1px;}
+.bc-done{width:100%;border-radius:4px;transition:height .6s;}
+.bc-pend{width:100%;opacity:.25;}
+.bc-name{font-size:.62rem;color:var(--txt3);font-weight:500;text-align:center;}
+.bc-n{font-size:.62rem;color:var(--txt3);}
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:.875rem;}
+.prog-av{width:24px;height:24px;border-radius:6px;color:#fff;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prog-info{flex:1;}
+.prog-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;font-size:.78rem;}
+.prog-nm{font-weight:500;}
+.prog-pct{font-weight:700;font-size:.72rem;}
+.prog-bar{background:var(--surface2);border-radius:2px;height:4px;overflow:hidden;}
+.prog-fill{height:4px;border-radius:2px;transition:width .6s;}
+
+/* ── WEEKLY ── */
+.weekly-new{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;margin-bottom:1.5rem;
+}
+.weekly-new-hdr{
+  background:var(--orange-soft);border-bottom:1px solid var(--border2);
+  padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;
+}
+.weekly-new-hdr-icon{
+  width:32px;height:32px;border-radius:8px;background:var(--orange);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:#fff;font-size:.9rem;
+}
+.weekly-new-hdr-txt h3{font-size:.88rem;font-weight:600;color:var(--txt);}
+.weekly-new-hdr-txt p{font-size:.7rem;color:var(--txt2);margin-top:1px;}
+.weekly-new-body{padding:1.25rem;}
+.wk-date-row{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;}
+.wk-date-lbl{font-size:.72rem;font-weight:600;color:var(--txt2);white-space:nowrap;}
+.wk-date-input{
+  background:var(--surface2);border:1px solid var(--border);color:var(--txt);
+  padding:6px 10px;border-radius:7px;font-size:.8rem;font-family:inherit;outline:none;
+}
+.wk-date-input:focus{border-color:var(--orange);}
+.wk-blocks{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;}
+@media(max-width:640px){.wk-blocks{grid-template-columns:1fr;}}
+.wk-block{background:var(--surface3);border:1px solid var(--border2);border-radius:8px;padding:.875rem;}
+.wk-block-hdr{display:flex;align-items:center;gap:6px;margin-bottom:.5rem;}
+.wk-block-emoji{font-size:.9rem;}
+.wk-block-lbl{font-size:.7rem;font-weight:600;color:var(--txt2);}
+.wk-block-ta{
+  width:100%;background:transparent;border:none;color:var(--txt);
+  font-size:.8rem;font-family:inherit;resize:vertical;min-height:70px;
+  outline:none;line-height:1.55;
+}
+.wk-block-ta::placeholder{color:var(--txt3);font-style:italic;}
+.weekly-new-foot{
+  padding:.875rem 1.25rem;border-top:1px solid var(--border2);
+  display:flex;align-items:center;gap:.75rem;justify-content:flex-end;
+  background:var(--surface3);
+}
+.btn-wk-save{
+  background:var(--surface);border:1px solid var(--border);color:var(--txt2);
+  padding:7px 16px;border-radius:7px;font-size:.78rem;font-weight:500;
+  cursor:pointer;font-family:inherit;
+}
+.btn-wk-notify{
+  background:var(--orange);color:#fff;border:none;
+  padding:7px 18px;border-radius:7px;font-size:.78rem;font-weight:600;
+  cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;
+}
+.btn-wk-notify:hover{background:var(--orange2);}
+.wk-saved{font-size:.72rem;color:var(--green);opacity:0;transition:opacity .3s;margin-right:auto;}
+.wk-saved.show{opacity:1;}
+
+.weekly-hist-title{font-size:.7rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--txt3);margin-bottom:.875rem;}
+.wk-hist-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  margin-bottom:.625rem;overflow:hidden;
+}
+.wk-hist-hdr{
+  display:flex;align-items:center;gap:.75rem;padding:.875rem 1rem;cursor:pointer;
+  user-select:none;
+}
+.wk-hist-date{
+  font-size:.78rem;font-weight:600;color:var(--txt);
+}
+.wk-hist-preview{font-size:.72rem;color:var(--txt3);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.wk-hist-body{display:none;border-top:1px solid var(--border);padding:.875rem 1rem;}
+.wk-hist-body.open{display:block;}
+.wk-block-view{margin-bottom:.75rem;}
+.wk-block-view:last-child{margin-bottom:0;}
+.wk-block-view-lbl{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);margin-bottom:.25rem;display:flex;align-items:center;gap:5px;}
+.wk-block-view-txt{font-size:.8rem;color:var(--txt2);white-space:pre-wrap;line-height:1.5;}
+
+/* ── ENTRIES ── */
+.ev-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.1rem;margin-bottom:.625rem;}
+.ev-head{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
+.ev-body{display:none;margin-top:.875rem;border-top:1px solid var(--border);padding-top:.75rem;}
 .ev-body.open{display:block;}
-.ev-task-row{border-bottom:1px solid var(--bdr);padding:.75rem 0;}
-.ev-task-row:last-child{border-bottom:none;}
-.ev-task-lbl{font-size:13px;font-weight:500;color:var(--txt);margin-bottom:.4rem;}
-.ev-entries{display:flex;flex-direction:column;gap:4px;margin-left:1rem;}
-.ev-entry{background:var(--sur2);border-radius:6px;padding:8px 10px;}
-.ev-entry-text{font-size:12px;color:var(--txt);line-height:1.4;white-space:pre-wrap;}
-.ev-entry-date{font-size:11px;color:var(--muted);margin-top:3px;}
-/* Approvals */
-.ap-card{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem;margin-bottom:1rem;}
-.ap-hdr{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;}
-.ap-av{width:34px;height:34px;border-radius:50%;color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ap-time{font-size:11px;color:var(--muted);margin-left:auto;}
-.ap-task{font-size:14px;font-weight:600;margin-bottom:.5rem;}
-.ap-how{font-size:13px;color:var(--muted);background:var(--sur2);border-radius:8px;padding:.75rem;margin-bottom:.75rem;line-height:1.5;white-space:pre-wrap;}
-.ap-acts{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;}
-.btn-approve{background:var(--green);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
-.btn-return{background:transparent;border:1px solid var(--bdr);color:var(--txt);padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer;}
-.ret-input{flex:1;min-width:200px;background:var(--sur2);border:1px solid var(--bdr);color:var(--txt);padding:8px 12px;border-radius:8px;font-size:13px;font-family:inherit;outline:none;}
-.empty{text-align:center;padding:3rem;color:var(--muted);}
-/* History */
-.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
-.fbtn{background:var(--sur2);border:1px solid var(--bdr);color:var(--muted);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;}
-.fbtn.active{background:var(--green);border-color:var(--green);color:#fff;font-weight:600;}
-.hist-card{background:var(--sur);border:1px solid var(--bdr);border-radius:10px;padding:1rem;margin-bottom:.75rem;display:flex;gap:1rem;}
-.hist-av{width:30px;height:30px;border-radius:50%;color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ev-task-row{padding:.5rem 0;border-bottom:1px solid var(--border);}
+.ev-task-row:last-child{border-bottom:none;padding-bottom:0;}
+.ev-task-lbl{font-size:.8rem;font-weight:500;color:var(--txt);margin-bottom:.3rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.ev-chip{font-size:.62rem;font-weight:600;padding:1px 6px;border-radius:8px;}
+.ev-chip.aprovada{background:var(--green-light);color:var(--green);}
+.ev-chip.aguardando{background:var(--amber-light);color:var(--amber);}
+.ev-entries{display:flex;flex-direction:column;gap:3px;margin-left:.5rem;margin-top:.25rem;}
+.ev-entry{background:var(--surface2);border-radius:6px;padding:7px 10px;}
+.ev-entry-txt{font-size:.76rem;color:var(--txt2);line-height:1.45;white-space:pre-wrap;}
+.ev-entry-date{font-size:.62rem;color:var(--txt3);margin-top:2px;}
+
+/* ── FORM CARDS (dates/obs) ── */
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.1rem;margin-bottom:.625rem;}
+.form-head{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
+.form-body{display:none;margin-top:.875rem;border-top:1px solid var(--border);padding-top:.75rem;}
+.form-body.open{display:block;}
+.date-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:.5rem;}
+.date-item{background:var(--surface2);border-radius:7px;padding:.7rem;}
+.date-item-lbl{font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--txt3);margin-bottom:.35rem;}
+.date-input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--txt);padding:5px 8px;border-radius:5px;font-size:.78rem;outline:none;font-family:inherit;}
+.date-input:focus{border-color:var(--orange);}
+.obs-row{padding:.55rem 0;border-bottom:1px solid var(--border);}
+.obs-row:last-child{border-bottom:none;padding-bottom:0;}
+.obs-lbl{font-size:.78rem;font-weight:500;color:var(--txt2);margin-bottom:.25rem;}
+.obs-lbl span{font-size:.62rem;color:var(--txt3);margin-right:3px;}
+.obs-ta{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--txt);padding:6px 9px;border-radius:6px;font-size:.78rem;font-family:inherit;resize:vertical;min-height:48px;outline:none;}
+.obs-ta:focus{border-color:var(--orange);}
+.obs-foot{display:flex;justify-content:flex-end;align-items:center;gap:.5rem;margin-top:.25rem;}
+.obs-saved{font-size:.62rem;color:var(--txt3);}
+.btn-save-obs{background:var(--orange);color:#fff;border:none;padding:3px 11px;border-radius:5px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-save-dates{margin-top:.875rem;background:var(--orange);color:#fff;border:none;padding:7px 18px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;}
+.save-ok{font-size:.72rem;color:var(--green);margin-left:.75rem;opacity:0;transition:opacity .3s;}
+.save-ok.show{opacity:1;}
+.marco-lbl-sec{font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.5rem 0 .2rem;margin-top:.25rem;}
+
+/* ── APPROVALS ── */
+.ap-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:1.1rem;margin-bottom:.625rem;border-left:3px solid var(--orange);
+}
+.ap-hdr{display:flex;align-items:center;gap:8px;margin-bottom:.625rem;}
+.ap-av{width:30px;height:30px;border-radius:7px;color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ap-name{font-weight:600;font-size:.85rem;}
+.ap-role{font-size:.68rem;color:var(--txt3);}
+.ap-time{font-size:.68rem;color:var(--txt3);margin-left:auto;}
+.ap-task{font-size:.9rem;font-weight:600;margin-bottom:.5rem;}
+.ap-entries-lbl{font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);margin-bottom:.3rem;}
+.ap-entry-item{background:var(--surface2);border-radius:6px;padding:6px 9px;margin-bottom:3px;font-size:.76rem;color:var(--txt2);line-height:1.4;white-space:pre-wrap;}
+.ap-entry-date{font-size:.62rem;color:var(--txt3);margin-top:2px;}
+.ap-how{font-size:.8rem;color:var(--txt2);background:var(--surface2);border-radius:6px;padding:.65rem;margin-bottom:.625rem;line-height:1.5;white-space:pre-wrap;}
+.ap-acts{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;}
+.btn-approve{background:var(--green);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:.76rem;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-return{background:transparent;border:1px solid var(--border);color:var(--txt2);padding:6px 14px;border-radius:6px;font-size:.76rem;cursor:pointer;font-family:inherit;}
+.ret-input{flex:1;min-width:140px;background:var(--surface2);border:1px solid var(--border);color:var(--txt);padding:6px 9px;border-radius:6px;font-size:.76rem;font-family:inherit;outline:none;}
+.ret-input:focus{border-color:var(--orange);}
+
+/* ── HISTORY ── */
+.filter-bar{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:1rem;}
+.fbtn{background:var(--surface);border:1px solid var(--border);color:var(--txt3);padding:4px 11px;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:inherit;transition:all .15s;}
+.fbtn.active{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:600;}
+.hist-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.8rem .9rem;margin-bottom:.4rem;display:flex;gap:.75rem;align-items:flex-start;}
+.hist-av{width:26px;height:26px;border-radius:5px;color:#fff;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .hist-main{flex:1;min-width:0;}
-.hist-task{font-size:13px;font-weight:600;margin-bottom:3px;}
-.hist-how{font-size:12px;color:var(--muted);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hist-task{font-size:.78rem;font-weight:600;margin-bottom:2px;}
+.hist-how{font-size:.72rem;color:var(--txt3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .hist-rt{text-align:right;flex-shrink:0;}
-.hist-chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;}
-.hist-chip.aprovada{background:#dcfff6;color:#00795e;}
-.hist-chip.devolvida{background:#fff0e8;color:#a04010;}
-.hist-date{font-size:11px;color:var(--muted);margin-top:4px;}
-footer{text-align:center;padding:2rem;font-size:12px;color:var(--muted);border-top:1px solid var(--bdr);margin-top:2rem;}
-@media(max-width:600px){.panel{padding:1rem;}.tabs{padding:0 1rem;}.chart-bars{gap:.5rem;}}
+.hist-chip{font-size:.62rem;font-weight:600;padding:1px 6px;border-radius:7px;}
+.hist-chip.aprovada{background:var(--green-light);color:var(--green);}
+.hist-chip.devolvida{background:var(--red-light);color:var(--red);}
+.hist-date{font-size:.62rem;color:var(--txt3);margin-top:3px;}
+
+/* ── NOTIFY ── */
+.notify-intro{font-size:.8rem;color:var(--txt2);line-height:1.6;margin-bottom:1.1rem;padding:.875rem;background:var(--orange-soft);border:1px solid var(--border2);border-radius:8px;}
+.notify-row{display:flex;align-items:center;gap:.875rem;padding:.75rem 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.notify-row:last-child{border-bottom:none;}
+.notify-info{flex:1;min-width:160px;}
+.notify-name{font-size:.85rem;font-weight:600;margin-bottom:2px;}
+.notify-email-input{
+  background:var(--surface2);border:1px solid var(--border);color:var(--txt);
+  padding:5px 9px;border-radius:6px;font-size:.76rem;font-family:inherit;outline:none;width:200px;
+}
+.notify-email-input:focus{border-color:var(--orange);}
+.notify-toggles{display:flex;gap:.3rem;flex-wrap:wrap;}
+.tog-chip{
+  font-size:.65rem;font-weight:600;padding:3px 8px;border-radius:9px;
+  border:1px solid var(--border);cursor:pointer;background:var(--surface2);
+  color:var(--txt3);font-family:inherit;transition:all .15s;
+}
+.tog-chip.on{background:var(--orange-soft);border-color:var(--orange);color:var(--orange);}
+.btn-save-notify{background:var(--orange);color:#fff;border:none;padding:7px 18px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;margin-top:.875rem;font-family:inherit;}
+
+.empty{text-align:center;padding:3rem;color:var(--txt3);font-size:.82rem;}
+footer{text-align:center;padding:1.75rem 2rem;font-size:.65rem;color:var(--txt3);border-top:1px solid var(--border);letter-spacing:.06em;}
+@media(max-width:640px){
+  .content{padding:1rem;}
+  .tabs{padding:0 1rem;}
+  .topbar{padding:0 1rem;gap:.75rem;}
+  .brand-sub{display:none;}
+  .bar-wrap{gap:5px;}
+  .wk-blocks{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
-<header class="ph"><div class="ph-org">Orange Viagens</div><span style="color:var(--muted)">Dashboard · Dhayane Albiero</span></header>
-<div class="hero"><div class="hero-in">
-  <h1>Dashboard de acompanhamento</h1>
-  <div class="hero-sub">Plano 18 meses · 6 times · Orange Viagens · Março 2026</div>
-  <div class="hstats">
-    <div><div class="hv amber" id="gs-pend">—</div><div class="hl">Aguardando</div></div>
-    <div><div class="hv" style="color:var(--red)" id="gs-part">—</div><div class="hl">Parciais</div></div>
-    <div><div class="hv green" id="gs-done">—</div><div class="hl">Aprovadas</div></div>
-    <div><div class="hv muted" id="gs-total">—</div><div class="hl">Total</div></div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">OV</div>
+    <div class="brand-name">Orange Viagens</div>
+    <div class="brand-sep"></div>
+    <div class="brand-sub">Operações & Produtos</div>
   </div>
-</div></div>
-<div class="tabs">
-  <div class="tab active" onclick="showTab('overview',this)">Visão geral</div>
+  <div class="topbar-right">
+    <div class="live-chip"><div class="live-dot"></div>ao vivo</div>
+    <div class="topbar-greeting" id="topbar-greeting"></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tab active" onclick="showTab('overview',this)">Visão Geral</div>
   <div class="tab" onclick="showTab('chart',this)">Desempenho</div>
-  <div class="tab" onclick="showTab('entries',this)">Anotações do time</div>
-  <div class="tab" onclick="showTab('dates',this)">Datas dos marcos</div>
-  <div class="tab" onclick="showTab('obs',this)">Observações por tarefa</div>
-  <div class="tab" onclick="showTab('approvals',this)">Aprovações <span class="bdg" id="bdg-pend" style="display:none">0</span></div>
+  <div class="tab" onclick="showTab('weekly',this)">Weekly</div>
+  <div class="tab" onclick="showTab('entries',this)">Anotações</div>
+  <div class="tab" onclick="showTab('dates',this)">Datas dos Marcos</div>
+  <div class="tab" onclick="showTab('obs',this)">Observações</div>
+  <div class="tab" onclick="showTab('approvals',this)">Aprovações <span class="tab-badge" id="bdg-pend" style="display:none">0</span></div>
   <div class="tab" onclick="showTab('history',this)">Histórico</div>
+  <div class="tab" onclick="showTab('notify',this)">Notificações</div>
+</nav>
+
+<!-- VISÃO GERAL -->
+<div class="panel active" id="panel-overview">
+  <div class="content">
+    <div class="welcome" id="welcome-banner">
+      <div style="font-size:1.5rem">🧡</div>
+      <div class="welcome-txt">
+        <h2 id="welcome-title">Bom dia, Dhayane!</h2>
+        <p id="welcome-msg">Aqui está o resumo do seu time hoje. Cada coordenadora está avançando no próprio ritmo — e você está presente em cada passo.</p>
+      </div>
+    </div>
+    <div class="stat-grid" id="stat-grid"></div>
+    <div class="sec-hdr"><div class="sec-title">Seu time</div><div class="sec-line"></div></div>
+    <div class="team-grid" id="team-grid"></div>
+  </div>
 </div>
 
-<div class="panel active" id="panel-overview"><div class="team-grid" id="team-grid"></div></div>
-
+<!-- DESEMPENHO -->
 <div class="panel" id="panel-chart">
-  <div class="chart-section">
-    <div class="chart-title">Desempenho individual — tarefas aprovadas vs total</div>
-    <div class="chart-wrap">
-      <div class="chart-bars" id="chart-bars"></div>
-      <div class="chart-legend">
-        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--green)"></div>Aprovadas</div>
-        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--amber);opacity:.5"></div>Aguardando</div>
+  <div class="content">
+    <div class="chart-card">
+      <div class="chart-ttl">Tarefas aprovadas por coordenadora</div>
+      <div class="bar-wrap" id="chart-bars"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-ttl">Progresso individual no plano</div>
+      <div id="progress-bars"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WEEKLY -->
+<div class="panel" id="panel-weekly">
+  <div class="content">
+
+    <div class="weekly-new">
+      <div class="weekly-new-hdr">
+        <div class="weekly-new-hdr-icon">📋</div>
+        <div class="weekly-new-hdr-txt">
+          <h3>Registrar Weekly Review</h3>
+          <p>4 blocos · Resultados · Bloqueios · Destaques · Ações</p>
+        </div>
+      </div>
+      <div class="weekly-new-body">
+        <div class="wk-date-row">
+          <div class="wk-date-lbl">Semana de</div>
+          <input type="date" id="weekly-date" class="wk-date-input">
+        </div>
+        <div class="wk-blocks">
+          <div class="wk-block">
+            <div class="wk-block-hdr"><span class="wk-block-emoji">📊</span><span class="wk-block-lbl">Resultados da semana</span></div>
+            <textarea class="wk-block-ta" id="wr-resultados" placeholder="Como foram os indicadores? O que se destacou?"></textarea>
+          </div>
+          <div class="wk-block">
+            <div class="wk-block-hdr"><span class="wk-block-emoji">🚧</span><span class="wk-block-lbl">Bloqueios e riscos</span></div>
+            <textarea class="wk-block-ta" id="wr-bloqueios" placeholder="O que está travando? Quais riscos identificados?"></textarea>
+          </div>
+          <div class="wk-block">
+            <div class="wk-block-hdr"><span class="wk-block-emoji">⭐</span><span class="wk-block-lbl">Destaques de pessoas</span></div>
+            <textarea class="wk-block-ta" id="wr-destaques" placeholder="Quem se destacou? O que merece reconhecimento?"></textarea>
+          </div>
+          <div class="wk-block">
+            <div class="wk-block-hdr"><span class="wk-block-emoji">✅</span><span class="wk-block-lbl">Ações da próxima semana</span></div>
+            <textarea class="wk-block-ta" id="wr-acoes" placeholder="Quais as prioridades? Quem é o dono de cada ação?"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="weekly-new-foot">
+        <span class="wk-saved" id="wk-saved">Salvo ✓</span>
+        <button class="btn-wk-save" onclick="saveWeekly()">Salvar rascunho</button>
+        <button class="btn-wk-notify" onclick="saveAndNotifyWeekly()">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2"/></svg>
+          Salvar e notificar time
+        </button>
+      </div>
+    </div>
+
+    <div class="weekly-hist-title">Histórico de weeklys</div>
+    <div id="weekly-hist"></div>
+  </div>
+</div>
+
+<!-- ANOTAÇÕES -->
+<div class="panel" id="panel-entries">
+  <div class="content">
+    <div class="sec-hdr"><div class="sec-title">Anotações do time</div><div class="sec-line"></div></div>
+    <div id="entries-list"></div>
+  </div>
+</div>
+
+<!-- DATAS -->
+<div class="panel" id="panel-dates">
+  <div class="content">
+    <div class="sec-hdr"><div class="sec-title">Datas dos marcos</div><div class="sec-line"></div></div>
+    <div id="dates-ed"></div>
+    <button class="btn-save-dates" onclick="saveDates()">Salvar datas</button>
+    <span class="save-ok" id="dates-ok">Salvo ✓</span>
+  </div>
+</div>
+
+<!-- OBSERVAÇÕES -->
+<div class="panel" id="panel-obs">
+  <div class="content">
+    <div class="sec-hdr"><div class="sec-title">Observações por tarefa</div><div class="sec-line"></div></div>
+    <p style="font-size:.78rem;color:var(--txt2);margin-bottom:1.25rem;line-height:1.5;">Escreva uma observação vinculada a uma tarefa específica. Ela aparece diretamente para a coordenadora na página dela, com destaque especial.</p>
+    <div id="obs-ed"></div>
+  </div>
+</div>
+
+<!-- APROVAÇÕES -->
+<div class="panel" id="panel-approvals">
+  <div class="content"><div id="ap-list"></div></div>
+</div>
+
+<!-- HISTÓRICO -->
+<div class="panel" id="panel-history">
+  <div class="content">
+    <div class="filter-bar">
+      <button class="fbtn active" onclick="setFilter('all',this)">Todas</button>
+      <button class="fbtn" onclick="setFilter('aprovada',this)">Aprovadas</button>
+      <button class="fbtn" onclick="setFilter('devolvida',this)">Devolvidas</button>
+      <button class="fbtn" onclick="setFilter('katharine',this)">Katharine</button>
+      <button class="fbtn" onclick="setFilter('roberta',this)">Roberta</button>
+      <button class="fbtn" onclick="setFilter('rafaella',this)">Rafaella</button>
+      <button class="fbtn" onclick="setFilter('laura',this)">Laura</button>
+      <button class="fbtn" onclick="setFilter('beatriz',this)">Beatriz</button>
+      <button class="fbtn" onclick="setFilter('michelle',this)">Michelle</button>
+    </div>
+    <div id="hist-list"></div>
+  </div>
+</div>
+
+<!-- NOTIFICAÇÕES -->
+<div class="panel" id="panel-notify">
+  <div class="content">
+    <div class="sec-hdr"><div class="sec-title">Configurar notificações</div><div class="sec-line"></div></div>
+    <div class="form-card">
+      <div class="notify-intro">
+        Configure o e-mail de cada coordenadora e escolha quais notificações ela recebe.
+        As notificações são enviadas automaticamente quando você adiciona uma observação, salva uma Weekly ou aprova/devolve uma tarefa. 🧡
+      </div>
+      <div id="notify-list"></div>
+      <button class="btn-save-notify" onclick="saveNotifyConfig()">Salvar configurações</button>
+      <span class="save-ok" id="notify-ok">Salvo ✓</span>
+    </div>
+    <div class="sec-hdr" style="margin-top:1.5rem;"><div class="sec-title">Testar envio</div><div class="sec-line"></div></div>
+    <div class="form-card">
+      <p style="font-size:.78rem;color:var(--txt2);margin-bottom:.75rem;">Envie um e-mail de teste para confirmar que as configurações estão funcionando.</p>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;">
+        <select id="test-team" style="background:var(--surface2);border:1px solid var(--border);color:var(--txt);padding:6px 10px;border-radius:6px;font-size:.78rem;font-family:inherit;outline:none;">
+          <option value="katharine">Katharine</option>
+          <option value="roberta">Roberta</option>
+          <option value="rafaella">Rafaella</option>
+          <option value="laura">Laura</option>
+          <option value="beatriz">Beatriz</option>
+          <option value="michelle">Michelle</option>
+        </select>
+        <button class="btn-save-dates" style="margin-top:0;" onclick="sendTestEmail()">Enviar teste</button>
+        <span class="save-ok" id="test-ok">Enviado ✓</span>
       </div>
     </div>
   </div>
-  <div class="chart-section">
-    <div class="chart-title">Progresso por coordenadora (%)</div>
-    <div class="chart-wrap" id="progress-bars"></div>
-  </div>
 </div>
 
-<div class="panel" id="panel-entries">
-  <div class="stitle">Anotações do time</div>
-  <div class="sdesc">Todas as anotações registradas pelas coordenadoras, organizadas por tarefa. Visíveis aqui após a conclusão.</div>
-  <div id="entries-viewer-list"></div>
-</div>
-
-<div class="panel" id="panel-dates">
-  <div class="stitle">Datas dos marcos</div>
-  <div class="sdesc">Defina as datas de início e conclusão de cada marco.</div>
-  <div id="dates-ed"></div>
-  <button class="btn-save-dates" onclick="saveDates()">Salvar todas as datas</button>
-  <span class="save-ok" id="dates-ok">Salvo ✓</span>
-</div>
-
-<div class="panel" id="panel-obs">
-  <div class="stitle">Observações por tarefa</div>
-  <div class="sdesc">Escreva observações vinculadas a tarefas específicas. Aparecem para a coordenadora dentro da tarefa.</div>
-  <div id="obs-ed"></div>
-</div>
-
-<div class="panel" id="panel-approvals"><div id="ap-list"></div></div>
-
-<div class="panel" id="panel-history">
-  <div class="filter-bar">
-    <button class="fbtn active" onclick="setFilter('all',this)">Todas</button>
-    <button class="fbtn" onclick="setFilter('aprovada',this)">Aprovadas</button>
-    <button class="fbtn" onclick="setFilter('devolvida',this)">Devolvidas</button>
-    <button class="fbtn" onclick="setFilter('katharine',this)">Katharine</button>
-    <button class="fbtn" onclick="setFilter('roberta',this)">Roberta</button>
-    <button class="fbtn" onclick="setFilter('rafaella',this)">Rafaella</button>
-    <button class="fbtn" onclick="setFilter('laura',this)">Laura</button>
-    <button class="fbtn" onclick="setFilter('beatriz',this)">Beatriz</button>
-    <button class="fbtn" onclick="setFilter('michelle',this)">Michelle</button>
-  </div>
-  <div id="hist-list"></div>
-</div>
-
-<footer>Orange Viagens · Dashboard confidencial · Março 2026</footer>
+<footer>ORANGE VIAGENS · PAINEL CONFIDENCIAL · <span id="footer-date"></span></footer>
 
 <script>
 const SB_URL='https://xyxjcbxmedkonyxafurf.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5eGpjYnhtZWRrb255eGFmdXJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTc0NzksImV4cCI6MjA5MTM5MzQ3OX0.7EDny-taTst3q4_iJP7frMyacmlpuZmqwoBrE0gRsRM';
-const TEAMS=[{"key": "katharine", "name": "Katharine", "role": "Operações", "initials": "KC", "color": "#00B894", "total": 25}, {"key": "roberta", "name": "Roberta", "role": "Treinamento & Qualidade", "initials": "RO", "color": "#6C5CE7", "total": 27}, {"key": "rafaella", "name": "Rafaella", "role": "Produtos Hoteleiros", "initials": "RR", "color": "#D63031", "total": 28}, {"key": "laura", "name": "Laura", "role": "Cruzeiros", "initials": "LA", "color": "#0984e3", "total": 28}, {"key": "beatriz", "name": "Beatriz", "role": "Club Med", "initials": "BE", "color": "#e84393", "total": 24}, {"key": "michelle", "name": "Michelle", "role": "Ingressos & Atrações", "initials": "MI", "color": "#f39c12", "total": 26}];
+const NOTIFY_URL='https://xyxjcbxmedkonyxafurf.supabase.co/functions/v1/send-notification';
+const TEAMS=[{"key": "katharine", "name": "Katharine", "role": "Operações", "initials": "KC", "color": "#00B894", "total": 25}, {"key": "roberta", "name": "Roberta", "role": "Treinamento & Qualidade", "initials": "RO", "color": "#6C5CE7", "total": 27}, {"key": "rafaella", "name": "Rafaella", "role": "Produtos Hoteleiros", "initials": "RR", "color": "#e17055", "total": 28}, {"key": "laura", "name": "Laura", "role": "Cruzeiros", "initials": "LA", "color": "#0984e3", "total": 28}, {"key": "beatriz", "name": "Beatriz", "role": "Club Med", "initials": "BE", "color": "#e84393", "total": 24}, {"key": "michelle", "name": "Michelle", "role": "Ingressos & Atrações", "initials": "MI", "color": "#f39c12", "total": 26}];
 const ALL_TASKS={"katharine": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9", "k10", "k11", "k12", "k13", "k14", "k15", "k16", "k17", "k18", "k19", "k20", "k21", "k22", "k23", "k24", "k25"], "roberta": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "r16", "r17", "r18", "r19", "r20", "r21", "r22", "r23", "r24", "r25", "r26", "r27"], "rafaella": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19", "p20", "p21", "p22", "p23", "p24", "p25", "p26", "p27", "p28"], "laura": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9", "l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18", "l19", "l20", "l21", "l22", "l23", "l24", "l25", "l26", "l27", "l28"], "beatriz": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "b10", "b11", "b12", "b13", "b14", "b15", "b16", "b17", "b18", "b19", "b20", "b21", "b22", "b23", "b24"], "michelle": ["mi1", "mi2", "mi3", "mi4", "mi5", "mi6", "mi7", "mi8", "mi9", "mi10", "mi11", "mi12", "mi13", "mi14", "mi15", "mi16", "mi17", "mi18", "mi19", "mi20", "mi21", "mi22", "mi23", "mi24", "mi25", "mi26"]};
-const TASK_LABELS={"k1": "Mapear processos operacionais (AS-IS)", "k2": "Dashboard v1 de SLA, erros e ciclo", "k3": "Baseline de KPIs", "k4": "Top 5 gargalos operacionais", "k5": "Documentar top 3 processos em playbook", "k6": "Tracking semanal de erros", "k7": "Liderança da rotina diária de Ops", "k8": "SLA ≥90% e erro ≤4%", "k9": "WBR semanal bloco 15 min", "k10": "Pós-mortem implantado", "k11": "Quality gate ativo", "k12": "Automações IA em Ops", "k13": "Ops 1 semana sem Dhayane", "k14": "SLA ≥92%, erro ≤3%", "k15": "80% autonomia operacional", "k16": "SLA ≥94%, erro ≤2,5%", "k17": "Custo/booking −15%", "k18": "Autonomia total", "k19": "Time 2 semanas sem Dhayane", "k20": "IA em uso ativo", "k21": "SLA ≥95%, erro ≤2%", "k22": "Custo/booking −20%", "k23": "Ops 100% autônoma", "k24": "Playbook completo", "k25": "IA como infraestrutura", "r1": "Mapear jornada de aprendizagem", "r2": "Perfil de competências por função", "r3": "Plano de treinamento v1", "r4": "NPS interno de treinamento", "r5": "Baseline de qualidade", "r6": "Checklist de qualidade por processo", "r7": "1ª sessão de treinamento", "r8": "SLA de resposta CS", "r9": "Onboarding com RH", "r10": "NPS treinamento ≥8", "r11": "Trilha de onboarding completa", "r12": "Quality score ≥80", "r13": "Programa de mentoria", "r14": "SLA de qualidade semanal", "r15": "IA assistindo treinamentos", "r16": "Academia interna v1", "r17": "NPS treinamento ≥9", "r18": "Quality score ≥85", "r19": "Certificação interna", "r20": "Líderes treinando com autonomia", "r21": "IA trilhas personalizadas", "r22": "Programa de reconhecimento", "r23": "Quality score ≥90", "r24": "Academia consolidada", "r25": "Desenvolvimento de lideranças", "r26": "ROI treinamento IA 3x", "r27": "Academia como ativo", "p1": "Portfólio hoteleiro completo", "p2": "Margem e volume por produto", "p3": "Top 3 e bottom 3 por margem", "p4": "Attach rate atual", "p5": "Funil de produto v1", "p6": "Critérios de priorização", "p7": "Oportunidades de bundle", "p8": "Gate review com Dhayane", "p9": "IA potencializando produtos", "p10": "Bundle hoteleiro gerando receita", "p11": "Attach rate +3pp", "p12": "Margem top 3 +5%", "p13": "Pipeline ≥3 itens", "p14": "Gate review mensal", "p15": "Produto com IA embarcada", "p16": "Produto hoteleiro novo", "p17": "Attach rate +7pp", "p18": "Margem top 3 +10%", "p19": "Pipeline ≥5 itens", "p20": "Produto killed", "p21": "Recomendação IA upsell", "p22": "Personalização IA", "p23": "Attach rate ≥25%", "p24": "Margem top 3 +15%", "p25": "≥2 produtos novos", "p26": "Precificação dinâmica IA", "p27": "Roadmap ano 2", "p28": "Portfólio autônomo", "l1": "12 produtos fichas técnicas 100%", "l2": "≥3 parceiros estratégicos", "l3": "Negociações fornecedores", "l4": "1º relatório inteligência de mercado", "l5": "Fluxos operacionais documentados", "l6": "1ª sessão capacitação", "l7": "Baseline receita cruzeiros", "l8": "Critérios grupos exclusivos", "l9": "Baseline KPIs com Dhayane", "l10": "20 produtos fichas 100%", "l11": "≥2 acordos formais", "l12": "≥5 parceiros mapeados", "l13": "Treinamentos mensais", "l14": "Base IA 25 artigos", "l15": "Relatórios mensais", "l16": "+15% receita trimestre", "l17": "≥70% portfólio com venda", "l18": "Decisão comercial do relatório", "l19": "Contrato longo prazo", "l20": "≥1 grupo exclusivo operado", "l21": "Base IA 40 artigos", "l22": "Redução dúvidas IA 30%", "l23": "Processos documentados", "l24": "Portfólio atualizado ≥90%", "l25": "Escopo autônomo", "l26": "≥2 grupos/ano", "l27": "Ticket médio crescente", "l28": "Crescimento sustentado", "b1": "Histórico vendas Club Med", "b2": "Material existente levantado", "b3": "Perfil cliente Club Med", "b4": "Dashboard KPIs", "b5": "Alinhamento áreas", "b6": "Calendário editorial", "b7": "Alinhamento marketing vitrine", "b8": "Scripts de venda atualizados", "b9": "Contato representante Club Med", "b10": "Conteúdo redes sociais", "b11": "Campanha segmentada famílias", "b12": "Ativação time comercial", "b13": "Materiais de venda", "b14": "Reuniões com prospects", "b15": "Depoimentos publicados", "b16": "Pacotes curados por perfil", "b17": "Meta R$ 300k/mês", "b18": "Meta R$ 1MM/mês", "b19": "Programa de indicações", "b20": "Presença em eventos", "b21": "Parcerias influenciadores", "b22": "Base de prospects", "b23": "Revisão trimestral", "b24": "Top of mind Club Med", "mi1": "30+ atrações fichas técnicas", "mi2": "8+ parceiros estratégicos", "mi3": "Negociações fornecedores", "mi4": "1º relatório inteligência", "mi5": "Catálogo disponível", "mi6": "Baseline receita", "mi7": "1ª sessão capacitação", "mi8": "Base IA artigos iniciais", "mi9": "Baseline KPIs Dhayane", "mi10": "≥3 acordos formais", "mi11": "Treinamentos mensais", "mi12": "Base IA 40+ artigos", "mi13": "Redução dúvidas IA 30%", "mi14": "Produtos exclusivos lançados", "mi15": "Portfólio atualizado ≥90%", "mi16": "+15% receita trimestre", "mi17": "≥70% portfólio com venda", "mi18": "Contrato longo prazo", "mi19": "≥2 experiências exclusivas", "mi20": "Portfólio ≥3 destinos internacionais", "mi21": "Ticket médio crescente", "mi22": "Desconto 12–18%", "mi23": "Escopo autônomo", "mi24": "≥2 exclusivas/ano", "mi25": "Crescimento sustentado", "mi26": "Referência ingressos & atrações"};
+const TASK_LABELS={"k1": "Mapear processos operacionais (AS-IS)", "k2": "Dashboard v1 SLA, erros e ciclo", "k3": "Baseline de KPIs", "k4": "Top 5 gargalos operacionais", "k5": "Top 3 processos em playbook", "k6": "Tracking semanal de erros", "k7": "Liderança da rotina diária", "k8": "SLA ≥90% e erro ≤4%", "k9": "WBR semanal 15 min", "k10": "Pós-mortem implantado", "k11": "Quality gate ativo", "k12": "Automações IA em Ops", "k13": "Ops 1 semana sem Dhayane", "k14": "SLA ≥92%, erro ≤3%", "k15": "80% autonomia operacional", "k16": "SLA ≥94%, erro ≤2,5%", "k17": "Custo/booking −15%", "k18": "Autonomia total", "k19": "Time 2 semanas sem Dhayane", "k20": "IA em uso ativo", "k21": "SLA ≥95%, erro ≤2%", "k22": "Custo/booking −20%", "k23": "Ops 100% autônoma", "k24": "Playbook completo", "k25": "IA como infraestrutura", "r1": "Mapear jornada de aprendizagem", "r2": "Perfil de competências por função", "r3": "Plano de treinamento v1", "r4": "NPS interno", "r5": "Baseline de qualidade", "r6": "Checklist de qualidade", "r7": "1ª sessão de treinamento", "r8": "SLA de resposta CS", "r9": "Onboarding com RH", "r10": "NPS treinamento ≥8", "r11": "Trilha onboarding completa", "r12": "Quality score ≥80", "r13": "Programa de mentoria", "r14": "SLA qualidade semanal", "r15": "IA assistindo treinamentos", "r16": "Academia interna v1", "r17": "NPS treinamento ≥9", "r18": "Quality score ≥85", "r19": "Certificação interna", "r20": "Líderes treinando com autonomia", "r21": "IA trilhas personalizadas", "r22": "Programa de reconhecimento", "r23": "Quality score ≥90", "r24": "Academia consolidada", "r25": "Desenvolvimento de lideranças", "r26": "ROI treinamento IA 3x", "r27": "Academia como ativo", "p1": "Portfólio hoteleiro completo", "p2": "Margem e volume por produto", "p3": "Top 3 e bottom 3 margem", "p4": "Attach rate atual", "p5": "Funil de produto v1", "p6": "Critérios de priorização", "p7": "Oportunidades de bundle", "p8": "Gate review com Dhayane", "p9": "IA potencializando produtos", "p10": "Bundle hoteleiro gerando receita", "p11": "Attach rate +3pp", "p12": "Margem top 3 +5%", "p13": "Pipeline ≥3 itens", "p14": "Gate review mensal", "p15": "Produto com IA embarcada", "p16": "Produto hoteleiro novo", "p17": "Attach rate +7pp", "p18": "Margem top 3 +10%", "p19": "Pipeline ≥5 itens", "p20": "Produto killed", "p21": "Recomendação IA upsell", "p22": "Personalização IA", "p23": "Attach rate ≥25%", "p24": "Margem top 3 +15%", "p25": "≥2 produtos novos", "p26": "Precificação dinâmica IA", "p27": "Roadmap ano 2", "p28": "Portfólio autônomo", "l1": "12 produtos fichas 100%", "l2": "≥3 parceiros estratégicos", "l3": "Negociações fornecedores", "l4": "1º relatório inteligência", "l5": "Fluxos operacionais documentados", "l6": "1ª sessão capacitação", "l7": "Baseline receita cruzeiros", "l8": "Critérios grupos exclusivos", "l9": "Baseline KPIs Dhayane", "l10": "20 produtos fichas 100%", "l11": "≥2 acordos formais", "l12": "≥5 parceiros mapeados", "l13": "Treinamentos mensais", "l14": "Base IA 25 artigos", "l15": "Relatórios mensais", "l16": "+15% receita trimestre", "l17": "≥70% portfólio com venda", "l18": "Decisão comercial do relatório", "l19": "Contrato longo prazo", "l20": "≥1 grupo exclusivo operado", "l21": "Base IA 40 artigos", "l22": "Redução dúvidas IA 30%", "l23": "Processos documentados", "l24": "Portfólio atualizado ≥90%", "l25": "Escopo autônomo", "l26": "≥2 grupos/ano", "l27": "Ticket médio crescente", "l28": "Crescimento sustentado", "b1": "Histórico vendas Club Med", "b2": "Material existente levantado", "b3": "Perfil cliente Club Med", "b4": "Dashboard KPIs", "b5": "Alinhamento áreas", "b6": "Calendário editorial", "b7": "Alinhamento marketing vitrine", "b8": "Scripts de venda atualizados", "b9": "Contato representante Club Med", "b10": "Conteúdo redes sociais", "b11": "Campanha famílias", "b12": "Ativação time comercial", "b13": "Materiais de venda", "b14": "Reuniões com prospects", "b15": "Depoimentos publicados", "b16": "Pacotes curados por perfil", "b17": "Meta R$ 300k/mês", "b18": "Meta R$ 1MM/mês", "b19": "Programa de indicações", "b20": "Presença em eventos", "b21": "Parcerias influenciadores", "b22": "Base de prospects", "b23": "Revisão trimestral", "b24": "Top of mind Club Med", "mi1": "30+ atrações fichas técnicas", "mi2": "8+ parceiros estratégicos", "mi3": "Negociações fornecedores", "mi4": "1º relatório inteligência", "mi5": "Catálogo disponível", "mi6": "Baseline receita", "mi7": "1ª sessão capacitação", "mi8": "Base IA artigos iniciais", "mi9": "Baseline KPIs Dhayane", "mi10": "≥3 acordos formais", "mi11": "Treinamentos mensais", "mi12": "Base IA 40+ artigos", "mi13": "Redução dúvidas IA 30%", "mi14": "Produtos exclusivos lançados", "mi15": "Portfólio atualizado ≥90%", "mi16": "+15% receita trimestre", "mi17": "≥70% portfólio com venda", "mi18": "Contrato longo prazo", "mi19": "≥2 experiências exclusivas", "mi20": "Portfólio ≥3 destinos", "mi21": "Ticket médio crescente", "mi22": "Desconto 12–18%", "mi23": "Escopo autônomo", "mi24": "≥2 exclusivas/ano", "mi25": "Crescimento sustentado", "mi26": "Referência ingressos & atrações"};
 const MARCOS_META={"katharine": [{"id": "m1k", "label": "M1 — Fundação", "tasks": ["k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "k9"]}, {"id": "m2k", "label": "M2 — Estruturação", "tasks": ["k10", "k11", "k12", "k13", "k14", "k15"]}, {"id": "m3k", "label": "M3 — Aceleração", "tasks": ["k16", "k17", "k18", "k19", "k20"]}, {"id": "m4k", "label": "M4 — Escala", "tasks": ["k21", "k22", "k23", "k24", "k25"]}], "roberta": [{"id": "m1r", "label": "M1 — Fundação", "tasks": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"]}, {"id": "m2r", "label": "M2 — Estruturação", "tasks": ["r10", "r11", "r12", "r13", "r14", "r15", "r16"]}, {"id": "m3r", "label": "M3 — Aceleração", "tasks": ["r17", "r18", "r19", "r20", "r21", "r22"]}, {"id": "m4r", "label": "M4 — Escala", "tasks": ["r23", "r24", "r25", "r26", "r27"]}], "rafaella": [{"id": "m1p", "label": "M1 — Fundação", "tasks": ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9"]}, {"id": "m2p", "label": "M2 — Estruturação", "tasks": ["p10", "p11", "p12", "p13", "p14", "p15"]}, {"id": "m3p", "label": "M3 — Aceleração", "tasks": ["p16", "p17", "p18", "p19", "p20", "p21", "p22"]}, {"id": "m4p", "label": "M4 — Escala", "tasks": ["p23", "p24", "p25", "p26", "p27", "p28"]}], "laura": [{"id": "m1l", "label": "M1 — Estruturação", "tasks": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9"]}, {"id": "m2l", "label": "M2 — Consolidação", "tasks": ["l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18"]}, {"id": "m3l", "label": "M3 — Maturidade", "tasks": ["l19", "l20", "l21", "l22", "l23", "l24"]}, {"id": "m4l", "label": "M4 — Operação Plena", "tasks": ["l25", "l26", "l27", "l28"]}], "beatriz": [{"id": "m1b", "label": "M1 — Estruturação & Diagnóstico", "tasks": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"]}, {"id": "m2b", "label": "M2 — Ativação & Vitrine", "tasks": ["b10", "b11", "b12", "b13", "b14", "b15", "b16", "b17"]}, {"id": "m3b", "label": "M3 — Escala & Referência", "tasks": ["b18", "b19", "b20", "b21", "b22", "b23", "b24"]}], "michelle": [{"id": "m1mi", "label": "M1 — Estruturação", "tasks": ["mi1", "mi2", "mi3", "mi4", "mi5", "mi6", "mi7", "mi8", "mi9"]}, {"id": "m2mi", "label": "M2 — Consolidação", "tasks": ["mi10", "mi11", "mi12", "mi13", "mi14", "mi15", "mi16", "mi17"]}, {"id": "m3mi", "label": "M3 — Maturidade", "tasks": ["mi18", "mi19", "mi20", "mi21", "mi22"]}, {"id": "m4mi", "label": "M4 — Operação Plena", "tasks": ["mi23", "mi24", "mi25", "mi26"]}]};
-let allStates=[],allDates=[],allObs=[],allEntries=[],histFilter='all';
+let allStates=[],allDates=[],allObs=[],allEntries=[],allWeekly=[],teamStatus={},coordEmails={},histFilter='all';
 
-async function api(path){
-  try{const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});if(!r.ok)return[];const d=await r.json();return Array.isArray(d)?d:[];}catch(e){return[];}
-}
-async function upsert(table,data,conflict){
-  try{const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+(conflict||'task_id'),{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify(data)});return r.ok;}catch(e){return false;}
-}
+// Greeting
+(function(){
+  const h=new Date().getHours();
+  const g=h<12?'Bom dia':'h<18?Boa tarde':'Boa noite';
+  const greet=h<12?'Bom dia':'h<18?'Boa tarde':'Boa noite';
+  document.getElementById('topbar-greeting').textContent=`${greet}, Dhayane`;
+  document.getElementById('welcome-title').textContent=`${greet}, Dhayane! 🧡`;
+  document.getElementById('footer-date').textContent=new Date().toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).toUpperCase();
+  document.getElementById('weekly-date').value=new Date().toISOString().split('T')[0];
+})();
+
+async function api(path){try{const r=await fetch(SB_URL+path,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});if(!r.ok)return[];const d=await r.json();return Array.isArray(d)?d:[];}catch(e){return[];}}
+async function upsert(table,data,conflict){try{const r=await fetch(SB_URL+'/rest/v1/'+table+'?on_conflict='+(conflict||'task_id'),{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify(data)});return r.ok;}catch(e){return false;}}
+async function sendEmail(to,toName,subject,html){try{await fetch(NOTIFY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to,to_name:toName,subject,html})});}catch(e){}}
 
 async function load(){
-  const[st,dt,ob,en]=await Promise.all([
+  const[st,dt,ob,en,wk,ts,em]=await Promise.all([
     api('/rest/v1/task_states?select=*'),
     api('/rest/v1/plan_dates?select=*'),
     api('/rest/v1/task_manager_comments?select=*'),
     api('/rest/v1/task_entries?select=*&order=created_at.asc'),
+    api('/rest/v1/weekly_reviews?select=*&order=week_date.desc'),
+    api('/rest/v1/team_status?select=*'),
+    api('/rest/v1/coordinator_emails?select=*'),
   ]);
-  allStates=st;allDates=dt;allObs=ob;allEntries=en;
+  allStates=st;allDates=dt;allObs=ob;allEntries=en;allWeekly=wk;
+  teamStatus={};ts.forEach(r=>teamStatus[r.team_key]=r);
+  coordEmails={};em.forEach(r=>coordEmails[r.team_key]=r);
   renderAll();
 }
 
-function renderAll(){
-  renderOverview();renderChart();renderEntries();renderDates();renderObs();renderApprovals();renderHistory();updateStats();
+function tS(key){
+  const total=ALL_TASKS[key].length;
+  const s=allStates.filter(x=>x.team_key===key);
+  const done=s.filter(x=>x.status==='aprovada').length;
+  const pend=s.filter(x=>x.status==='aguardando').length;
+  return{total,done,pend,pct:total?Math.round(done/total*100):0};
 }
 
+function renderAll(){renderOverview();renderChart();renderWeekly();renderEntries();renderDates();renderObs();renderApprovals();renderHistory();renderNotify();updateStats();}
+
 function updateStats(){
-  let done=0,pend=0,part=0,tot=0;
-  for(const t of TEAMS)tot+=ALL_TASKS[t.key].length;
-  for(const s of allStates){if(s.status==='aprovada')done++;else if(s.status==='aguardando')pend++;else if(s.status==='parcial')part++;}
-  document.getElementById('gs-done').textContent=done;
-  document.getElementById('gs-pend').textContent=pend;
-  document.getElementById('gs-part').textContent=part;
-  document.getElementById('gs-total').textContent=tot;
+  let d=0,p=0,tot=0;
+  TEAMS.forEach(t=>{const s=tS(t.key);d+=s.done;p+=s.pend;tot+=s.total;});
+  const pct=tot?Math.round(d/tot*100):0;
+  document.getElementById('stat-grid').innerHTML=`
+    <div class="stat-card s-green"><div class="stat-label">Aprovadas</div><div class="stat-value" style="color:var(--green)">${d}</div><div class="stat-sub">de ${tot} tarefas</div></div>
+    <div class="stat-card s-amber"><div class="stat-label">Aguardando</div><div class="stat-value" style="color:var(--amber)">${p}</div><div class="stat-sub">para revisão</div></div>
+    <div class="stat-card s-orange"><div class="stat-label">Progresso</div><div class="stat-value" style="color:var(--orange)">${pct}%</div><div class="stat-sub">do plano</div></div>
+    <div class="stat-card s-muted"><div class="stat-label">Times</div><div class="stat-value" style="color:var(--txt)">${TEAMS.length}</div><div class="stat-sub">coordenadoras</div></div>
+  `;
   const b=document.getElementById('bdg-pend');
-  if(pend>0){b.textContent=pend;b.style.display='inline';}else b.style.display='none';
+  p>0?(b.textContent=p,b.style.display='inline'):b.style.display='none';
+  // Update welcome message
+  const wm=document.getElementById('welcome-msg');
+  if(wm){
+    if(p>0)wm.textContent=`${p} tarefa${p>1?'s':''} aguardando sua revisão. Seu time está avançando — e cada entrega importa.`;
+    else if(d>0)wm.textContent=`${d} tarefa${d>1?'s':''} aprovada${d>1?'s':''} até agora. Seu time está evoluindo com consistência. 🌱`;
+    else wm.textContent='Aqui está o resumo do seu time hoje. Cada coordenadora está avançando no próprio ritmo.';
+  }
+}
+
+function semHTML(key){
+  const s=teamStatus[key];
+  const st=s?.status||'verde';
+  const map={verde:['🟢','verde','Em dia'],amarelo:['🟡','amarelo','Atenção'],vermelho:['🔴','vermelho','Em risco']};
+  const[,cls,lbl]=map[st];
+  return`<button class="sem-btn ${cls}" onclick="cycleSem('${key}',event)" title="Clique para alterar o status"><div class="sem-dot"></div>${lbl}</button>`;
+}
+
+async function cycleSem(key,e){
+  e.preventDefault();e.stopPropagation();
+  const cur=teamStatus[key]?.status||'verde';
+  const nxt={verde:'amarelo',amarelo:'vermelho',vermelho:'verde'};
+  const nota=teamStatus[key]?.nota||'';
+  await upsert('team_status',{team_key:key,status:nxt[cur],nota,updated_at:new Date().toISOString()},'team_key');
+  await load();
+}
+
+async function saveNota(key){
+  const inp=document.getElementById(`nota-${key}`);
+  if(!inp)return;
+  const status=teamStatus[key]?.status||'verde';
+  await upsert('team_status',{team_key:key,status,nota:inp.value,updated_at:new Date().toISOString()},'team_key');
 }
 
 function renderOverview(){
-  let html='';
-  for(const t of TEAMS){
-    const total=ALL_TASKS[t.key].length;
-    const ts=allStates.filter(s=>s.team_key===t.key);
-    const done=ts.filter(s=>s.status==='aprovada').length;
-    const pend=ts.filter(s=>s.status==='aguardando').length;
-    const pct=total?done/total*100:0;
-    html+=`<a class="tc" href="${t.key}.html">
-      <div class="tc-head"><div class="tc-av" style="background:${t.color}">${t.initials}</div>
-      <div><div style="font-weight:600;font-size:.9rem">${t.name}</div><div style="font-size:11px;color:var(--muted)">${t.role}</div></div></div>
-      <div class="tc-prog"><div class="tc-bar" style="width:${pct}%;background:${t.color}"></div></div>
-      <div class="tc-stats">
-        <div><span style="font-weight:600;color:${t.color}">${done}</span> <span style="color:var(--muted)">aprovadas</span></div>
-        ${pend?`<div><span style="font-weight:600;color:var(--amber)">${pend}</span> <span style="color:var(--muted)">aguardando</span></div>`:''}
-        <div style="margin-left:auto;color:var(--muted)">${done}/${total}</div>
+  document.getElementById('team-grid').innerHTML=TEAMS.map(t=>{
+    const s=tS(t.key);
+    const nota=teamStatus[t.key]?.nota||'';
+    return`<a class="tc" href="${t.key}.html">
+      <div class="tc-head">
+        <div class="tc-av" style="background:${t.color}">${t.initials}</div>
+        <div><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div>
+      </div>
+      <div class="tc-sem-row">
+        ${semHTML(t.key)}
+      </div>
+      <div onclick="event.preventDefault()" style="margin-bottom:.625rem;">
+        <input class="tc-nota-input" id="nota-${t.key}" value="${nota}" placeholder="Nota sobre o momento desta coordenadora..."
+          onblur="saveNota('${t.key}')" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}">
+      </div>
+      <div class="tc-prog"><div class="tc-prog-bar" style="width:${s.pct}%;background:${t.color}"></div></div>
+      <div class="tc-foot">
+        <span class="tc-done" style="color:${t.color}">${s.done} aprovadas</span>
+        ${s.pend?`<span class="tc-pend">· ${s.pend} aguardando</span>`:''}
+        <span class="tc-total">${s.done}/${s.total}</span>
       </div>
     </a>`;
-  }
-  document.getElementById('team-grid').innerHTML=html;
+  }).join('');
 }
 
 function renderChart(){
-  // Bar chart
-  let barsHtml='';
-  const maxTotal=Math.max(...TEAMS.map(t=>ALL_TASKS[t.key].length));
-  for(const t of TEAMS){
-    const total=ALL_TASKS[t.key].length;
-    const ts=allStates.filter(s=>s.team_key===t.key);
-    const done=ts.filter(s=>s.status==='aprovada').length;
-    const pend=ts.filter(s=>s.status==='aguardando').length;
-    const pct=total?Math.round(done/total*100):0;
-    const doneH=Math.round((done/maxTotal)*140);
-    const pendH=Math.round((pend/maxTotal)*140);
-    barsHtml+=`<div class="chart-col">
-      <div class="chart-pct">${pct}%</div>
-      <div class="chart-bar-wrap">
-        ${pend>0?`<div class="chart-bar-pend" style="height:${pendH}px;background:${t.color};width:100%;border-radius:2px;"></div>`:''}
-        <div class="chart-bar-done" style="height:${Math.max(doneH,2)}px;background:${t.color};width:100%;"></div>
+  const maxT=Math.max(...TEAMS.map(t=>ALL_TASKS[t.key].length));
+  document.getElementById('chart-bars').innerHTML=TEAMS.map(t=>{
+    const s=tS(t.key);
+    const dH=maxT?Math.round(s.done/maxT*100):0;
+    const pH=maxT?Math.round(s.pend/maxT*100):0;
+    return`<div class="bc">
+      <div class="bc-pct" style="color:${t.color}">${s.pct}%</div>
+      <div class="bc-stack">
+        ${s.pend?`<div class="bc-pend" style="height:${pH}px;background:${t.color}"></div>`:''}
+        <div class="bc-done" style="height:${Math.max(dH,2)}px;background:${t.color}"></div>
       </div>
-      <div class="chart-name">${t.name}<br/><span style="font-size:10px;color:var(--muted)">${done}/${total}</span></div>
+      <div class="bc-name">${t.initials}</div>
+      <div class="bc-n">${s.done}/${s.total}</div>
     </div>`;
-  }
-  document.getElementById('chart-bars').innerHTML=barsHtml;
-
-  // Progress bars
-  let progHtml='';
-  for(const t of TEAMS){
-    const total=ALL_TASKS[t.key].length;
-    const ts=allStates.filter(s=>s.team_key===t.key);
-    const done=ts.filter(s=>s.status==='aprovada').length;
-    const pend=ts.filter(s=>s.status==='aguardando').length;
-    const donePct=total?done/total*100:0;
-    const pendPct=total?pend/total*100:0;
-    progHtml+=`<div style="margin-bottom:1rem">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-        <div style="display:flex;align-items:center;gap:8px">
-          <div style="width:24px;height:24px;border-radius:50%;background:${t.color};color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center">${t.initials}</div>
-          <span style="font-size:13px;font-weight:600">${t.name}</span>
-          <span style="font-size:11px;color:var(--muted)">${t.role}</span>
+  }).join('');
+  document.getElementById('progress-bars').innerHTML=TEAMS.map(t=>{
+    const s=tS(t.key);
+    return`<div class="prog-row">
+      <div class="prog-av" style="background:${t.color}">${t.initials}</div>
+      <div class="prog-info">
+        <div class="prog-top">
+          <span class="prog-nm">${t.name} <span style="font-weight:400;color:var(--txt3);font-size:.68rem">${t.role}</span></span>
+          <span class="prog-pct" style="color:${t.color}">${s.pct}%</span>
         </div>
-        <span style="font-size:12px;color:var(--muted)">${done}/${total} aprovadas</span>
-      </div>
-      <div style="background:var(--sur2);border-radius:6px;height:10px;overflow:hidden;display:flex">
-        <div style="width:${donePct}%;background:${t.color};border-radius:6px 0 0 6px;transition:width .5s"></div>
-        ${pendPct>0?`<div style="width:${pendPct}%;background:${t.color};opacity:.4;transition:width .5s"></div>`:''}
+        <div class="prog-bar"><div class="prog-fill" style="width:${s.pct}%;background:${t.color}"></div></div>
       </div>
     </div>`;
+  }).join('');
+}
+
+function renderWeekly(){
+  if(!allWeekly.length){document.getElementById('weekly-hist').innerHTML='<div class="empty">Nenhuma weekly registrada ainda. Registre a primeira acima!</div>';return;}
+  document.getElementById('weekly-hist').innerHTML=allWeekly.map((w,i)=>{
+    const dt=new Date(w.week_date+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+    const preview=w.resultados||w.acoes||'Clique para expandir';
+    const blocks=[
+      {e:'📊',l:'Resultados da semana',v:w.resultados},
+      {e:'🚧',l:'Bloqueios e riscos',v:w.bloqueios},
+      {e:'⭐',l:'Destaques de pessoas',v:w.destaques},
+      {e:'✅',l:'Ações da próxima semana',v:w.acoes},
+    ].filter(b=>b.v);
+    return`<div class="wk-hist-card">
+      <div class="wk-hist-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
+        <div style="width:28px;height:28px;border-radius:6px;background:var(--orange-soft);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--orange);font-weight:700;flex-shrink:0;">${allWeekly.length-i}</div>
+        <div style="flex:1;min-width:0;">
+          <div class="wk-hist-date">Semana de ${dt}</div>
+          <div class="wk-hist-preview">${preview.substring(0,80)}${preview.length>80?'…':''}</div>
+        </div>
+        <div style="font-size:.68rem;color:var(--txt3)">▼</div>
+      </div>
+      <div class="wk-hist-body">
+        ${blocks.map(b=>`<div class="wk-block-view">
+          <div class="wk-block-view-lbl">${b.e} ${b.l}</div>
+          <div class="wk-block-view-txt">${b.v}</div>
+        </div>`).join('')}
+        ${!blocks.length?'<div style="font-size:.78rem;color:var(--txt3)">Sem conteúdo registrado.</div>':''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function saveWeekly(notify=false){
+  const date=document.getElementById('weekly-date').value;
+  if(!date){alert('Selecione a data da semana.');return;}
+  const data={
+    week_date:date,
+    resultados:document.getElementById('wr-resultados').value||null,
+    bloqueios:document.getElementById('wr-bloqueios').value||null,
+    destaques:document.getElementById('wr-destaques').value||null,
+    acoes:document.getElementById('wr-acoes').value||null,
+    updated_at:new Date().toISOString(),
+  };
+  await upsert('weekly_reviews',data,'week_date');
+  if(notify){
+    const dt=new Date(date+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+    const html=buildWeeklyEmail(dt,data.resultados,data.bloqueios,data.destaques,data.acoes);
+    for(const t of TEAMS){
+      const cfg=coordEmails[t.key];
+      if(cfg?.email&&cfg?.notify_weekly)await sendEmail(cfg.email,cfg.name,`📋 Weekly Orange Viagens · Semana de ${dt}`,html);
+    }
+    alert('Weekly salva e notificações enviadas!');
   }
-  document.getElementById('progress-bars').innerHTML=progHtml||'<p style="color:var(--muted);font-size:13px">Nenhum dado ainda.</p>';
+  const ok=document.getElementById('wk-saved');
+  ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),2500);
+  await load();
+}
+async function saveAndNotifyWeekly(){await saveWeekly(true);}
+
+function buildWeeklyEmail(date,resultados,bloqueios,destaques,acoes){
+  const blk=(e,t,v)=>v?`<div style="margin-bottom:18px"><div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#a8a29e;margin-bottom:5px">${e} ${t}</div><div style="font-size:14px;color:#1c1917;line-height:1.6;white-space:pre-wrap;background:#f7f6f3;border-radius:6px;padding:12px">${v}</div></div>`:'';
+  return`<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f7f6f3;font-family:sans-serif;">
+  <div style="max-width:560px;margin:32px auto;background:#fff;border-radius:12px;border:1px solid #e5e2dc;overflow:hidden;">
+    <div style="background:linear-gradient(135deg,#ea580c,#c2410c);padding:22px 28px;">
+      <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Orange Viagens</div>
+      <div style="color:#fff;font-size:20px;font-weight:700">Weekly Review 📋</div>
+      <div style="color:rgba(255,255,255,.8);font-size:13px;margin-top:4px">Semana de ${date}</div>
+    </div>
+    <div style="padding:24px 28px">
+      ${blk('📊','Resultados da semana',resultados)}
+      ${blk('🚧','Bloqueios e riscos',bloqueios)}
+      ${blk('⭐','Destaques de pessoas',destaques)}
+      ${blk('✅','Ações da próxima semana',acoes)}
+      <div style="border-top:1px solid #e5e2dc;padding-top:14px;margin-top:6px;font-size:12px;color:#a8a29e">
+        Com carinho, Dhayane Albiero · Diretoria de Operações & Produtos · Orange Viagens 🧡
+      </div>
+    </div>
+  </div></body></html>`;
 }
 
 function renderEntries(){
-  // Group entries by team and task
-  const byTeamTask={};
-  for(const e of allEntries){
-    const key=e.team_key+'|'+e.task_id;
-    if(!byTeamTask[key])byTeamTask[key]=[];
-    byTeamTask[key].push(e);
-  }
   let html='';
   for(const t of TEAMS){
-    const teamEntries=allEntries.filter(e=>e.team_key===t.key);
-    if(!teamEntries.length)continue;
-    // Group by task
+    const ents=allEntries.filter(e=>e.team_key===t.key);
+    if(!ents.length)continue;
     const byTask={};
-    for(const e of teamEntries){if(!byTask[e.task_id])byTask[e.task_id]=[];byTask[e.task_id].push(e);}
-    let tasksHtml='';
-    for(const[taskId,ents] of Object.entries(byTask)){
-      const lbl=TASK_LABELS[taskId]||taskId;
-      const state=allStates.find(s=>s.task_id===taskId);
-      const chip=state?`<span style="font-size:10px;padding:1px 6px;border-radius:8px;background:${state.status==='aprovada'?'#dcfff6':'#fff7e0'};color:${state.status==='aprovada'?'#00795e':'#8a6000'};font-weight:600;margin-left:6px">${state.status==='aprovada'?'Aprovada':'Aguardando'}</span>`:'';
-      tasksHtml+=`<div class="ev-task-row">
+    for(const e of ents){if(!byTask[e.task_id])byTask[e.task_id]=[];byTask[e.task_id].push(e);}
+    let rows='';
+    for(const[tid,items] of Object.entries(byTask)){
+      const lbl=TASK_LABELS[tid]||tid;
+      const state=allStates.find(s=>s.task_id===tid);
+      const chip=state?`<span class="ev-chip ${state.status}">${state.status==='aprovada'?'Aprovada':'Aguardando'}</span>`:'';
+      rows+=`<div class="ev-task-row">
         <div class="ev-task-lbl">${lbl}${chip}</div>
-        <div class="ev-entries">${ents.map(e=>`<div class="ev-entry">
-          <div class="ev-entry-text">${e.entry_text}</div>
-          <div class="ev-entry-date">${new Date(e.created_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</div>
-        </div>`).join('')}</div>
+        <div class="ev-entries">${items.map(e=>`<div class="ev-entry"><div class="ev-entry-txt">${e.entry_text}</div><div class="ev-entry-date">${new Date(e.created_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</div></div>`).join('')}</div>
       </div>`;
     }
-    html+=`<div class="entries-viewer">
-      <div class="ev-head" onclick="toggleEv('ev-${t.key}')">
-        <div class="dc-av" style="background:${t.color};width:32px;height:32px;border-radius:50%;color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center">${t.initials}</div>
-        <div style="font-weight:600">${t.name}</div>
-        <span style="font-size:11px;color:var(--amber);margin-left:6px">${teamEntries.length} anotação${teamEntries.length!==1?'s':''}</span>
-        <span style="margin-left:auto;color:var(--muted)">▼</span>
+    html+=`<div class="ev-card">
+      <div class="ev-head" onclick="this.nextElementSibling.classList.toggle('open')">
+        <div class="prog-av" style="background:${t.color};width:28px;height:28px;border-radius:7px;font-size:.58rem;">${t.initials}</div>
+        <div style="font-weight:600;font-size:.85rem">${t.name}</div>
+        <span style="font-size:.68rem;color:var(--amber);margin-left:6px">${ents.length} anotação${ents.length!==1?'s':''}</span>
+        <span style="margin-left:auto;font-size:.68rem;color:var(--txt3)">▼</span>
       </div>
-      <div class="ev-body" id="ev-${t.key}">${tasksHtml}</div>
+      <div class="ev-body">${rows}</div>
     </div>`;
   }
-  document.getElementById('entries-viewer-list').innerHTML=html||'<div class="empty" style="color:var(--muted);text-align:center;padding:2rem">Nenhuma anotação registrada ainda.</div>';
+  document.getElementById('entries-list').innerHTML=html||'<div class="empty">Nenhuma anotação registrada pelo time ainda.</div>';
 }
 
-function toggleEv(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
-
 function renderDates(){
-  const obsMap={};for(const d of allDates)obsMap[d.team_key+'_'+d.marco_id]=d;
-  let html='';
-  for(const t of TEAMS){
+  const map={};for(const d of allDates)map[d.team_key+'_'+d.marco_id]=d;
+  document.getElementById('dates-ed').innerHTML=TEAMS.map(t=>{
     const marcos=MARCOS_META[t.key]||[];
-    let mh='';
-    for(const m of marcos){
-      const sv=obsMap[t.key+'_'+m.id]||{};
-      mh+=`<div class="date-row"><div class="date-tag" style="color:${t.color}">${m.label}</div>
-        <div class="date-inputs">
-          <input type="date" id="ds-${t.key}-${m.id}" value="${sv.start_date||''}">
-          <input type="date" id="de-${t.key}-${m.id}" value="${sv.end_date||''}">
-        </div></div>`;
-    }
-    html+=`<div class="dates-card"><div class="dc-head"><div class="dc-av" style="background:${t.color}">${t.initials}</div>
-      <div style="font-weight:600">${t.name}</div></div>
-      <div class="dc-grid">${mh}</div></div>`;
-  }
-  document.getElementById('dates-ed').innerHTML=html;
+    const mh=marcos.map(m=>{
+      const sv=map[t.key+'_'+m.id]||{};
+      return`<div class="date-item">
+        <div class="date-item-lbl" style="color:${t.color}">${m.label}</div>
+        <input class="date-input" type="date" id="ds-${t.key}-${m.id}" value="${sv.start_date||''}">
+        <input class="date-input" type="date" id="de-${t.key}-${m.id}" value="${sv.end_date||''}" style="margin-top:3px">
+      </div>`;
+    }).join('');
+    return`<div class="form-card">
+      <div class="form-head" onclick="this.nextElementSibling.classList.toggle('open')">
+        <div class="prog-av" style="background:${t.color};width:28px;height:28px;border-radius:7px;font-size:.58rem;">${t.initials}</div>
+        <div style="font-weight:600;font-size:.85rem">${t.name}</div>
+        <span style="margin-left:auto;font-size:.68rem;color:var(--txt3)">▼</span>
+      </div>
+      <div class="form-body"><div class="date-grid">${mh}</div></div>
+    </div>`;
+  }).join('');
 }
 
 async function saveDates(){
@@ -386,121 +827,207 @@ async function saveDates(){
     if(s||e)rows.push({team_key:t.key,marco_id:m.id,marco_label:m.label,start_date:s||null,end_date:e||null});
   }
   for(const r of rows)await upsert('plan_dates',r,'marco_id');
-  const ok=document.getElementById('dates-ok');
-  ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),2000);
+  const ok=document.getElementById('dates-ok');ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),2000);
   await load();
 }
 
 function renderObs(){
   const obsMap={};for(const o of allObs)obsMap[o.task_id]=o;
-  let html='';
-  for(const t of TEAMS){
-    const marcos=MARCOS_META[t.key]||[];
+  document.getElementById('obs-ed').innerHTML=TEAMS.map(t=>{
     const cnt=Object.values(obsMap).filter(o=>o.team_key===t.key&&o.comment).length;
     let mh='';
-    for(const m of marcos){
-      let th='';
+    for(const m of(MARCOS_META[t.key]||[])){
+      mh+=`<div class="marco-lbl-sec" style="color:${t.color}">${m.label}</div>`;
       for(const tid of m.tasks){
         const lbl=TASK_LABELS[tid]||tid;
         const ex=obsMap[tid]?.comment||'';
         const sv=obsMap[tid]?.updated_at?'Salvo em '+new Date(obsMap[tid].updated_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'';
-        th+=`<div class="obs-task-row">
-          <div class="obs-task-lbl"><span class="tid">${tid}</span>${lbl}</div>
-          <textarea class="obs-ta" id="obs-${tid}" placeholder="Observação para ${t.name}...">${ex}</textarea>
+        mh+=`<div class="obs-row">
+          <div class="obs-lbl"><span>${tid}</span>${lbl}</div>
+          <textarea class="obs-ta" id="obs-${tid}" placeholder="Escreva uma observação para ${t.name}...">${ex}</textarea>
           <div class="obs-foot"><span class="obs-saved" id="obs-sv-${tid}">${sv}</span>
-          <button class="btn-save-obs" onclick="saveObs('${tid}','${t.key}')">Salvar</button></div>
+          <button class="btn-save-obs" onclick="saveObs('${tid}','${t.key}')">Salvar e notificar</button></div>
         </div>`;
       }
-      mh+=`<div class="obs-marco-lbl" style="color:${t.color}">${m.label}</div>${th}`;
     }
-    html+=`<div class="obs-card">
-      <div class="obs-head" onclick="toggleObs('ob-${t.key}')">
-        <div class="dc-av" style="background:${t.color};width:32px;height:32px;border-radius:50%;color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center">${t.initials}</div>
-        <div style="font-weight:600">${t.name}</div>
-        ${cnt?`<span style="font-size:11px;color:var(--amber);margin-left:6px">${cnt} obs.</span>`:''}
-        <span style="margin-left:auto;color:var(--muted)">▼</span>
+    return`<div class="form-card">
+      <div class="form-head" onclick="this.nextElementSibling.classList.toggle('open')">
+        <div class="prog-av" style="background:${t.color};width:28px;height:28px;border-radius:7px;font-size:.58rem;">${t.initials}</div>
+        <div style="font-weight:600;font-size:.85rem">${t.name}</div>
+        ${cnt?`<span style="font-size:.68rem;color:var(--amber);margin-left:6px">${cnt} obs.</span>`:''}
+        <span style="margin-left:auto;font-size:.68rem;color:var(--txt3)">▼</span>
       </div>
-      <div class="obs-body" id="ob-${t.key}">${mh}</div>
+      <div class="form-body">${mh}</div>
     </div>`;
-  }
-  document.getElementById('obs-ed').innerHTML=html;
+  }).join('');
 }
-
-function toggleObs(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
 
 async function saveObs(tid,tkey){
   const ta=document.getElementById('obs-'+tid);
   const sv=document.getElementById('obs-sv-'+tid);
-  const btn=ta.closest('.obs-task-row').querySelector('.btn-save-obs');
+  const btn=ta.closest('.obs-row').querySelector('.btn-save-obs');
   btn.textContent='Salvando...';
   await upsert('task_manager_comments',{task_id:tid,team_key:tkey,comment:ta.value,updated_at:new Date().toISOString()});
-  btn.textContent='Salvar';
+  const cfg=coordEmails[tkey];
+  if(cfg?.email&&cfg?.notify_obs&&ta.value){
+    const t=TEAMS.find(x=>x.key===tkey);
+    const lbl=TASK_LABELS[tid]||tid;
+    await sendEmail(cfg.email,cfg.name,`💬 Observação da Dhayane · ${lbl}`,buildObsEmail(t,lbl,ta.value));
+  }
+  btn.textContent='Salvar e notificar';
   if(sv)sv.textContent='Salvo em '+new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
   await load();
 }
 
-function renderApprovals(){
-  const pend=allStates.filter(s=>s.status==='aguardando');
-  if(!pend.length){document.getElementById('ap-list').innerHTML='<div class="empty"><svg width="48" height="48" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div style="font-size:1rem;font-weight:600;margin:.5rem 0">Nenhuma tarefa pendente</div></div>';return;}
-  let html='';
-  for(const s of pend){
-    const t=TEAMS.find(x=>x.key===s.team_key)||{name:s.team_key,initials:'?',color:'#888'};
-    const lbl=TASK_LABELS[s.task_id]||s.task_id;
-    const dt=s.submitted_at?new Date(s.submitted_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'';
-    // Show entries for this task too
-    const taskEntries=allEntries.filter(e=>e.task_id===s.task_id);
-    const entriesHtml=taskEntries.length>0?`<div style="margin-bottom:.75rem"><div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">Anotações registradas</div>${taskEntries.map(e=>`<div style="background:var(--sur2);border-radius:6px;padding:6px 10px;margin-bottom:4px;font-size:12px;color:var(--txt)">${e.entry_text}<div style="font-size:10px;color:var(--muted);margin-top:2px">${new Date(e.created_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</div></div>`).join('')}</div>`:'';
-    html+=`<div class="ap-card">
-      <div class="ap-hdr"><div class="ap-av" style="background:${t.color}">${t.initials}</div>
-        <div><div style="font-weight:600;font-size:.9rem">${t.name}</div></div>
-        <div class="ap-time">${dt}</div></div>
-      <div class="ap-task">${lbl}</div>
-      ${entriesHtml}
-      <div class="ap-how">${s.how_done||'(sem descrição)'}</div>
-      <div class="ap-acts">
-        <button class="btn-approve" onclick="approve('${s.task_id}','${t.key}')">✓ Aprovar</button>
-        <input class="ret-input" id="ret-${s.task_id}" placeholder="Motivo da devolução...">
-        <button class="btn-return" onclick="returnTask('${s.task_id}','${t.key}')">↩ Devolver</button>
-      </div>
-    </div>`;
-  }
-  document.getElementById('ap-list').innerHTML=html;
+function buildObsEmail(t,lbl,obs){
+  return`<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f7f6f3;font-family:sans-serif;">
+  <div style="max-width:520px;margin:32px auto;background:#fff;border-radius:12px;border:1px solid #e5e2dc;overflow:hidden;">
+    <div style="background:${t?.color||'#ea580c'};padding:22px 28px;">
+      <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Orange Viagens</div>
+      <div style="color:#fff;font-size:18px;font-weight:700">Observação da Dhayane 💬</div>
+    </div>
+    <div style="padding:24px 28px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#a8a29e;margin-bottom:5px">Tarefa</div>
+      <div style="font-size:15px;font-weight:600;color:#1c1917;margin-bottom:18px">${lbl}</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#a8a29e;margin-bottom:5px">Observação</div>
+      <div style="font-size:14px;color:#1c1917;line-height:1.6;white-space:pre-wrap;background:#fff7ed;border-radius:6px;padding:14px;border-left:3px solid ${t?.color||'#ea580c'}">${obs}</div>
+      <div style="border-top:1px solid #e5e2dc;padding-top:14px;margin-top:22px;font-size:12px;color:#a8a29e">Com carinho, Dhayane 🧡</div>
+    </div>
+  </div></body></html>`;
 }
 
-async function approve(tid,tkey){
+function renderApprovals(){
+  const pend=allStates.filter(s=>s.status==='aguardando');
+  if(!pend.length){document.getElementById('ap-list').innerHTML='<div class="empty">Nenhuma tarefa aguardando aprovação.<br><span style="font-size:.75rem">Quando as coordenadoras enviarem, aparecem aqui.</span></div>';return;}
+  document.getElementById('ap-list').innerHTML=pend.map(s=>{
+    const t=TEAMS.find(x=>x.key===s.team_key)||{name:s.team_key,initials:'?',color:'#999'};
+    const lbl=TASK_LABELS[s.task_id]||s.task_id;
+    const dt=s.submitted_at?new Date(s.submitted_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'';
+    const ents=allEntries.filter(e=>e.task_id===s.task_id);
+    const eHtml=ents.length?`<div style="margin-bottom:.625rem"><div class="ap-entries-lbl">Anotações registradas</div>${ents.map(e=>`<div class="ap-entry-item">${e.entry_text}<div class="ap-entry-date">${new Date(e.created_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</div></div>`).join('')}</div>`:'';
+    return`<div class="ap-card">
+      <div class="ap-hdr">
+        <div class="ap-av" style="background:${t.color}">${t.initials}</div>
+        <div><div class="ap-name">${t.name}</div><div class="ap-role">${t.role}</div></div>
+        <div class="ap-time">${dt}</div>
+      </div>
+      <div class="ap-task">${lbl}</div>
+      ${eHtml}
+      <div class="ap-how">${s.how_done||'(sem descrição)'}</div>
+      <div class="ap-acts">
+        <button class="btn-approve" onclick="approve('${s.task_id}','${t.key}','${lbl.replace(/'/g,'')}')">✓ Aprovar</button>
+        <input class="ret-input" id="ret-${s.task_id}" placeholder="Motivo da devolução...">
+        <button class="btn-return" onclick="returnTask('${s.task_id}','${t.key}','${lbl.replace(/'/g,'')}')">↩ Devolver</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function approve(tid,tkey,lbl){
   const s=allStates.find(x=>x.task_id===tid)||{};
   await upsert('task_states',{task_id:tid,team_key:tkey,status:'aprovada',how_done:s.how_done||'',execution:s.execution||'',submitted_at:s.submitted_at||new Date().toISOString(),reviewed_at:new Date().toISOString(),review_comment:''});
+  const cfg=coordEmails[tkey];
+  if(cfg?.email&&cfg?.notify_approval){
+    const t=TEAMS.find(x=>x.key===tkey);
+    await sendEmail(cfg.email,cfg.name,`✅ Tarefa aprovada · ${lbl}`,buildApprovalEmail(t,lbl,'aprovada',''));
+  }
   await load();
 }
-async function returnTask(tid,tkey){
+
+async function returnTask(tid,tkey,lbl){
   const c=document.getElementById('ret-'+tid)?.value.trim();
   if(!c){alert('Informe o motivo da devolução.');return;}
   const s=allStates.find(x=>x.task_id===tid)||{};
   await upsert('task_states',{task_id:tid,team_key:tkey,status:'devolvida',how_done:s.how_done||'',execution:s.execution||'',submitted_at:s.submitted_at||new Date().toISOString(),reviewed_at:new Date().toISOString(),review_comment:c});
+  const cfg=coordEmails[tkey];
+  if(cfg?.email&&cfg?.notify_approval){
+    const t=TEAMS.find(x=>x.key===tkey);
+    await sendEmail(cfg.email,cfg.name,`↩ Tarefa devolvida · ${lbl}`,buildApprovalEmail(t,lbl,'devolvida',c));
+  }
   await load();
 }
 
+function buildApprovalEmail(t,lbl,status,comment){
+  const ok=status==='aprovada';
+  const color=ok?'#059669':'#dc2626';
+  return`<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f7f6f3;font-family:sans-serif;">
+  <div style="max-width:520px;margin:32px auto;background:#fff;border-radius:12px;border:1px solid #e5e2dc;overflow:hidden;">
+    <div style="background:${color};padding:22px 28px;">
+      <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Orange Viagens</div>
+      <div style="color:#fff;font-size:18px;font-weight:700">${ok?'✅ Tarefa aprovada':'↩ Tarefa devolvida'}</div>
+    </div>
+    <div style="padding:24px 28px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#a8a29e;margin-bottom:5px">Tarefa</div>
+      <div style="font-size:15px;font-weight:600;color:#1c1917;margin-bottom:18px">${lbl}</div>
+      ${comment?`<div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#a8a29e;margin-bottom:5px">Comentário</div>
+      <div style="font-size:14px;color:#1c1917;line-height:1.6;white-space:pre-wrap;background:${ok?'#ecfdf5':'#fef2f2'};border-radius:6px;padding:14px;border-left:3px solid ${color}">${comment}</div>`
+      :`<div style="font-size:14px;color:#57534e;line-height:1.6">${ok?'Parabéns pela entrega! Continue assim. 🌱':'Revise e envie novamente quando estiver pronto.'}</div>`}
+      <div style="border-top:1px solid #e5e2dc;padding-top:14px;margin-top:22px;font-size:12px;color:#a8a29e">Com carinho, Dhayane 🧡</div>
+    </div>
+  </div></body></html>`;
+}
+
 function renderHistory(){
-  const rev=allStates.filter(s=>['aprovada','devolvida','parcial'].includes(s.status));
-  let fil=rev;
-  if(histFilter==='aprovada')fil=rev.filter(s=>s.status==='aprovada');
-  else if(histFilter==='devolvida')fil=rev.filter(s=>s.status==='devolvida');
-  else if(['katharine','roberta','rafaella','laura','beatriz','michelle'].includes(histFilter))fil=rev.filter(s=>s.team_key===histFilter);
-  if(!fil.length){document.getElementById('hist-list').innerHTML='<div class="empty" style="padding:2rem;color:var(--muted);text-align:center">Nenhum item encontrado.</div>';return;}
-  let html='';
-  for(const s of fil){
-    const t=TEAMS.find(x=>x.key===s.team_key)||{name:s.team_key,initials:'?',color:'#888'};
+  const rev=allStates.filter(s=>['aprovada','devolvida'].includes(s.status));
+  let fil=histFilter==='all'?rev:histFilter==='aprovada'?rev.filter(s=>s.status==='aprovada'):histFilter==='devolvida'?rev.filter(s=>s.status==='devolvida'):rev.filter(s=>s.team_key===histFilter);
+  if(!fil.length){document.getElementById('hist-list').innerHTML='<div class="empty">Nenhum item encontrado.</div>';return;}
+  document.getElementById('hist-list').innerHTML=fil.map(s=>{
+    const t=TEAMS.find(x=>x.key===s.team_key)||{name:s.team_key,initials:'?',color:'#999'};
     const lbl=TASK_LABELS[s.task_id]||s.task_id;
     const dt=s.reviewed_at?new Date(s.reviewed_at).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}):'';
-    html+=`<div class="hist-card"><div class="hist-av" style="background:${t.color}">${t.initials}</div>
-      <div class="hist-main"><div class="hist-task">${lbl} · ${t.name}</div>
+    return`<div class="hist-card">
+      <div class="hist-av" style="background:${t.color}">${t.initials}</div>
+      <div class="hist-main">
+        <div class="hist-task">${lbl} · ${t.name}</div>
         <div class="hist-how">${s.how_done||''}</div>
-        ${s.review_comment?`<div style="font-size:12px;color:var(--amber)">↩ ${s.review_comment}</div>`:''}
+        ${s.review_comment?`<div style="font-size:.68rem;color:var(--amber);margin-top:2px">↩ ${s.review_comment}</div>`:''}
       </div>
-      <div class="hist-rt"><span class="hist-chip ${s.status}">${s.status==='aprovada'?'Aprovada':'Devolvida'}</span><div class="hist-date">${dt}</div></div>
+      <div class="hist-rt">
+        <span class="hist-chip ${s.status}">${s.status==='aprovada'?'Aprovada':'Devolvida'}</span>
+        <div class="hist-date">${dt}</div>
+      </div>
     </div>`;
+  }).join('');
+}
+
+function renderNotify(){
+  document.getElementById('notify-list').innerHTML=TEAMS.map(t=>{
+    const cfg=coordEmails[t.key]||{};
+    return`<div class="notify-row">
+      <div class="prog-av" style="background:${t.color};width:28px;height:28px;border-radius:7px;font-size:.58rem;">${t.initials}</div>
+      <div class="notify-info">
+        <div class="notify-name">${t.name}</div>
+        <input class="notify-email-input" id="email-${t.key}" type="email" value="${cfg.email||''}" placeholder="email@coordenadora.com">
+      </div>
+      <div class="notify-toggles">
+        <button class="tog-chip ${cfg.notify_obs?'on':''}" id="tog-obs-${t.key}" onclick="this.classList.toggle('on')">Observações</button>
+        <button class="tog-chip ${cfg.notify_weekly!==false?'on':''}" id="tog-weekly-${t.key}" onclick="this.classList.toggle('on')">Weekly</button>
+        <button class="tog-chip ${cfg.notify_approval!==false?'on':''}" id="tog-approval-${t.key}" onclick="this.classList.toggle('on')">Aprovações</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function saveNotifyConfig(){
+  for(const t of TEAMS){
+    const email=document.getElementById(`email-${t.key}`)?.value.trim();
+    if(!email)continue;
+    const obs=document.getElementById(`tog-obs-${t.key}`)?.classList.contains('on');
+    const weekly=document.getElementById(`tog-weekly-${t.key}`)?.classList.contains('on');
+    const approval=document.getElementById(`tog-approval-${t.key}`)?.classList.contains('on');
+    await upsert('coordinator_emails',{team_key:t.key,email,name:t.name,notify_obs:obs,notify_weekly:weekly,notify_approval:approval,updated_at:new Date().toISOString()},'team_key');
   }
-  document.getElementById('hist-list').innerHTML=html;
+  const ok=document.getElementById('notify-ok');ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),2000);
+  await load();
+}
+
+async function sendTestEmail(){
+  const key=document.getElementById('test-team').value;
+  const cfg=coordEmails[key];
+  if(!cfg?.email){alert('Configure o e-mail desta coordenadora primeiro.');return;}
+  const t=TEAMS.find(x=>x.key===key);
+  await sendEmail(cfg.email,cfg.name,'🧡 Teste · Orange Viagens',`<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f7f6f3;font-family:sans-serif;"><div style="max-width:480px;margin:32px auto;background:#fff;border-radius:12px;padding:28px;border:1px solid #e5e2dc;"><div style="font-size:24px;margin-bottom:12px">🧡</div><div style="font-weight:700;font-size:18px;margin-bottom:10px">Olá, ${cfg.name}!</div><p style="color:#57534e;line-height:1.6">Este é um e-mail de teste do painel de acompanhamento da Orange Viagens. As notificações estão configuradas e funcionando! Você receberá atualizações da Dhayane por aqui.</p><p style="margin-top:16px;color:#a8a29e;font-size:12px">Com carinho, Dhayane 🧡</p></div></body></html>`);
+  const ok=document.getElementById('test-ok');ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),3000);
 }
 
 function setFilter(f,btn){histFilter=f;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderHistory();}
