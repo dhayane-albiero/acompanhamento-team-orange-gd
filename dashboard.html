@@ -547,8 +547,7 @@ let allStates=[],allDates=[],allObs=[],allEntries=[],allWeekly=[],teamStatus={},
 // Greeting
 (function(){
   const h=new Date().getHours();
-  const g=h<12?'Bom dia':'h<18?Boa tarde':'Boa noite';
-  const greet=h<12?'Bom dia':'h<18?'Boa tarde':'Boa noite';
+  const greet=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
   document.getElementById('topbar-greeting').textContent=`${greet}, Dhayane`;
   document.getElementById('welcome-title').textContent=`${greet}, Dhayane! 🧡`;
   document.getElementById('footer-date').textContent=new Date().toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).toUpperCase();
